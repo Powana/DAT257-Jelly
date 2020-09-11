@@ -1,0 +1,12 @@
+* What do I want to learn or understand better?
+I wish to understand dynamic game object rendering and handling better in
+Unity.
+* How can I help someone else, or the entire team, to learn something new?
+Since I've been struggling with Unity but finally came up with something, I
+think my 2d tiling grid system can be of use when we start working on our
+project which will likely use something very similar.
+* What is my contribution towards the teams use of Scrum?
+We haven't started using SCRUM yet, but I will make sure I have a decent
+understanding of it before we do.
+* What is my contribution towards the teams deliveries?
+I have participated in the brainstorm of ideas for the project we had this week.
