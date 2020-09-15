@@ -264,5 +264,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grass: {fileID: 5279659739304744621, guid: ec2ba17430e5ea84ca394771038b764d, type: 3}
   cellSize: 1
-  width: 12
-  height: 12
+  width: 5
+  height: 5
