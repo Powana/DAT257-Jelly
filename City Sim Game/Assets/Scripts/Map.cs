@@ -40,6 +40,18 @@ public class Map : MonoBehaviour
 				component.y = y;
 			}
 		}
+
+		// Iterate a quarter of columns.
+		for (int x = 0; x < width / 3.5f; x++) {
+			for (int y = height / 2; y < height; y++) {
+				SwitchTile(water, x, y);
+			}
+		}
+
+		// Reposition camera and zoom accordingly.
+		Camera.main.transform.position = new Vector3((float)((height - 1) / 2.0f), (float)((width - 1) / 2.0f), -10);
+		float size = (height > width ? height : width) / 2.0f;
+		Camera.main.orthographicSize = size;
 	}
 
 	// Handle mouse clicks on the map.
