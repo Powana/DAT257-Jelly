@@ -7,6 +7,7 @@ public class GrassTile : Tile
 {
 	void OnEnable()
 	{
-		sprite = Resources.Load<Sprite>("isometric_pixel_0004");
+		// sprite = Resources.Load<Sprite>("isometric_pixel_0004");
+        gameObject = Resources.Load<GameObject>("Prefabs/Test");
 	}
 }
