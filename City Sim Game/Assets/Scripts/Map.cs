@@ -12,6 +12,7 @@ public class Map : MonoBehaviour
 
 	// Game object representing the base map tile.
 	public GameObject grass;
+	public GameObject water;
 
 	// World size of a tile.
 	public int cellSize = 1;
@@ -53,6 +54,7 @@ public class Map : MonoBehaviour
 			// If world contains that key pair, handle it.
 			if (tiles.ContainsKey(((int)pos.x, (int)pos.y))) {
 				GetComp(pos).HandleClick();
+				SwitchTile(water, pos);
 			} else {
 				Debug.Log("No tile found.");
 			}
@@ -148,5 +150,20 @@ public class Map : MonoBehaviour
 	public void RemoveTile(Vector2 pos)
 	{
 		RemoveTile((int)pos.x, (int)pos.y);
+	}
+
+	// Switch tile on the specified position.
+	public GameObject SwitchTile(GameObject tile, int x, int y)
+	{
+		// Remove previous entry and destroy the tile.
+		RemoveTile(x, y);
+
+		// Add new tile.
+		return AddTile(tile, x, y);
+	}
+
+	public GameObject SwitchTile(GameObject tile, Vector2 pos)
+	{
+		return SwitchTile(tile, (int)pos.x, (int)pos.y);
 	}
 }

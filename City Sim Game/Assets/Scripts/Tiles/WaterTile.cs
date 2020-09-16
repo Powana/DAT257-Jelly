@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassTile : Tile
+public class WaterTile : Tile
 {
 	public override void HandleClick()
 	{
-		Debug.Log("Hey! I'm on (" + x + "," + y + ")");
+		Debug.Log("Hey! I'm a water on (" + x + "," + y + ")");
 	}
 }
