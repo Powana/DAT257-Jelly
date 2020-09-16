@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
 	void Start()
 	{
 		// Initialize dictionary.
-		tiles = new Dictionary<(int, int), GameObject>();
+		tiles = new Dictionary<(int, int), Tile>();
 		map = GetComponent<Tilemap>();
 
 		// Iterate columns.
