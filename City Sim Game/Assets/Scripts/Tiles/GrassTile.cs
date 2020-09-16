@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GrassTile : Tile
 {
-	public override void HandleClick()
+	void Start()
 	{
-		Debug.Log("Hey! I'm on (" + x + "," + y + ")");
+		sprite = (Sprite)Resources.Load("/Tiles/isometric_pixel_0004");
 	}
 }
