@@ -4,9 +4,8 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - m_Sprite: {fileID: 21300000, guid: 11569d2cab5007cd2ac2e2a277d1e647, type: 3}
-  - m_InstancedGameObject: {fileID: 8620074888493378559, guid: d44f064793db69ccbbc6755ed499e34f,
-      type: 3}
+  - m_Sprite: {instanceID: 0}
+  - m_InstancedGameObject: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

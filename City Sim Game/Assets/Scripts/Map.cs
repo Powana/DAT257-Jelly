@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
 	// Container for tiles placed on this map.
-	private Dictionary<(int, int), GameObject> tiles;
+	private Dictionary<(int, int), Tile> tiles;
 
 	private Tilemap map;
 
@@ -33,8 +33,8 @@ public class Map : MonoBehaviour
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				GrassTile tile = ScriptableObject.CreateInstance<GrassTile>();
-				Debug.Log(tile);
 				map.SetTile(new Vector3Int(x, y, 0), tile);
+				tiles.Add((x, y), tile);
 			}
 		}
 	}

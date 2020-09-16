@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class GrassTile : Tile
 {
-	void Start()
+	void OnEnable()
 	{
-		sprite = (Sprite)Resources.Load("/Tiles/isometric_pixel_0004");
+		sprite = Resources.Load<Sprite>("isometric_pixel_0004");
 	}
 }
