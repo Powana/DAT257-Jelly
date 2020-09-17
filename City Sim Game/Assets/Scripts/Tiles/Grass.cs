@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GrassTile : Tile
+public class Grass : Cell
 {
 	void OnEnable()
 	{
-		sprite = Resources.Load<Sprite>("isometric_pixel_0004");
+		sprite = Resources.Load<Sprite>("grass");
+	}
+
+	public override void HandleClick()
+	{
+		Debug.Log("Hej!");
 	}
 }
