@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Tilemaps;
 
-public abstract class Tile : MonoBehaviour
+public abstract class Cell : Tile
 {
-	public int x;
-	public int y;
-
 	public abstract void HandleClick();
 }
