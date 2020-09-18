@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour
 {
+   
     public void ButtonStart()
     {
         SceneManager.LoadScene(1);
@@ -19,4 +22,5 @@ public class MenuControl : MonoBehaviour
     {
         Application.Quit();
     }
+
 }
