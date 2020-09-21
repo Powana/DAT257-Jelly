@@ -10,6 +10,11 @@ public class Map : MonoBehaviour
 {
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
+	
+	//Containder for tiles available to build
+	private Dictionary<string, Cell> tileBank;
+
+	
 
 	// Currently held cell.
 	private Cell held;
@@ -29,12 +34,21 @@ public class Map : MonoBehaviour
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
+
 		// Nothing held by default.
 		held = null;
 
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
+		
+		//Initialize tileBank with available Tiles
+		tileBank = new Dictionary<string,Cell>();
+		Grass grass = ScriptableObject.CreateInstance<Grass>();
+		Water water = ScriptableObject.CreateInstance<Water>();
+		
+		tileBank.Add("Grass", grass);
+		tileBank.Add("Water", water);
 
 		// Iterate columns.
 		for (int x = 0; x < width; x++) {
@@ -51,10 +65,12 @@ public class Map : MonoBehaviour
 			}
 		}
 	}
-
+	
 	// Handle mouse clicks on the map.
 	void Update()
 	{
+		
+
 		if (Input.GetMouseButtonDown(0))
 		{
 			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -80,6 +96,7 @@ public class Map : MonoBehaviour
 			else {
 				SwapCell(held, gridPosition);
 				held = null;
+				Cursor.SetCursor(null, new Vector2(0,0), CursorMode.Auto);
 			}
 		}
 	}
@@ -142,8 +159,21 @@ public class Map : MonoBehaviour
 		return tiles[(x, y)];
 	}
 
+	private Cell GetCell(string cellName)
+	{
+		return tileBank[cellName];
+	}
+
 	private Cell GetCell(Vector3Int pos)
 	{
 		return GetCell(pos.x, pos.y);
 	}
+	public void grabBuilding(string building)
+	{
+		held = GetCell(building);
+		Texture2D texture = Resources.Load<Texture2D>("isometric_pixel_0004");
+		Cursor.SetCursor(texture, new Vector2(25,25), CursorMode.Auto);
+	}
+	
+	
 }
