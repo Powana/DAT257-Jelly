@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class cameraController : MonoBehaviour
+// This class is made to controll camera functions 
+/*
+ * Camera is the objcet of the main camera 
+ * targetZoom is the size of the camera
+ * zoomFactor is to controll zoom strength
+ * zoomlerpSpeed is to controll zoom speed
+ */
+public class CameraController : MonoBehaviour
 {
 	private Camera cam;
 	private float targetZoom;
