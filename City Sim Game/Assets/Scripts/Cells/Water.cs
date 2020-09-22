@@ -9,9 +9,4 @@ public class Water : Cell
 	{
 		sprite = Resources.Load<Sprite>("water_tile");
 	}
-
-	public override void HandleClick()
-	{
-		Debug.Log("Vatten!");
-	}
 }
