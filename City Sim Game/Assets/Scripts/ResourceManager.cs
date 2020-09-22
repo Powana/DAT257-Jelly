@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +29,7 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
+		Debug.Log(ToString());
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
@@ -54,5 +56,18 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
 			resources[pair.Key].delta -= pair.Value.delta;
 		}
+	}
+
+	public override string ToString()
+	{
+		string data = "[";
+
+		foreach (KeyValuePair<string, Resource> pair in resources) {
+			data += String.Format("{0}: {1} ({2}),", pair.Key, pair.Value.value, pair.Value.delta);
+		}
+
+		data += "]";
+
+		return data;
 	}
 }
