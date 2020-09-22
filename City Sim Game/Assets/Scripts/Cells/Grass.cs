@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Water : Cell
+public class Grass : Cell
 {
 	void OnEnable()
 	{
-		sprite = Resources.Load<Sprite>("water");
-	}
-
-	public override void HandleClick()
-	{
-		Debug.Log("Vatten!");
+		sprite = Resources.Load<Sprite>("grass_tile");
 	}
 }

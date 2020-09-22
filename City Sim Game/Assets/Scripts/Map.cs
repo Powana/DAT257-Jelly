@@ -17,6 +17,9 @@ public class Map : MonoBehaviour
 	// Tilemap
 	private Tilemap map;
 
+	// Manager of resources.
+	private ResourceManager resourceManager;
+
 	// World size of a tile.
 	public int cellSize = 1;
 
@@ -26,15 +29,25 @@ public class Map : MonoBehaviour
 	// Height (in cells) of map.
 	public int height = 8;
 
+	// Time til next tick.
+	private float tickTime = 0;
+
+	// Time between ticks.
+	private float period = 1f;
+
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
 		// Nothing held by default.
 		held = null;
 
+		// Initialize resource manager.
+		resourceManager = new ResourceManager();
+
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
+
 
 		// Iterate columns.
 		for (int x = 0; x < width; x++) {
@@ -66,45 +79,100 @@ public class Map : MonoBehaviour
 			// If no tile is present, return.
 			if (!tiles.ContainsKey((gridPosition.x, gridPosition.y))) {
 				Debug.Log("Finns inte");
+
+				// FOR DEMONSTRATION PURPOSES
+				// If no tile is present, purchase a building.
+				Purchase<Building>(gridPosition);
 				return;
 			}
 
-			// FOR DEMONSTRATION PURPOSES
+			//// FOR DEMONSTRATION PURPOSES
+			// If a tile is present, sell it.
+			Sell(gridPosition);
 			// When clicking a tile and nothing is currently held, put it in held.
-			if (held == null) {
-				held = GetCell(gridPosition);
-			}
+			// if (held == null) {
+			//	held = GetCell(gridPosition);
+			// }
 
 			// When clicking a tile and something is held, replace the tile with
 			// the held object.
-			else {
-				SwapCell(held, gridPosition);
-				held = null;
-			}
+			// else {
+			//	SwapCell(held, gridPosition);
+			//	held = null;
+			// }
+		}
+
+		// Call tick every period.
+		if (Time.time > tickTime) {
+			tickTime = Time.time + period;
+			Tick();
 		}
 	}
 
-	// Instantiates the given cell on the given position.
-	private Cell AddCell(Cell tile, Vector3Int pos)
+	// Is called every period.
+	public void Tick()
 	{
-		map.SetTile(pos, tile);
-
-		// Add tile to dictionary.
-		tiles.Add((pos.x, pos.y), tile);
-
-		return tile;
+		resourceManager.Tick();
 	}
 
-	private Cell AddCell(Cell tile, int x, int y)
+	// Sells the cell at the given position.
+	private void Sell(Vector3Int pos)
 	{
-		return AddCell(tile, new Vector3Int(x, y, 0));
+		// Update global resources.
+		resourceManager.Sell(GetCell(pos));
+
+		// Remove cell from dictionary and map.
+		RemoveCell(pos);
+	}
+
+	private void Sell(int x, int y)
+	{
+		Sell(new Vector3Int(x, y, 0));
+	}
+
+	// Purchases and adds cell of specified type at given position.
+	private void Purchase<T>(Vector3Int pos) where T : Cell
+	{
+		resourceManager.Purchase(AddCell<T>(pos));
+	}
+
+	private void Purchase<T>(int x, int y) where T : Cell
+	{
+		Purchase<T>(new Vector3Int(x, y, 0));
+	}
+
+	// Purchases specified cell at given position.
+	private void Purchase(Cell cell, int x, int y)
+	{
+		resourceManager.Purchase(AddCell(cell, x, y));
+	}
+
+	// Instantiates the given cell on the given position.
+	private Cell AddCell(Cell cell, Vector3Int pos)
+	{
+		map.SetTile(pos, cell);
+
+		// Add tile to dictionary.
+		tiles.Add((pos.x, pos.y), cell);
+
+		return cell;
+	}
+
+	private Cell AddCell(Cell cell, int x, int y)
+	{
+		return AddCell(cell, new Vector3Int(x, y, 0));
 	}
 
 	// Instantiates, on the given position, a cell of the given type.
-	private Cell AddCell<T>(int x, int y) where T : Cell
+	private Cell AddCell<T>(Vector3Int pos) where T : Cell
 	{
 		T tile = ScriptableObject.CreateInstance<T>();
-		return AddCell(tile, x, y);
+		return AddCell(tile, pos);
+	}
+
+	private Cell AddCell<T>(int x, int y) where T : Cell
+	{
+		return AddCell<T>(new Vector3Int(x, y, 0));
 	}
 
 	// Clears the cell on the given position and removes it from the dictionary.
