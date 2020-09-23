@@ -577,7 +577,6 @@ MonoBehaviour:
   cellSize: 1
   width: 8
   height: 8
-  test: {fileID: 2144101447864543342, guid: bc83d3c6eb13d004caa663eb70360da4, type: 3}
 --- !u!483693784 &36231532
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -880,7 +879,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!114 &125696800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -896,10 +894,7 @@ MonoBehaviour:
   panSpeed: 5
   panLimit: {x: 3, y: 4}
   zoomLerpSpeed: 10
---- !u!1 &1120506005
-=======
 --- !u!1 &134375835
->>>>>>> 4e0f067a2d019739861994cc2861cf04a9679272
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1070,7 +1065,7 @@ RectTransform:
   m_Children:
   - {fileID: 935304408}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1310,7 +1305,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8ab55f7332a637a889b994415b4ffbf1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bf4e6e2227d6708159b7b8d4a1b685b4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1599,7 +1594,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0c3148ffb4bbfbfe09c86779acb477b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d4e8fb83b25d727dbbe264ab502072a0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1778,7 +1773,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 497.4, y: 53}
+  m_AnchoredPosition: {x: 497.40002, y: 53}
   m_SizeDelta: {x: 375.3971, y: 131.58191}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &439804127
@@ -2931,7 +2926,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019088970}
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3708,7 +3703,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "Milj\xF6"
 --- !u!222 &1080397575
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3917,7 +3912,7 @@ Transform:
   m_Children:
   - {fileID: 36231530}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162695939
 GameObject:
@@ -4620,7 +4615,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Energi
 --- !u!222 &1521109723
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5542,8 +5537,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456227157}
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.61158514
+  m_Value: 1.0000002
+  m_Size: 0.60458153
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6263,8 +6258,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808891151}
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
-  m_Value: 0.40584967
-  m_Size: 0.9990602
+  m_Value: 0.40628135
+  m_Size: 0.99903214
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6487,7 +6482,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1886668903}
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
