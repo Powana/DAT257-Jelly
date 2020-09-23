@@ -39,8 +39,6 @@ public class Map : MonoBehaviour
     Vector2 mousePosition;
     Vector3Int gridPosition;
 
-    public GameObject test;
-
     // Instantiates the base tiles and fills the tiles dictionary.
     void Start()
 	{

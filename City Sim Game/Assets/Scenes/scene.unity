@@ -171,6 +171,7 @@ MonoBehaviour:
   cellSize: 1
   width: 8
   height: 8
+  test: {fileID: 2144101447864543342, guid: bc83d3c6eb13d004caa663eb70360da4, type: 3}
 --- !u!483693784 &36231532
 TilemapRenderer:
   m_ObjectHideFlags: 0
