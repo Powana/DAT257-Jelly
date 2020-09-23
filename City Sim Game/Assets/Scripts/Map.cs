@@ -10,6 +10,11 @@ public class Map : MonoBehaviour
 {
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
+	
+	//Containder for tiles available to build
+	private Dictionary<string, Cell> tileBank;
+
+	
 
 	// Currently held cell.
 	private Cell held;
@@ -42,6 +47,7 @@ public class Map : MonoBehaviour
     // Instantiates the base tiles and fills the tiles dictionary.
     void Start()
 	{
+
 		// Nothing held by default.
 		held = null;
 
@@ -51,6 +57,14 @@ public class Map : MonoBehaviour
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
+		
+		//Initialize tileBank with available Tiles
+		tileBank = new Dictionary<string,Cell>();
+		Grass grass = ScriptableObject.CreateInstance<Grass>();
+		Water water = ScriptableObject.CreateInstance<Water>();
+		
+		tileBank.Add("Grass", grass);
+		tileBank.Add("Water", water);
 
 
 		// Iterate columns.
@@ -68,6 +82,7 @@ public class Map : MonoBehaviour
 			}
 		}
 	}
+<<<<<<< HEAD
 
 	void Update()
 	{
@@ -78,6 +93,15 @@ public class Map : MonoBehaviour
 
         // Handle mouse clicks on the map.
         if (Input.GetMouseButtonDown(0))
+=======
+	
+	// Handle mouse clicks on the map.
+	void Update()
+	{
+		
+
+		if (Input.GetMouseButtonDown(0))
+>>>>>>> 4e0f067a2d019739861994cc2861cf04a9679272
 		{
 
 			// Fetch clicked tile, if any.
@@ -125,6 +149,7 @@ public class Map : MonoBehaviour
 		resourceManager.Tick();
 	}
 
+<<<<<<< HEAD
 	// Sells the cell at the given position.
 	private void Sell(Vector3Int pos)
 	{
@@ -155,6 +180,16 @@ public class Map : MonoBehaviour
 	private void Purchase(Cell cell, int x, int y)
 	{
 		resourceManager.Purchase(AddCell(cell, x, y));
+=======
+			// When clicking a tile and something is held, replace the tile with
+			// the held object.
+			else {
+				SwapCell(held, gridPosition);
+				held = null;
+				Cursor.SetCursor(null, new Vector2(0,0), CursorMode.Auto);
+			}
+		}
+>>>>>>> 4e0f067a2d019739861994cc2861cf04a9679272
 	}
 
 	// Instantiates the given cell on the given position.
@@ -220,8 +255,21 @@ public class Map : MonoBehaviour
 		return tiles[(x, y)];
 	}
 
+	private Cell GetCell(string cellName)
+	{
+		return tileBank[cellName];
+	}
+
 	private Cell GetCell(Vector3Int pos)
 	{
 		return GetCell(pos.x, pos.y);
 	}
+	public void grabBuilding(string building)
+	{
+		held = GetCell(building);
+		Texture2D texture = Resources.Load<Texture2D>("isometric_pixel_0004");
+		Cursor.SetCursor(texture, new Vector2(25,25), CursorMode.Auto);
+	}
+	
+	
 }
