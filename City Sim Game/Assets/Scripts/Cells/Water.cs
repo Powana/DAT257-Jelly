@@ -5,8 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class Water : Cell
 {
-	void OnEnable()
+	public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
 	{
-		sprite = Resources.Load<Sprite>("water_tile");
+		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Basic/Water");
 	}
 }

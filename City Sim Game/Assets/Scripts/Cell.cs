@@ -10,7 +10,7 @@ public abstract class Cell : Tile
 
 
     // Initialize resources dictionary.
-    public Cell()
+    protected Cell()
 	{
 		resources = new Dictionary<string, Resource>();
 
