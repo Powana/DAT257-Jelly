@@ -8,8 +8,9 @@ public abstract class Cell : Tile
 	public int cost = 0;
 	public Dictionary<string, Resource> resources;
 
-	// Initialize resources dictionary.
-	void Awake()
+
+    // Initialize resources dictionary.
+    public Cell()
 	{
 		resources = new Dictionary<string, Resource>();
 
@@ -19,4 +20,7 @@ public abstract class Cell : Tile
 			resources.Add(resource, new Resource(resource));
 		}
 	}
+    
+
+    
 }

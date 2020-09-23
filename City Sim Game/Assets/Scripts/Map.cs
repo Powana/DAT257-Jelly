@@ -29,14 +29,20 @@ public class Map : MonoBehaviour
 	// Height (in cells) of map.
 	public int height = 8;
 
-	// Time til next tick.
+	// Time until next tick.
 	private float tickTime = 0;
 
 	// Time between ticks.
 	private float period = 1f;
 
-	// Instantiates the base tiles and fills the tiles dictionary.
-	void Start()
+    // Position of mouse in world and on grid.
+    Vector2 mousePosition;
+    Vector3Int gridPosition;
+
+    public GameObject test;
+
+    // Instantiates the base tiles and fills the tiles dictionary.
+    void Start()
 	{
 		// Nothing held by default.
 		held = null;
@@ -65,42 +71,48 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	// Handle mouse clicks on the map.
 	void Update()
 	{
-		if (Input.GetMouseButtonDown(0))
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        gridPosition = map.WorldToCell(mousePosition);
+
+        Cell hoveredTile = map.GetTile<Cell>(gridPosition);
+
+        // Handle mouse clicks on the map.
+        if (Input.GetMouseButtonDown(0))
 		{
-			Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector3Int gridPosition = map.WorldToCell(mousePosition);
 
 			// Fetch clicked tile, if any.
-			TileBase clickedTile = map.GetTile(gridPosition);
+			Cell clickedTile = map.GetTile<Cell>(gridPosition);
 
-			// If no tile is present, return.
-			if (!tiles.ContainsKey((gridPosition.x, gridPosition.y))) {
+
+            // If no tile is present, return.
+            if (clickedTile == null) {
 				Debug.Log("Finns inte");
 
-				// FOR DEMONSTRATION PURPOSES
-				// If no tile is present, purchase a building.
-				Purchase<Building>(gridPosition);
 				return;
 			}
-
 			//// FOR DEMONSTRATION PURPOSES
-			// If a tile is present, sell it.
-			Sell(gridPosition);
-			// When clicking a tile and nothing is currently held, put it in held.
-			// if (held == null) {
-			//	held = GetCell(gridPosition);
-			// }
+			// If a tile is present, sell it
+            if (clickedTile is Grass) { 
+			    Sell(gridPosition);
 
-			// When clicking a tile and something is held, replace the tile with
-			// the held object.
-			// else {
-			//	SwapCell(held, gridPosition);
-			//	held = null;
-			// }
-		}
+                // FOR DEMONSTRATION PURPOSES
+                // If no tile is present, purchase a building.
+                Purchase<BuildingTestIndustrial>(gridPosition);
+            }
+            // When clicking a tile and nothing is currently held, put it in held.
+            // if (held == null) {
+            //	held = GetCell(gridPosition);
+            // }
+
+            // When clicking a tile and something is held, replace the tile with
+            // the held object.
+            // else {
+            //	SwapCell(held, gridPosition);
+            //	held = null;
+            // }
+        }
 
 		// Call tick every period.
 		if (Time.time > tickTime) {
@@ -109,8 +121,8 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	// Is called every period.
-	public void Tick()
+    // Is called every period.
+    public void Tick()
 	{
 		resourceManager.Tick();
 	}

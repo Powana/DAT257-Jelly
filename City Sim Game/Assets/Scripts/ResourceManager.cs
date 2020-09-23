@@ -29,7 +29,7 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
-		Debug.Log(ToString());
+		// Debug.Log(ToString());
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
