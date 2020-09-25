@@ -700,7 +700,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 79.72812, y: 45.43225}
+  m_SizeDelta: {x: 79.72812, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &108856324
 MonoBehaviour:
@@ -1919,7 +1919,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 78.39857, y: 45.43225}
+  m_SizeDelta: {x: 78.39857, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &442063897
 MonoBehaviour:
@@ -2169,7 +2169,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 507418681}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 36231531}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: grabBuilding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Office
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &507418681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2288,7 +2300,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555867339}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 36231531}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: grabBuilding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Park
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &555867339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2443,7 +2467,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 577350531}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 36231531}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: grabBuilding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Residential
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &577350531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2867,7 +2903,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 78.39857, y: 45.43225}
+  m_SizeDelta: {x: 78.39857, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &766238665
 MonoBehaviour:
@@ -4035,7 +4071,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1162695942}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 36231531}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: grabBuilding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Industry
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1162695942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4615,7 +4663,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1503433144}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 36231531}
+        m_TargetAssemblyTypeName: Map, Assembly-CSharp
+        m_MethodName: grabBuilding
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Farm
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1503433144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5969,7 +6029,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 79.72812, y: 45.43225}
+  m_SizeDelta: {x: 79.72812, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1942401799
 MonoBehaviour:

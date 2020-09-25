@@ -11,9 +11,8 @@ public class Map : MonoBehaviour
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
 
-	//Containder for tiles available to build
-	private Dictionary<string, Cell> tileBank;
-
+	private Dictionary<string, Cell> availableBuildings;
+	
 	// Currently held cell.
 	private Cell held;
 
@@ -55,16 +54,20 @@ public class Map : MonoBehaviour
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
-
-		//Initialize tileBank with available Tiles
-		tileBank = new Dictionary<string, Cell>();
-		Grass grass = ScriptableObject.CreateInstance<Grass>();
-		Water water = ScriptableObject.CreateInstance<Water>();
-
-		tileBank.Add("Grass", grass);
-		tileBank.Add("Water", water);
-
-
+		
+		//Initialize and populate dictionary with available buildings
+		availableBuildings = new Dictionary<string, Cell>();
+		Cell park = ScriptableObject.CreateInstance<Park>();
+		Cell farm = ScriptableObject.CreateInstance<Farm>();
+		Cell office = ScriptableObject.CreateInstance<Office>();
+		Cell industry = ScriptableObject.CreateInstance<Industry>();
+		Cell residential = ScriptableObject.CreateInstance<Residential>();
+		availableBuildings.Add("Park", park);
+		availableBuildings.Add("Farm", farm);
+		availableBuildings.Add("Office", office);
+		availableBuildings.Add("Industry", industry);
+		availableBuildings.Add("Residential", residential);
+		
 		// Iterate columns.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -85,49 +88,29 @@ public class Map : MonoBehaviour
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		gridPosition = map.WorldToCell(mousePosition);
-
+		
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
-		// Handle mouse clicks on the map.
-		if (Input.GetMouseButtonDown(0))
-
-
 			// Handle mouse clicks on the map.
-
-
-				if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButtonDown(0))
 				{
-
 					// Fetch clicked tile, if any.
 					Cell clickedTile = map.GetTile<Cell>(gridPosition);
-
-
+					
 					// If no tile is present, return.
 					if (clickedTile == null) {
-						Debug.Log("Finns inte");
-
+						//Debug.Log("Finns inte");
 						return;
 					}
 					//// FOR DEMONSTRATION PURPOSES
-					// If a tile is present, sell it
-					if (clickedTile is Grass) {
+					// If you are holding a cell and click grass, you will sell the grass
+					// and buy the held cell
+					if (clickedTile is Grass && held !=null)
+					{
 						Sell(gridPosition);
-
-						// FOR DEMONSTRATION PURPOSES
-						// If no tile is present, purchase a building.
-						Purchase<BuildingTestIndustrial>(gridPosition);
+						Purchase(held,gridPosition.x,gridPosition.y);
+						held = null;
 					}
-					// When clicking a tile and nothing is currently held, put it in held.
-					// if (held == null) {
-					//	held = GetCell(gridPosition);
-					// }
-
-					// When clicking a tile and something is held, replace the tile with
-					// the held object.
-					// else {
-					//	SwapCell(held, gridPosition);
-					//	held = null;
-					// }
 				}
 
 				// Call tick every period.
@@ -152,7 +135,7 @@ public class Map : MonoBehaviour
 			// Remove cell from dictionary and map.
 			RemoveCell(pos);
 		}
-
+		
 		private void Sell(int x, int y)
 		{
 			Sell(new Vector3Int(x, y, 0));
@@ -172,11 +155,9 @@ public class Map : MonoBehaviour
 		// Purchases specified cell at given position.
 		private void Purchase(Cell cell, int x, int y)
 		{
-			resourceManager.Purchase(AddCell(cell, x, y));
-			// When clicking a tile and something is held, replace the tile with
-			// the held object.
+			resourceManager.Purchase(AddCell(cell,x,y));
 		}
-
+		
 		// Instantiates the given cell on the given position.
 		private Cell AddCell(Cell cell, Vector3Int pos)
 		{
@@ -239,20 +220,13 @@ public class Map : MonoBehaviour
 		{
 			return tiles[(x, y)];
 		}
-
-		private Cell GetCell(string cellName)
-		{
-			return tileBank[cellName];
-		}
-
+		
 		private Cell GetCell(Vector3Int pos)
 		{
 			return GetCell(pos.x, pos.y);
 		}
 		public void grabBuilding(string building)
 		{
-			held = GetCell(building);
-			Texture2D texture = Resources.Load<Texture2D>("isometric_pixel_0004");
-			Cursor.SetCursor(texture, new Vector2(25, 25), CursorMode.Auto);
+			held = availableBuildings[building];
 		}
 }
