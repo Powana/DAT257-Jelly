@@ -12,7 +12,7 @@ public class Map : MonoBehaviour
 	private Dictionary<(int, int), Cell> tiles;
 
 	private Dictionary<string, Cell> availableBuildings;
-	
+
 	// Currently held cell.
 	private Cell held;
 
@@ -21,6 +21,9 @@ public class Map : MonoBehaviour
 
 	// Manager of resources.
 	private ResourceManager resourceManager;
+
+	// Canvas
+	public Canvas messages;
 
 	// World size of a tile.
 	public int cellSize = 1;
@@ -54,7 +57,7 @@ public class Map : MonoBehaviour
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
-		
+
 		//Initialize and populate dictionary with available buildings
 		availableBuildings = new Dictionary<string, Cell>();
 		Cell park = ScriptableObject.CreateInstance<Park>();
@@ -67,7 +70,7 @@ public class Map : MonoBehaviour
 		availableBuildings.Add("Office", office);
 		availableBuildings.Add("Industry", industry);
 		availableBuildings.Add("Residential", residential);
-		
+
 		// Iterate columns.
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -82,13 +85,16 @@ public class Map : MonoBehaviour
 				SwapCell<Water>(new Vector3Int(x, y, 0));
 			}
 		}
+
+		Warn("Hej!");
+		Warn("Hej då!");
 	}
 
 	void Update()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		gridPosition = map.WorldToCell(mousePosition);
-		
+
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
 			// Handle mouse clicks on the map.
@@ -96,7 +102,7 @@ public class Map : MonoBehaviour
 				{
 					// Fetch clicked tile, if any.
 					Cell clickedTile = map.GetTile<Cell>(gridPosition);
-					
+
 					// If no tile is present, return.
 					if (clickedTile == null) {
 						//Debug.Log("Finns inte");
@@ -135,7 +141,7 @@ public class Map : MonoBehaviour
 			// Remove cell from dictionary and map.
 			RemoveCell(pos);
 		}
-		
+
 		private void Sell(int x, int y)
 		{
 			Sell(new Vector3Int(x, y, 0));
@@ -157,7 +163,7 @@ public class Map : MonoBehaviour
 		{
 			resourceManager.Purchase(AddCell(cell,x,y));
 		}
-		
+
 		// Instantiates the given cell on the given position.
 		private Cell AddCell(Cell cell, Vector3Int pos)
 		{
@@ -220,7 +226,7 @@ public class Map : MonoBehaviour
 		{
 			return tiles[(x, y)];
 		}
-		
+
 		private Cell GetCell(Vector3Int pos)
 		{
 			return GetCell(pos.x, pos.y);
@@ -229,4 +235,9 @@ public class Map : MonoBehaviour
 		{
 			held = availableBuildings[building];
 		}
+
+	public void Warn(string message)
+	{
+		messages.GetComponent<Message>().Warn(message);
+	}
 }
