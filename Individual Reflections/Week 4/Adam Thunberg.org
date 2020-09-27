@@ -1,0 +1,14 @@
+* What do I want to learn or understand better?
+I would like to learn about game balancing and pacing since we face very related
+challenges with the game we're developing.
+* How can I help someone else, or the entire team, to learn something new?
+I have racked up some hours on Stellaris, another "city" sim game, and perhaps
+this knowledge could prove useful in the coming sprint where we actually might
+consider how the different elements in the game should synergize.
+* What is my contribution towards the teams use of Scrum?
+I helped adjust and rework some of the epics along with the user stories. I
+helped set up the theme of this weeks sprint and made some of the user stories.
+* What is my contribution towards the teams deliveries?
+I, along with Martin, made the ResourceManager class which holds all the global
+resource related data. Additionally, I made the message window used for pop-up
+messages for the player.

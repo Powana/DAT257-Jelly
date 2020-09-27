@@ -1,0 +1,13 @@
+* What do I want to learn or understand better?
+I want to learn how best to organize data in classes in an engine like Unity.
+* How can I help someone else, or the entire team, to learn something new?
+As I figure things out concerning storing resource data, I think it would be
+helpful to share this knowledge.
+* What is my contribution towards the teams use of Scrum?
+I have assisted in the creation of our epics, user stories and issues/tasks.
+* What is my contribution towards the teams deliveries?
+I have completed a portion of the tasks, among other things the isometric
+tilemap and it's accompanying script component with Martin. I have communicated
+with Hussein about the zoom function and helped him fix the issue he
+had. Finally, I helped Samuel get started with the shop and ability to purchase
+cells.
