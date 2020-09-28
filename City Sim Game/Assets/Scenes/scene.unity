@@ -644,21 +644,21 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: 0, y: 0, z: 0}
   m_Size: {x: 0, y: 0, z: 1}
-  m_TileAnchor: {x: -0.1, y: -0.1, z: 0}
+  m_TileAnchor: {x: 0.375, y: -0.625, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
     e01: 0
     e02: 0
-    e03: 0
+    e03: 1
     e10: 0
     e11: 1
     e12: 0
-    e13: 0
+    e13: 1
     e20: 0
     e21: 0
     e22: 1
-    e23: 0
+    e23: 1
     e30: 0
     e31: 0
     e32: 0
@@ -2333,7 +2333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c39cb73b3b85c09509748b2b480b10d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 60b04c55166a00a49a50d54e1c4ca2eb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3080,7 +3080,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.6115546
+  m_Size: 0.6975267
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3972,7 +3972,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120506005}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 0.5, z: 1}
+  m_CellSize: {x: 2, y: 1, z: 1}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 2
   m_CellSwizzle: 0
@@ -5718,7 +5718,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.6115546
+  m_Size: 0.6975267
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6439,7 +6439,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.6115546
+  m_Size: 0.6975267
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6663,7 +6663,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
   m_Value: 1.0000002
-  m_Size: 0.6115546
+  m_Size: 0.6975267
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
