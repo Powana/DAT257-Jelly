@@ -24,7 +24,7 @@ public class BuildingTestIndustrial : Building
         tileData.gameObject = Resources.Load<GameObject>("Prefabs/Buildings/Bob");
     }
 
-    // Refresh yourself
+    // This can be used if refreshing a tile should also refresh adjacent tiles.
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
         tilemap.RefreshTile(position);
