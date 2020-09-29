@@ -109,12 +109,10 @@ public class Map : MonoBehaviour
 			{
 				if (itLand(clickedTile))
 				{
-					Sell(gridPosition);
 					landObjectsPlacement();
 				}
                 if (itWater(clickedTile))
                 {
-					Sell(gridPosition);
 					waterObjectsPlacement();
                 }
 			}
@@ -260,14 +258,18 @@ public class Map : MonoBehaviour
 	// This method is responsible for placing the objects that belong to water.
 	private void waterObjectsPlacement()
     {
+		//Sell(gridPosition);
+
 		//here its gonna place anything in water because we still don't have any water objects
 		//Purchase(held, gridPosition.x, gridPosition.y);
-			held = null;
+		held = null;
 
 		}
 	// This method is responsible for placing the objects that belong to land.
 	private void landObjectsPlacement()
     {
+		Sell(gridPosition);
+
 		if (held is Road)
 		{
 			Debug.Log("PURCASHING ROAD");
