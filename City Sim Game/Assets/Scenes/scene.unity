@@ -1049,7 +1049,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3080,8 +3080,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019088970}
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.6373336
+  m_Value: 0.99999976
+  m_Size: 0.61844087
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5579,7 +5579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4cf2965fa5df8ecbe1c0f515c8c88f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warning: {fileID: 2846916879073160530, guid: 174c832bec4089226a7592ab72f010d7, type: 3}
+  warning: {fileID: 0}
   message: {fileID: 0}
 --- !u!114 &1749392333
 MonoBehaviour:
@@ -5831,8 +5831,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456227157}
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.6373336
+  m_Value: 0.99999976
+  m_Size: 0.61844087
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6552,8 +6552,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808891151}
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.6373336
+  m_Value: 0.99999976
+  m_Size: 0.61844087
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6776,8 +6776,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1886668903}
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.6373336
+  m_Value: 0.99999976
+  m_Size: 0.61844087
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

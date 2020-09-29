@@ -85,9 +85,6 @@ public class Map : MonoBehaviour
 				SwapCell<Water>(new Vector3Int(x, y, 0));
 			}
 		}
-
-		Warn("Hej!");
-		Warn("Hej då!");
 	}
 
 	void Update()
@@ -239,5 +236,10 @@ public class Map : MonoBehaviour
 	public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
+	}
+
+	public void Info(string message)
+	{
+		messages.GetComponent<Message>().Info(message);
 	}
 }
