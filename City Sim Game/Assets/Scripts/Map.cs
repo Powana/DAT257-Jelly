@@ -108,22 +108,20 @@ public class Map : MonoBehaviour
 			//// FOR DEMONSTRATION PURPOSES
 			// If you are holding a cell and click grass, you will sell the grass
 			// and buy the held cell
-			if (clickedTile is Grass && held !=null) {
-				Sell(gridPosition);
-				// FOR DEBUG
-				if (held is Road)
+			if (held != null)
+			{
+				if (itLand(clickedTile))
 				{
-					Debug.Log("PURCASHING ROAD");
-					Purchase<Road>(gridPosition.x, gridPosition.y);
+					landObjectsPlacement();
 				}
-				else
-				{
-					Purchase(held, gridPosition.x, gridPosition.y);
-				}
-				held = null;
-
+                if (itWater(clickedTile))
+                {
+					waterObjectsPlacement();
+                }
 			}
-		}
+        }
+
+		
 
 		// Call tick every period.
 		if (Time.time > tickTime) {
@@ -242,6 +240,57 @@ public class Map : MonoBehaviour
 			held = availableCells[cellName];
 		}
 
+	// This method check if the picked cell is land and return true if it is .
+	private bool itLand(Cell  cell)
+    {
+		if (cell is Grass)
+		{
+			return true;
+		}
+		else
+			return false;
+    }
+
+	// This method check if the picked cell is water and return ture if it is.
+	private bool itWater(Cell cell)
+    {
+		if (cell is Water)
+		{
+			return true;
+		}
+		else
+			return false;
+    }
+	// This method is responsible for placing the objects that belong to water.
+	private void waterObjectsPlacement()
+    {
+		//Sell(gridPosition);
+
+		//here its gonna place anything in water because we still don't have any water objects
+		//Purchase(held, gridPosition.x, gridPosition.y);
+		held = null;
+
+		}
+	// This method is responsible for placing the objects that belong to land.
+	private void landObjectsPlacement()
+    {
+		Sell(gridPosition);
+
+		if (held is Road)
+		{
+			Debug.Log("PURCASHING ROAD");
+			Purchase<Road>(gridPosition.x, gridPosition.y);
+		}
+		else
+		{
+			Purchase(held, gridPosition.x, gridPosition.y);
+		}
+		held = null;
+
+	}
+
+
+
 	public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
@@ -251,4 +300,5 @@ public class Map : MonoBehaviour
 	{
 		messages.GetComponent<Message>().Info(message);
 	}
+
 }
