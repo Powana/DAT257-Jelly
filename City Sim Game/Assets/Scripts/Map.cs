@@ -11,7 +11,7 @@ public class Map : MonoBehaviour
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
 
-	private Dictionary<string, Cell> availableBuildings;
+	private Dictionary<string, Cell> availableCells;
 
 	// Currently held cell.
 	private Cell held;
@@ -59,17 +59,17 @@ public class Map : MonoBehaviour
 		map = GetComponent<Tilemap>();
 
 		//Initialize and populate dictionary with available buildings
-		availableBuildings = new Dictionary<string, Cell>();
-		Cell park = ScriptableObject.CreateInstance<Park>();
-		Cell farm = ScriptableObject.CreateInstance<Farm>();
-		Cell office = ScriptableObject.CreateInstance<Office>();
-		Cell industry = ScriptableObject.CreateInstance<Industry>();
-		Cell residential = ScriptableObject.CreateInstance<Residential>();
-		availableBuildings.Add("Park", park);
-		availableBuildings.Add("Farm", farm);
-		availableBuildings.Add("Office", office);
-		availableBuildings.Add("Industry", industry);
-		availableBuildings.Add("Residential", residential);
+		availableCells = new Dictionary<string, Cell>();
+
+		// TODO: Are there any side-effects of only using one instance for all tiles?
+		availableCells.Add("Park", ScriptableObject.CreateInstance<Park>());
+		availableCells.Add("Farm", ScriptableObject.CreateInstance<Farm>());
+		availableCells.Add("Office", ScriptableObject.CreateInstance<Office>());
+		availableCells.Add("Industry", ScriptableObject.CreateInstance<Industry>());
+		availableCells.Add("Residential", ScriptableObject.CreateInstance<Residential>());
+		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
+		Debug.Log("##############");
+		Debug.Log(availableCells["Road"].GetInstanceID());
 
 		// Iterate columns.
 		for (int x = 0; x < width; x++) {
@@ -94,33 +94,42 @@ public class Map : MonoBehaviour
 
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
-			// Handle mouse clicks on the map.
-			if (Input.GetMouseButtonDown(0))
+		// Handle mouse clicks on the map.
+		if (Input.GetMouseButtonDown(0))
+		{
+			// Fetch clicked tile, if any.
+			Cell clickedTile = map.GetTile<Cell>(gridPosition);
+
+			// If no tile is present, return.
+			if (clickedTile == null) {
+				//Debug.Log("Finns inte");
+				return;
+			}
+			//// FOR DEMONSTRATION PURPOSES
+			// If you are holding a cell and click grass, you will sell the grass
+			// and buy the held cell
+			if (clickedTile is Grass && held !=null) {
+				Sell(gridPosition);
+				// FOR DEBUG
+				if (held is Road)
 				{
-					// Fetch clicked tile, if any.
-					Cell clickedTile = map.GetTile<Cell>(gridPosition);
-
-					// If no tile is present, return.
-					if (clickedTile == null) {
-						//Debug.Log("Finns inte");
-						return;
-					}
-					//// FOR DEMONSTRATION PURPOSES
-					// If you are holding a cell and click grass, you will sell the grass
-					// and buy the held cell
-					if (clickedTile is Grass && held !=null)
-					{
-						Sell(gridPosition);
-						Purchase(held,gridPosition.x,gridPosition.y);
-						held = null;
-					}
+					Debug.Log("PURCASHING ROAD");
+					Purchase<Road>(gridPosition.x, gridPosition.y);
 				}
-
-				// Call tick every period.
-				if (Time.time > tickTime) {
-					tickTime = Time.time + period;
-					Tick();
+				else
+				{
+					Purchase(held, gridPosition.x, gridPosition.y);
 				}
+				held = null;
+
+			}
+		}
+
+		// Call tick every period.
+		if (Time.time > tickTime) {
+			tickTime = Time.time + period;
+			Tick();
+		}
 	}
 
 		// Is called every period.
@@ -228,9 +237,9 @@ public class Map : MonoBehaviour
 		{
 			return GetCell(pos.x, pos.y);
 		}
-		public void grabBuilding(string building)
+		public void grabCell(string cellName)
 		{
-			held = availableBuildings[building];
+			held = availableCells[cellName];
 		}
 
 	public void Warn(string message)
