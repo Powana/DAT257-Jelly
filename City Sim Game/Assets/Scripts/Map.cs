@@ -66,6 +66,8 @@ public class Map : MonoBehaviour
 		availableCells.Add("Office", ScriptableObject.CreateInstance<Office>());
 		availableCells.Add("Industry", ScriptableObject.CreateInstance<Industry>());
 		availableCells.Add("Residential", ScriptableObject.CreateInstance<Residential>());
+		availableCells.Add("Casino", ScriptableObject.CreateInstance<Casino>());
+		availableCells.Add("Nuclear", ScriptableObject.CreateInstance<Nuclear>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
 		Debug.Log("##############");
 		Debug.Log(availableCells["Road"].GetInstanceID());
