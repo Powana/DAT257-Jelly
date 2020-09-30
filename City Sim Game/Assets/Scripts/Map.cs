@@ -109,9 +109,9 @@ public class Map : MonoBehaviour
 			// If you are holding a cell and click grass, you will sell the grass
 			// and buy the held cell
 			if (held != null) {
-				if (itLand(clickedTile)) {
+				if (clickedTile is Grass) {
 					landObjectsPlacement();
-				} else if (itWater(clickedTile)) {
+				} else if (clickedTile is Water) {
 					waterObjectsPlacement();
 				}
 			}
@@ -234,17 +234,6 @@ public class Map : MonoBehaviour
 		held = availableCells[cellName];
 	}
 
-	// This method check if the picked cell is land and return true if it is .
-	private bool itLand(Cell  cell)
-	{
-		return cell is Grass;
-	}
-
-	// This method check if the picked cell is water and return true if it is.
-	private bool itWater(Cell cell)
-	{
-		return cell is Water;
-	}
 	// This method is responsible for placing the objects that belong to water.
 	private void waterObjectsPlacement()
 	{
