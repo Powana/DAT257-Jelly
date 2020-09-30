@@ -257,18 +257,31 @@ public class Map : MonoBehaviour
 	// This method is responsible for placing the objects that belong to land.
 	private void landObjectsPlacement()
 	{
-		Sell(gridPosition);
 
 		if (held is Road) {
-			Debug.Log("PURCASHING ROAD");
-			Purchase<Road>(gridPosition.x, gridPosition.y);
-		} else {
+			Sell(gridPosition);
 			Purchase(held, gridPosition.x, gridPosition.y);
+		}
+		else {
+			if (NearRoad()) {
+				Sell(gridPosition);
+				Purchase(held, gridPosition.x, gridPosition.y);
+			}
 		}
 		held = null;
 	}
-
-	public void Warn(string message)
+	// Check if the clicked position has and road near by
+	private bool NearRoad()
+	{
+		if (GetCell(gridPosition.x , gridPosition.y + 1) is Road || GetCell(gridPosition.x , gridPosition.y - 1) is Road 
+			|| GetCell(gridPosition.x + 1, gridPosition.y) is Road || GetCell(gridPosition.x - 1, gridPosition.y) is Road)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+		public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
 	}
