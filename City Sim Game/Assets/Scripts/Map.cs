@@ -174,9 +174,8 @@ public class Map : MonoBehaviour
 				//Debug.Log("Finns inte");
 				return;
 			}
-			//// FOR DEMONSTRATION PURPOSES
-			// If you are holding a cell and click grass, you will sell the grass
-			// and buy the held cell
+
+			//Here Grass represent land and Water represent the lake on the map.
 			if (held != null) {
 				if (clickedTile is Grass) {
 					LandObjectsPlacement();
@@ -340,7 +339,8 @@ public class Map : MonoBehaviour
 		else
 			return false;
 	}
-		public void Warn(string message)
+	// Write a warning message.
+	public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
 	}
