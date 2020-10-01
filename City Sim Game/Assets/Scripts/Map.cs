@@ -23,6 +23,9 @@ public class Map : MonoBehaviour
 	// Currently held cell.
 	private Cell held;
 
+	// Currenly clicked tile
+	private Cell clickedTile;
+
 	// Tilemap
 	private Tilemap map;
 
@@ -169,7 +172,7 @@ public class Map : MonoBehaviour
 		// Handle mouse clicks on the map.
 		if (Input.GetMouseButtonDown(0)) {
 			// Fetch clicked tile, if any.
-			Cell clickedTile = hoveredTile;
+			clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
@@ -203,6 +206,12 @@ public class Map : MonoBehaviour
 		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
+
+	// Returns the currently clicked Tile.
+	public Cell SendCell()
+    {
+		return clickedTile;
+    }
 
 	// Sells the cell at the given position.
 	private void Sell(Vector3Int pos)
