@@ -119,7 +119,7 @@ public class Map : MonoBehaviour
 				lakeTiles++;
 			}
 		}
-	
+
 	}
 
 	//Checks how many surrounding blocks are T
@@ -131,7 +131,7 @@ public class Map : MonoBehaviour
 		// check the northern tile
 		//if (y != 0) {
 			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
-				wallcount++; 
+				wallcount++;
 
 		// if we are not at the bottom of the map
 		// check the southern tile
@@ -144,14 +144,14 @@ public class Map : MonoBehaviour
 		//if (x != 0) {
 			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
 				wallcount++;
-		
+
 
 		// if we are not at the right of the map
 		// check the eastern tile
 	//	if (x != height) {
 			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
 				wallcount++;
-		
+
 		return wallcount;
 	}
 
@@ -171,17 +171,25 @@ public class Map : MonoBehaviour
 		// Handle mouse clicks on the map.
 		if (Input.GetMouseButtonDown(0)) {
 			// Fetch clicked tile, if any.
-			Cell clickedTile = map.GetTile<Cell>(gridPosition);
+			Cell clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
 				return;
+			} else {
+				//
 			}
 
             // If user is holding a cell (from the shop)
 			if (held != null) {
                 objectPlacement();
 			}
+		}
+
+		// Testing purposes. Sell when middle click.
+		if (Input.GetMouseButtonDown(2)) {
+			Sell(gridPosition);
+			AddCell<Grass>(gridPosition);
 		}
 
 		// Call tick every period.
@@ -194,6 +202,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
+		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
