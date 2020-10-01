@@ -10,8 +10,11 @@ public class Casino : Building
     public Casino()
     {
         stringName = "Casino";
-        cost = 100;
-        resources["cash"].delta = 1;
+        cost = 1200;
+        resources["cash"].delta = 100;
+        resources["pollution"].delta = -2;
+        resources["energy"].delta = -4;
+        resources["food"].delta = -5;
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
