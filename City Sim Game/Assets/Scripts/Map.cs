@@ -98,23 +98,31 @@ public class Map : MonoBehaviour
 		// Handle mouse clicks on the map.
 		if (Input.GetMouseButtonDown(0)) {
 			// Fetch clicked tile, if any.
-			Cell clickedTile = map.GetTile<Cell>(gridPosition);
+			Cell clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
-				//Debug.Log("Finns inte");
 				return;
+			} else {
+				//
 			}
+
 			//// FOR DEMONSTRATION PURPOSES
 			// If you are holding a cell and click grass, you will sell the grass
 			// and buy the held cell
 			if (held != null) {
-				if (itLand(clickedTile)) {
-					landObjectsPlacement();
-				} else if (itWater(clickedTile)) {
-					waterObjectsPlacement();
+				if (clickedTile is Grass) {
+					LandObjectsPlacement();
+				} else if (clickedTile is Water) {
+					WaterObjectsPlacement();
 				}
 			}
+		}
+
+		// Testing purposes. Sell when middle click.
+		if (Input.GetMouseButtonDown(2)) {
+			Sell(gridPosition);
+			AddCell<Grass>(gridPosition);
 		}
 
 		// Call tick every period.
@@ -127,6 +135,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
+		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
@@ -234,19 +243,8 @@ public class Map : MonoBehaviour
 		held = availableCells[cellName];
 	}
 
-	// This method check if the picked cell is land and return true if it is .
-	private bool itLand(Cell  cell)
-	{
-		return cell is Grass;
-	}
-
-	// This method check if the picked cell is water and return true if it is.
-	private bool itWater(Cell cell)
-	{
-		return cell is Water;
-	}
 	// This method is responsible for placing the objects that belong to water.
-	private void waterObjectsPlacement()
+	private void WaterObjectsPlacement()
 	{
 		//Sell(gridPosition);
 
@@ -254,8 +252,9 @@ public class Map : MonoBehaviour
 		//Purchase(held, gridPosition.x, gridPosition.y);
 		held = null;
 	}
+
 	// This method is responsible for placing the objects that belong to land.
-	private void landObjectsPlacement()
+	private void LandObjectsPlacement()
 	{
 		Sell(gridPosition);
 
@@ -263,6 +262,7 @@ public class Map : MonoBehaviour
 			Debug.Log("PURCASHING ROAD");
 			Purchase<Road>(gridPosition.x, gridPosition.y);
 		} else {
+			Debug.Log("purch");
 			Purchase(held, gridPosition.x, gridPosition.y);
 		}
 		held = null;
