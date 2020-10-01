@@ -79,4 +79,9 @@ public abstract class Cell : Tile
 	{
 		return HireWorkers(-workers, -1);
 	}
+
+	public int getCost()
+    {
+		return cost;
+    }
 }
