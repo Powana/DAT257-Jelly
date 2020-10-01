@@ -110,9 +110,9 @@ public class Map : MonoBehaviour
 			// and buy the held cell
 			if (held != null) {
 				if (clickedTile is Grass) {
-					landObjectsPlacement();
+					LandObjectsPlacement();
 				} else if (clickedTile is Water) {
-					waterObjectsPlacement();
+					WaterObjectsPlacement();
 				}
 			}
 		}
@@ -235,32 +235,33 @@ public class Map : MonoBehaviour
 	}
 
 	// This method is responsible for placing the objects that belong to water.
-	private void waterObjectsPlacement()
+	private void WaterObjectsPlacement()
 	{
 		//Sell(gridPosition);
-
-		//here its gonna place anything in water because we still don't have any water objects
-		//Purchase(held, gridPosition.x, gridPosition.y);
+		//here we still don't have any water objects
 		held = null;
 	}
 	// This method is responsible for placing the objects that belong to land.
-	private void landObjectsPlacement()
+	private void LandObjectsPlacement()
 	{
-
 		if (held is Road) {
 			Sell(gridPosition);
 			Purchase(held, gridPosition.x, gridPosition.y);
 		}
 		else {
-			if (NearRoad()) {
+			if (IsNearRoad()) {
 				Sell(gridPosition);
 				Purchase(held, gridPosition.x, gridPosition.y);
+            }
+            else
+			{
+				Warn("There is no road nearby");
 			}
 		}
 		held = null;
 	}
 	// Check if the clicked position has and road near by
-	private bool NearRoad()
+	private bool IsNearRoad()
 	{
 		if (GetCell(gridPosition.x , gridPosition.y + 1) is Road || GetCell(gridPosition.x , gridPosition.y - 1) is Road 
 			|| GetCell(gridPosition.x + 1, gridPosition.y) is Road || GetCell(gridPosition.x - 1, gridPosition.y) is Road)
