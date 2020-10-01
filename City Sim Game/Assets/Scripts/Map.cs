@@ -123,41 +123,45 @@ public class Map : MonoBehaviour
 	}
 
 	//Checks how many surrounding blocks are T
-	int GetSurroundingWallCount<T>(int x, int y) where T: Cell
+	public static int GetSurroundingWallCount<T>(Tilemap tilemap, int x, int y) where T: Cell
 	{
 		int wallcount = 0;
 
 		// if we are not at the top of the map
 		// check the northern tile
-		if (y != 0) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
-				wallcount++; }
+		//if (y != 0) {
+			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
+				wallcount++; 
 
 		// if we are not at the bottom of the map
 		// check the southern tile
-		if (y != height) {
-			if(map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(-1, 0, 0)) is T)
-			wallcount++; }
+		//if (y != map.height) {
+			if(tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(-1, 0, 0)) is T)
+			wallcount++;
 
 		// if we are not at the left of the map
 		// check the western tile
-		if (x != 0) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
+		//if (x != 0) {
+			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
 				wallcount++;
-		}
+		
 
 		// if we are not at the right of the map
 		// check the eastern tile
-		if (x != height) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
+	//	if (x != height) {
+			if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
 				wallcount++;
-		}
+		
 		return wallcount;
 	}
 
+    int GetSurroundingWallCount<T>(int x, int y) where T : Cell
+    {
+        return GetSurroundingWallCount<T>(this.map, x, y);
+    }
 
 
-	void Update()
+    void Update()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		gridPosition = map.WorldToCell(mousePosition);
@@ -171,23 +175,17 @@ public class Map : MonoBehaviour
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
-				//Debug.Log("Finns inte");
 				return;
 			}
-			//// FOR DEMONSTRATION PURPOSES
-			// If you are holding a cell and click grass, you will sell the grass
-			// and buy the held cell
+
+            // If user is holding a cell (from the shop)
 			if (held != null) {
-				if (itLand(clickedTile)) {
-					landObjectsPlacement();
-				} else if (itWater(clickedTile)) {
-					waterObjectsPlacement();
-				}
+                objectPlacement();
 			}
 		}
 
 		// Call tick every period.
-		if (Time.time > tickTime) {
+		if (Time.time >= tickTime) {
 			tickTime = Time.time + period;
 			Tick();
 		}
@@ -234,6 +232,9 @@ public class Map : MonoBehaviour
 	// Instantiates the given cell on the given position.
 	private Cell AddCell(Cell cell, Vector3Int pos)
 	{
+        // Instantiate new object for each tile instead of copying from the map.
+        cell = Instantiate(cell);
+
 		map.SetTile(pos, cell);
 
 		// Add tile to dictionary.
@@ -303,39 +304,24 @@ public class Map : MonoBehaviour
 		held = availableCells[cellName];
 	}
 
-	// This method check if the picked cell is land and return true if it is .
-	private bool itLand(Cell  cell)
-	{
-		return cell is Grass;
-	}
 
-	// This method check if the picked cell is water and return true if it is.
-	private bool itWater(Cell cell)
+	// This method is responsible for placing the objects.
+	private void objectPlacement()
 	{
-		return cell is Water;
-	}
-	// This method is responsible for placing the objects that belong to water.
-	private void waterObjectsPlacement()
-	{
-		//Sell(gridPosition);
+        // Check if the cell allows for placement at gridposition
+        if (held.validPosition(map, gridPosition.x, gridPosition.y))
+        {
+            Sell(gridPosition);
+            Purchase(held, gridPosition.x, gridPosition.y);
+            held = null;
+        }
+        else
+        {
+            Warn("Invalid placement!");
+        }
 
-		//here its gonna place anything in water because we still don't have any water objects
-		//Purchase(held, gridPosition.x, gridPosition.y);
-		held = null;
-	}
-	// This method is responsible for placing the objects that belong to land.
-	private void landObjectsPlacement()
-	{
-		Sell(gridPosition);
 
-		if (held is Road) {
-			Debug.Log("PURCASHING ROAD");
-			Purchase<Road>(gridPosition.x, gridPosition.y);
-		} else {
-			Purchase(held, gridPosition.x, gridPosition.y);
-		}
-		held = null;
-	}
+    }
 
 	public void Warn(string message)
 	{

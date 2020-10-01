@@ -16,8 +16,17 @@ abstract public class Building : Cell
         stringName = "UNDEFINED";
     }
 
-    // Kinda seems a bit silly to have a building class when there aren't really any variables differing a building to a disctrict / any other cell. Maybe more will be needed later.
-    // It does however lead to well structured code which is nice.
+    public override bool validPosition(Tilemap tilemap, Vector3Int pos)
+    {
+        if (tilemap.GetTile(pos) is Grass)
+        {
+            // Make sure there is at least one road
+            if (Map.GetSurroundingWallCount<Road>(tilemap, pos.x, pos.y) >= 1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	
 }

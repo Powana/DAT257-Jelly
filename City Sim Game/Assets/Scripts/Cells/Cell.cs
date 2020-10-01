@@ -20,7 +20,14 @@ public abstract class Cell : Tile
 			resources.Add(resource, new Resource(resource));
 		}
 	}
-    
 
+    // Check if the given position is valid for cell placement
+    // TODO: Maybe this should return a string to be used in the warning message for invalid placement.
+    public abstract bool validPosition(Tilemap tilemap, Vector3Int pos);
+    
+    public bool validPosition(Tilemap tilemap, int x, int y)
+    {
+        return validPosition(tilemap, new Vector3Int(x, y, 0));
+    }
     
 }

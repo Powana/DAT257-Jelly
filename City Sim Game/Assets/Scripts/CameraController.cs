@@ -18,7 +18,9 @@ public class CameraController : MonoBehaviour
 {
 	public float panSpeed = 5f;
 	public Vector2 panLimit;
-	private Camera cam;
+    public float maxZoomOut = 10f;
+
+    private Camera cam;
 	private float targetZoom;
 	private float zoomFactor = 3f;
 	[SerializeField] private float zoomLerpSpeed = 10;
@@ -51,7 +53,7 @@ public class CameraController : MonoBehaviour
 		targetZoom -= scrollData * zoomFactor;
 
 		// The parameters specify the size bounds.
-		targetZoom = Mathf.Clamp(targetZoom, 1f, 8f);
+		targetZoom = Mathf.Clamp(targetZoom, 1f, maxZoomOut);
 		cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomLerpSpeed);
 	}
 
