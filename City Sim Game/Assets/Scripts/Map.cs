@@ -77,15 +77,14 @@ public class Map : MonoBehaviour
 		availableCells.Add("Nuclear", ScriptableObject.CreateInstance<Nuclear>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
 
-		//generate grass
-		generateMap();
-		//generate water
-		generateLake();
+		// Generate grass.
+		GenerateMap();
 
-
+		// Generate water.
+		GenerateLake();
 	}
 
-	void generateMap()
+	void GenerateMap()
 	{
 		// Iterate columns.
 		for (int x = 0; x < width; x++)
@@ -98,21 +97,21 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	void generateLake()
+	void GenerateLake()
 	{
-		//spawns i number of cells on random places
-		for(int i = 0; i < lake; i++)
-		{
+		// Spawns i number of cells on random places.
+		for (int i = 0; i < lake; i++) {
 			SwapCell<Water>(new Vector3Int(Random.Range(0, width), Random.Range(0, height), 0));
 		}
+
 		int lakeTiles = 0;
-		while ( lakeTiles < lakeSize)
-		{
+
+		while (lakeTiles < lakeSize) {
 			int xCord = Random.Range(0, width);
 			int yCord = Random.Range(0, height);
 
 			int neighbour = GetSurroundingWallCount<Water>(xCord, yCord);
-			//spawns Lakesize number of cells on the map if there are any adjacent cells with water
+			// Spawns Lakesize number of cells on the map if there are any adjacent cells with water.
 			if(neighbour > 0)
 			{
 				SwapCell<Water>(new Vector3Int(xCord, yCord, 0));
@@ -122,16 +121,16 @@ public class Map : MonoBehaviour
 
 	}
 
-	//Checks how many surrounding blocks are T
+	// Checks how many surrounding blocks are T.
 	int GetSurroundingWallCount<T>(int x, int y) where T: Cell
 	{
 		int wallcount = 0;
 
 		// if we are not at the top of the map
 		// check the northern tile
-		if (y != 0) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
-				wallcount++; }
+		if (y != 0 && map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T) {
+			wallcount++;
+		}
 
 		// if we are not at the bottom of the map
 		// check the southern tile
@@ -154,8 +153,6 @@ public class Map : MonoBehaviour
 		}
 		return wallcount;
 	}
-
-
 
 	void Update()
 	{
@@ -333,6 +330,7 @@ public class Map : MonoBehaviour
 
 		held = null;
 	}
+
 	// Check if the clicked position has and road near by
 	private bool IsNearRoad()
 	{
