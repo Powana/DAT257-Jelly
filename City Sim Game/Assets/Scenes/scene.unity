@@ -574,10 +574,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81abb9b62274bc43a5e0756829d546e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lake: 5
+  lakeSize: 45
   messages: {fileID: 370596392}
   cellSize: 1
-  width: 8
-  height: 8
+  width: 20
+  height: 20
 --- !u!483693784 &36231532
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -893,7 +895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 5
-  panLimit: {x: 3, y: 4}
+  panLimit: {x: 15, y: 20}
   zoomLerpSpeed: 10
 --- !u!1 &134375835
 GameObject:
@@ -3325,7 +3327,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6720316
+  m_Size: 0.7733896
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6503,7 +6505,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.45005423
+  m_Size: 0.5768147
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7148,7 +7150,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
   m_Value: 0.99997467
-  m_Size: 0.54160696
+  m_Size: 0.66306335
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7372,7 +7374,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.6720316
+  m_Size: 0.7733896
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

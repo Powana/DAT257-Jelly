@@ -4,10 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 // Class responsible for rendering and managing a tile map.
 public class Map : MonoBehaviour
 {
+	[Range(0, 100)]
+	public int lake;
+
+	[Range(0, 100)]
+	public int lakeSize;
+
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
 
@@ -69,24 +76,86 @@ public class Map : MonoBehaviour
 		availableCells.Add("Casino", ScriptableObject.CreateInstance<Casino>());
 		availableCells.Add("Nuclear", ScriptableObject.CreateInstance<Nuclear>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
-		Debug.Log("##############");
-		Debug.Log(availableCells["Road"].GetInstanceID());
 
+		//generate grass
+		generateMap();
+		//generate water
+		generateLake();
+
+
+	}
+
+	void generateMap()
+	{
 		// Iterate columns.
-		for (int x = 0; x < width; x++) {
-			for (int y = 0; y < height; y++) {
+		for (int x = 0; x < width; x++)
+		{
+			//Iterate rows
+			for (int y = 0; y < height; y++)
+			{
 				Grass tile = AddCell<Grass>(x, y) as Grass;
-				// tile.gameObject.GetComponent(typeof(Cell)) as Cell;
-			}
-		}
-
-		// Iterate a quarter of columns.
-		for (int x = 0; x < width / 3.5f; x++) {
-			for (int y = height / 2; y < height; y++) {
-				SwapCell<Water>(new Vector3Int(x, y, 0));
 			}
 		}
 	}
+
+	void generateLake()
+	{
+		//spawns i number of cells on random places
+		for(int i = 0; i < lake; i++)
+		{
+			SwapCell<Water>(new Vector3Int(Random.Range(0, width), Random.Range(0, height), 0));
+		}
+		int lakeTiles = 0;
+		while ( lakeTiles < lakeSize)
+		{
+			int xCord = Random.Range(0, width);
+			int yCord = Random.Range(0, height);
+
+			int neighbour = GetSurroundingWallCount<Water>(xCord, yCord);
+			//spawns Lakesize number of cells on the map if there are any adjacent cells with water
+			if(neighbour > 0)
+			{
+				SwapCell<Water>(new Vector3Int(xCord, yCord, 0));
+				lakeTiles++;
+			}
+		}
+
+	}
+
+	//Checks how many surrounding blocks are T
+	int GetSurroundingWallCount<T>(int x, int y) where T: Cell
+	{
+		int wallcount = 0;
+
+		// if we are not at the top of the map
+		// check the northern tile
+		if (y != 0) {
+			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
+				wallcount++; }
+
+		// if we are not at the bottom of the map
+		// check the southern tile
+		if (y != height) {
+			if(map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(-1, 0, 0)) is T)
+			wallcount++; }
+
+		// if we are not at the left of the map
+		// check the western tile
+		if (x != 0) {
+			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
+				wallcount++;
+		}
+
+		// if we are not at the right of the map
+		// check the eastern tile
+		if (x != height) {
+			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
+				wallcount++;
+		}
+		return wallcount;
+	}
+
+
 
 	void Update()
 	{
@@ -107,9 +176,7 @@ public class Map : MonoBehaviour
 				//
 			}
 
-			//// FOR DEMONSTRATION PURPOSES
-			// If you are holding a cell and click grass, you will sell the grass
-			// and buy the held cell
+			// Grass represents land and Water represents the lake on the map.
 			if (held != null) {
 				if (clickedTile is Grass) {
 					LandObjectsPlacement();
@@ -247,27 +314,35 @@ public class Map : MonoBehaviour
 	private void WaterObjectsPlacement()
 	{
 		//Sell(gridPosition);
-
-		//here its gonna place anything in water because we still don't have any water objects
-		//Purchase(held, gridPosition.x, gridPosition.y);
+		//here we still don't have any water objects
 		held = null;
 	}
 
-	// This method is responsible for placing the objects that belong to land.
+	// Responsible for placing held objects on land.
 	private void LandObjectsPlacement()
 	{
-		Sell(gridPosition);
-
 		if (held is Road) {
 			Debug.Log("PURCASHING ROAD");
 			Purchase<Road>(gridPosition.x, gridPosition.y);
-		} else {
-			Debug.Log("purch");
+		} else if (IsNearRoad()) {
+			Sell(gridPosition);
 			Purchase(held, gridPosition.x, gridPosition.y);
+		} else {
+			Warn("There is no road nearby");
 		}
+
 		held = null;
 	}
-
+	// Check if the clicked position has and road near by
+	private bool IsNearRoad()
+	{
+		return
+			GetCell(gridPosition.x, gridPosition.y + 1) is Road ||
+			GetCell(gridPosition.x, gridPosition.y - 1) is Road ||
+			GetCell(gridPosition.x + 1, gridPosition.y) is Road ||
+			GetCell(gridPosition.x - 1, gridPosition.y) is Road;
+	}
+	// Write a warning message.
 	public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
