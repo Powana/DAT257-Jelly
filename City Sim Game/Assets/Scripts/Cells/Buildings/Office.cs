@@ -10,8 +10,13 @@ public class Office : Building
 	public Office()
 	{
 		stringName = "Residential";
-		cost = 100;
-		resources["cash"].upkeep = 1;
+		cost = 1000;
+		availableJobs = 5;
+		resources["cash"].delta = 100;
+		resources["cash"].upkeep = 10;
+		resources["pollution"].delta = -2;
+		resources["energy"].delta = -3;
+		resources["food"].delta = -5;
 	}
 
 	// Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
