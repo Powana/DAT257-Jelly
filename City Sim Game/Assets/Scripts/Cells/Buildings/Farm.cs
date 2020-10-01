@@ -10,8 +10,13 @@ public class Farm : Building
 	public Farm()
 	{
 		stringName = "Farm";
-		cost = 100;
-		resources["cash"].upkeep = 1;
+		cost = 1000;
+		availableJobs = 6;
+		resources["cash"].delta = 100;
+		resources["cash"].upkeep = 10;
+		resources["pollution"].delta = -3;
+		resources["energy"].delta = -4;
+		resources["food"].delta = 8;
 	}
 
 	// Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
