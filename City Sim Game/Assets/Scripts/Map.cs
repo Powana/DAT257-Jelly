@@ -203,7 +203,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
-		Debug.Log(resourceManager.ToString());
+		// Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 

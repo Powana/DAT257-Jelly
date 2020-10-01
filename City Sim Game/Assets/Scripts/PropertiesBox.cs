@@ -36,7 +36,7 @@ public class PropertiesBox : MonoBehaviour
     {
         // Receive cliked tile from map
         clickedTile = map.SendCell();
-        Debug.Log(clickedTile);
+        // Debug.Log(clickedTile);
         if(!propertiesPanel.activeInHierarchy)
         {
             showInformation();

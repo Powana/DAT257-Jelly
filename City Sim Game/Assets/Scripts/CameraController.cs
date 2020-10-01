@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 // This class is made to controll camera functions
 /*
@@ -19,6 +20,7 @@ public class CameraController : MonoBehaviour
 	public float panSpeed = 5f;
 	public Vector2 panLimit;
     public float maxZoomOut = 10f;
+    public Tilemap tilemapObject;
 
     private Camera cam;
 	private float targetZoom;
@@ -28,14 +30,19 @@ public class CameraController : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		cam = Camera.main;
+		cam = GetComponent<Camera>();
 		targetZoom = cam.orthographicSize;
+
+        // Get center of tilemap and set camera to it
+        Vector3 centerPos = tilemapObject.cellBounds.center;
+        centerPos = tilemapObject.GetCellCenterWorld(new Vector3Int((int) centerPos.x, (int) centerPos.y, -1));
+        cam.transform.position = centerPos;
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-
 		ZoomFunction();
 		CameraMovement();
 	}
