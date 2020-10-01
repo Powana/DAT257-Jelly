@@ -78,7 +78,7 @@ public class Road : Cell
 
         // This is retarded, gameObject needs to be set to an instaniated gameobject so that it can create its own instance of that object (?????????)
         tileData.gameObject = go;
-        // Therefore we must destroy the instiated object to avoid duplicates
+        // Therefore we must destroy the instantiated object to avoid duplicates
         Destroy(go);
     }
 
@@ -92,5 +92,11 @@ public class Road : Cell
         tilemap.RefreshTile(position + new Vector3Int(-1, 0, 0));
         tilemap.RefreshTile(position + new Vector3Int(0, 1, 0));
 
+    }
+
+    public override bool validPosition(Tilemap tilemap, Vector3Int pos)
+    {
+        if (tilemap.GetTile(pos) is Grass) return true;
+        return false;
     }
 }

@@ -9,4 +9,10 @@ public class Water : Cell
 	{
 		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Basic/Water");
 	}
+
+    // Water can be place anywhere
+    public override bool validPosition(Tilemap tilemap, Vector3Int pos)
+    {
+        return true;
+    }
 }

@@ -77,15 +77,14 @@ public class Map : MonoBehaviour
 		availableCells.Add("Nuclear", ScriptableObject.CreateInstance<Nuclear>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
 
-		//generate grass
-		generateMap();
-		//generate water
-		generateLake();
+		// Generate grass.
+		GenerateMap();
 
-
+		// Generate water.
+		GenerateLake();
 	}
 
-	void generateMap()
+	void GenerateMap()
 	{
 		// Iterate columns.
 		for (int x = 0; x < width; x++)
@@ -98,63 +97,66 @@ public class Map : MonoBehaviour
 		}
 	}
 
-	void generateLake()
+	void GenerateLake()
 	{
-		//spawns i number of cells on random places
-		for(int i = 0; i < lake; i++)
-		{
+		// Spawns i number of cells on random places.
+		for (int i = 0; i < lake; i++) {
 			SwapCell<Water>(new Vector3Int(Random.Range(0, width), Random.Range(0, height), 0));
 		}
+
 		int lakeTiles = 0;
-		while ( lakeTiles < lakeSize)
-		{
+
+		while (lakeTiles < lakeSize) {
 			int xCord = Random.Range(0, width);
 			int yCord = Random.Range(0, height);
 
 			int neighbour = GetSurroundingWallCount<Water>(xCord, yCord);
-			//spawns Lakesize number of cells on the map if there are any adjacent cells with water
+			// Spawns Lakesize number of cells on the map if there are any adjacent cells with water.
 			if(neighbour > 0)
 			{
 				SwapCell<Water>(new Vector3Int(xCord, yCord, 0));
 				lakeTiles++;
 			}
 		}
-	
+
 	}
 
 	//Checks how many surrounding blocks are T
-	int GetSurroundingWallCount<T>(int x, int y) where T: Cell
+	public static int GetSurroundingWallCount<T>(Tilemap tilemap, int x, int y) where T: Cell
 	{
 		int wallcount = 0;
 
 		// if we are not at the top of the map
 		// check the northern tile
-		if (y != 0) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
-				wallcount++; }
+		if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(1, 0, 0)) is T)
+			wallcount++;
 
 		// if we are not at the bottom of the map
 		// check the southern tile
-		if (y != height) {
-			if(map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(-1, 0, 0)) is T)
-			wallcount++; }
+		//if (y != map.height) {
+		if(tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(-1, 0, 0)) is T)
+			wallcount++;
 
 		// if we are not at the left of the map
 		// check the western tile
-		if (x != 0) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
-				wallcount++;
-		}
+		//if (x != 0) {
+		if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
+			wallcount++;
+
 
 		// if we are not at the right of the map
 		// check the eastern tile
-		if (x != height) {
-			if (map.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
-				wallcount++;
-		}
+		//	if (x != height) {
+		if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, -1, 0)) is T)
+			wallcount++;
+
 		return wallcount;
 	}
 
+	int GetSurroundingWallCount<T>(int x, int y) where T : Cell
+	{
+		return GetSurroundingWallCount<T>(this.map, x, y);
+	}
 
 
 	void Update()
@@ -167,27 +169,29 @@ public class Map : MonoBehaviour
 		// Handle mouse clicks on the map.
 		if (Input.GetMouseButtonDown(0)) {
 			// Fetch clicked tile, if any.
-			Cell clickedTile = map.GetTile<Cell>(gridPosition);
+			Cell clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
-				//Debug.Log("Finns inte");
 				return;
+			} else {
+				//
 			}
-			//// FOR DEMONSTRATION PURPOSES
-			// If you are holding a cell and click grass, you will sell the grass
-			// and buy the held cell
+
+			// If user is holding a cell (from the shop)
 			if (held != null) {
-				if (itLand(clickedTile)) {
-					landObjectsPlacement();
-				} else if (itWater(clickedTile)) {
-					waterObjectsPlacement();
-				}
+				objectPlacement();
 			}
 		}
 
+		// Testing purposes. Sell when middle click.
+		if (Input.GetMouseButtonDown(2)) {
+			Sell(gridPosition);
+			AddCell<Grass>(gridPosition);
+		}
+
 		// Call tick every period.
-		if (Time.time > tickTime) {
+		if (Time.time >= tickTime) {
 			tickTime = Time.time + period;
 			Tick();
 		}
@@ -196,6 +200,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
+		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
@@ -234,6 +239,9 @@ public class Map : MonoBehaviour
 	// Instantiates the given cell on the given position.
 	private Cell AddCell(Cell cell, Vector3Int pos)
 	{
+		// Instantiate new object for each tile instead of copying from the map.
+		cell = Instantiate(cell);
+
 		map.SetTile(pos, cell);
 
 		// Add tile to dictionary.
@@ -303,38 +311,23 @@ public class Map : MonoBehaviour
 		held = availableCells[cellName];
 	}
 
-	// This method check if the picked cell is land and return true if it is .
-	private bool itLand(Cell  cell)
-	{
-		return cell is Grass;
-	}
 
-	// This method check if the picked cell is water and return true if it is.
-	private bool itWater(Cell cell)
+	// This method is responsible for placing the objects.
+	private void objectPlacement()
 	{
-		return cell is Water;
-	}
-	// This method is responsible for placing the objects that belong to water.
-	private void waterObjectsPlacement()
-	{
-		//Sell(gridPosition);
-
-		//here its gonna place anything in water because we still don't have any water objects
-		//Purchase(held, gridPosition.x, gridPosition.y);
-		held = null;
-	}
-	// This method is responsible for placing the objects that belong to land.
-	private void landObjectsPlacement()
-	{
-		Sell(gridPosition);
-
-		if (held is Road) {
-			Debug.Log("PURCASHING ROAD");
-			Purchase<Road>(gridPosition.x, gridPosition.y);
-		} else {
+		// Check if the cell allows for placement at gridposition
+		if (held.validPosition(map, gridPosition.x, gridPosition.y))
+		{
+			Sell(gridPosition);
 			Purchase(held, gridPosition.x, gridPosition.y);
+			held = null;
 		}
-		held = null;
+		else
+		{
+			Warn("Invalid placement!");
+		}
+
+
 	}
 
 	public void Warn(string message)
