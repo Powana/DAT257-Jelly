@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -22,9 +23,12 @@ public abstract class Cell : Tile
 		}
 	}
 
-	public Dictionary<string, Resource> HireWorkers(int workers)
+	public Dictionary<string, Resource> HireWorkers(int workers, int sign)
 	{
 		Dictionary<string, Resource> diffResources = new Dictionary<string, Resource>();
+
+		if (Math.Abs(sign) != 1)
+			throw new System.ArgumentException("Must be ±1", "sign");
 
 		if (resources["workers"].value + workers > availableJobs)
 			throw new System.ArgumentException("Workers can't exceed the available job limit on the cell.", "workers");
@@ -34,7 +38,7 @@ public abstract class Cell : Tile
 		foreach (string resource in new string[] {
 				"cash", "food", "energy"
 			}) {
-			diffResources.Add(resource, new Resource(resource, 0, (int)((float)resources[resource].delta * (availableJobs > 0 ? ((float)workers / (float)availableJobs) : 1))));
+			diffResources.Add(resource, new Resource(resource, 0, (int)((float)resources[resource].delta * (availableJobs > 0 ? ((float)workers / (float)availableJobs) : sign))));
 		}
 
 		resources["workers"].value += workers;
@@ -42,8 +46,13 @@ public abstract class Cell : Tile
 		return diffResources;
 	}
 
+	public Dictionary<string, Resource> HireWorkers(int workers)
+	{
+		return HireWorkers(workers, 1);
+	}
+
 	public Dictionary<string, Resource> FireWorkers(int workers)
 	{
-		return HireWorkers(-workers);
+		return HireWorkers(-workers, -1);
 	}
 }

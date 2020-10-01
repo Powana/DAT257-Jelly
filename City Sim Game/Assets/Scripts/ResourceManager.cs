@@ -39,14 +39,22 @@ public class ResourceManager
 		// Subtract cost.
 		resources["cash"].value -= cell.cost;
 
-		// Update deltas for upkeep and production.
+		// Update deltas for upkeep.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
 			resources[pair.Key].delta -= (int)pair.Value.upkeep;
 		}
 
-		// If no available jobs are available, produce at full capacity.
-		if (cell.availableJobs == 0) {
-			cell.HireWorkers(0);
+		// If no available jobs are available, produce at full capacity by
+		// default.
+		if (cell.availableJobs == 0)
+			Diff(cell.HireWorkers(0));
+	}
+
+	public void Diff(Dictionary<string, Resource> diffs)
+	{
+		// Update deltas for and production.
+		foreach (KeyValuePair<string, Resource> pair in diffs) {
+			resources[pair.Key].delta += (int)pair.Value.delta;
 		}
 	}
 
@@ -81,14 +89,19 @@ public class ResourceManager
 
 	public void HireWorkers(Cell cell, int workers)
 	{
-		resources["workers"].value += workers;
-		foreach (KeyValuePair<string, Resource> pair in cell.HireWorkers(workers)) {
-			resources[pair.Key].delta += pair.Value.delta;
-		}
+		HireWorkers(cell, workers, cell.HireWorkers(workers));
 	}
 
 	public void FireWorkers(Cell cell, int workers)
 	{
-		HireWorkers(cell, -workers);
+		HireWorkers(cell, -workers, cell.FireWorkers(workers));
+	}
+
+	public void HireWorkers(Cell cell, int workers, Dictionary<string, Resource> diffs)
+	{
+		resources["workers"].value += workers;
+		foreach (KeyValuePair<string, Resource> pair in diffs) {
+			resources[pair.Key].delta += pair.Value.delta;
+		}
 	}
 }

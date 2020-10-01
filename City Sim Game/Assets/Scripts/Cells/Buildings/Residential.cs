@@ -12,6 +12,9 @@ public class Residential : Building
 		stringName = "Residential";
 		cost = 100;
 		resources["cash"].upkeep = 1;
+		resources["pollution"].upkeep = 1;
+		resources["food"].delta = 10;
+		availableJobs = 0;
 	}
 
 	// Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
