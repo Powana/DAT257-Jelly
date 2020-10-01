@@ -178,10 +178,10 @@ public class Map : MonoBehaviour
 			// If you are holding a cell and click grass, you will sell the grass
 			// and buy the held cell
 			if (held != null) {
-				if (itLand(clickedTile)) {
-					landObjectsPlacement();
-				} else if (itWater(clickedTile)) {
-					waterObjectsPlacement();
+				if (clickedTile is Grass) {
+					LandObjectsPlacement();
+				} else if (clickedTile is Water) {
+					WaterObjectsPlacement();
 				}
 			}
 		}
@@ -303,41 +303,44 @@ public class Map : MonoBehaviour
 		held = availableCells[cellName];
 	}
 
-	// This method check if the picked cell is land and return true if it is .
-	private bool itLand(Cell  cell)
-	{
-		return cell is Grass;
-	}
-
-	// This method check if the picked cell is water and return true if it is.
-	private bool itWater(Cell cell)
-	{
-		return cell is Water;
-	}
 	// This method is responsible for placing the objects that belong to water.
-	private void waterObjectsPlacement()
+	private void WaterObjectsPlacement()
 	{
 		//Sell(gridPosition);
-
-		//here its gonna place anything in water because we still don't have any water objects
-		//Purchase(held, gridPosition.x, gridPosition.y);
+		//here we still don't have any water objects
 		held = null;
 	}
 	// This method is responsible for placing the objects that belong to land.
-	private void landObjectsPlacement()
+	private void LandObjectsPlacement()
 	{
-		Sell(gridPosition);
-
 		if (held is Road) {
-			Debug.Log("PURCASHING ROAD");
-			Purchase<Road>(gridPosition.x, gridPosition.y);
-		} else {
+			Sell(gridPosition);
 			Purchase(held, gridPosition.x, gridPosition.y);
+		}
+		else {
+			if (IsNearRoad()) {
+				Sell(gridPosition);
+				Purchase(held, gridPosition.x, gridPosition.y);
+            }
+            else
+			{
+				Warn("There is no road nearby");
+			}
 		}
 		held = null;
 	}
-
-	public void Warn(string message)
+	// Check if the clicked position has and road near by
+	private bool IsNearRoad()
+	{
+		if (GetCell(gridPosition.x , gridPosition.y + 1) is Road || GetCell(gridPosition.x , gridPosition.y - 1) is Road 
+			|| GetCell(gridPosition.x + 1, gridPosition.y) is Road || GetCell(gridPosition.x - 1, gridPosition.y) is Road)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+		public void Warn(string message)
 	{
 		messages.GetComponent<Message>().Warn(message);
 	}
