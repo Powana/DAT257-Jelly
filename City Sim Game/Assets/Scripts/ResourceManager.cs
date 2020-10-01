@@ -41,7 +41,12 @@ public class ResourceManager
 
 		// Update deltas for upkeep and production.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta += pair.Value.upkeep;
+			resources[pair.Key].delta -= (int)pair.Value.upkeep;
+		}
+
+		// If no available jobs are available, produce at full capacity.
+		if (cell.availableJobs == 0) {
+			cell.HireWorkers(0);
 		}
 	}
 
@@ -52,10 +57,13 @@ public class ResourceManager
 		// Sell for a smaller amount than it was bought for balance.
 		resources["cash"].value += (cell.cost / 4);
 
-		// Iterate resources to restore balance from before cell was bought.
+		// Update deltas for upkeep and production.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta -= pair.Value.delta;
+			resources[pair.Key].delta += (int)pair.Value.upkeep;
 		}
+
+		// Take into account the lost production by firing all workers.
+		FireWorkers(cell, cell.resources["workers"].value);
 	}
 
 	public override string ToString()

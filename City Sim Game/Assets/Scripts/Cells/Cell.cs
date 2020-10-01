@@ -26,12 +26,15 @@ public abstract class Cell : Tile
 	{
 		Dictionary<string, Resource> diffResources = new Dictionary<string, Resource>();
 
+		if (resources["workers"].value + workers > availableJobs)
+			throw new System.ArgumentException("Workers can't exceed the available job limit on the cell.", "workers");
+		if (resources["workers"].value + workers < 0)
+			throw new System.ArgumentException("Workers on a cell can't fall short of zero.", "workers");
+
 		foreach (string resource in new string[] {
 				"cash", "food", "energy"
 			}) {
-			diffResources.Add(resource, new Resource(resource, 0, availableJobs > 0 ?
-													 (int)((float)resources[resource].delta * ((float)workers / (float)availableJobs))
-													 : 0));
+			diffResources.Add(resource, new Resource(resource, 0, (int)((float)resources[resource].delta * (availableJobs > 0 ? ((float)workers / (float)availableJobs) : 1))));
 		}
 
 		resources["workers"].value += workers;

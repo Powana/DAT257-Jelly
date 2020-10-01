@@ -103,8 +103,10 @@ public class Map : MonoBehaviour
 				//Debug.Log("Finns inte");
 				return;
 			} else {
-				clickedTile.HireWorkers(1);
+				if (held == null)
+					resourceManager.HireWorkers(clickedTile, 1);
 			}
+
 			//// FOR DEMONSTRATION PURPOSES
 			// If you are holding a cell and click grass, you will sell the grass
 			// and buy the held cell

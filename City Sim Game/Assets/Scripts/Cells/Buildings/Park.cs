@@ -11,8 +11,10 @@ public class Park : Building
 	{
 		stringName = "Park";
 		cost = 100;
-		resources["cash"].upkeep = -1;
+		resources["cash"].upkeep = 1;
+		resources["pollution"].upkeep = 2;
 		resources["cash"].delta = 10;
+		resources["food"].delta = 20;
 		availableJobs = 10;
 		takenJobs = 0;
 	}
