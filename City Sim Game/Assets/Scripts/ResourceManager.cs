@@ -16,7 +16,7 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution"
+				"cash", "population", "food", "energy", "pollution", "workers"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
@@ -41,7 +41,7 @@ public class ResourceManager
 
 		// Update deltas for upkeep and production.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta += pair.Value.delta;
+			resources[pair.Key].delta += pair.Value.upkeep;
 		}
 	}
 
@@ -69,5 +69,18 @@ public class ResourceManager
 		data += "]";
 
 		return data;
+	}
+
+	public void HireWorkers(Cell cell, int workers)
+	{
+		resources["workers"].value += workers;
+		foreach (KeyValuePair<string, Resource> pair in cell.HireWorkers(workers)) {
+			resources[pair.Key].delta += pair.Value.delta;
+		}
+	}
+
+	public void FireWorkers(Cell cell, int workers)
+	{
+		HireWorkers(cell, -workers);
 	}
 }

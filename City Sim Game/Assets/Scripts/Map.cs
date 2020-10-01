@@ -102,6 +102,8 @@ public class Map : MonoBehaviour
 			if (clickedTile == null) {
 				//Debug.Log("Finns inte");
 				return;
+			} else {
+				clickedTile.HireWorkers(1);
 			}
 			//// FOR DEMONSTRATION PURPOSES
 			// If you are holding a cell and click grass, you will sell the grass
@@ -125,6 +127,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
+		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
