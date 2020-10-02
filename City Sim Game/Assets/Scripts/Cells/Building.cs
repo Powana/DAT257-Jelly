@@ -29,8 +29,7 @@ abstract public class Building : Cell
         return false;
     }
 
-    public string getName()
-    {
+    public string getName(){
         return stringName;
     }
 
