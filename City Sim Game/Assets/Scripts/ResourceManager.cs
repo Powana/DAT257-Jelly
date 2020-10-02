@@ -16,10 +16,14 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
+
+		// Start with some cash and lake health.
+		resources["cash"].value = 10000;
+		resources["lake"].value = 100000;
 	}
 
 	// Should be called by game loop every period.
@@ -29,7 +33,9 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
-		// Debug.Log(ToString());
+
+		// Deplete lake health depending on the current pollution.
+		resources["lake"].delta = -resources["pollution"].value / 100;
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
@@ -41,7 +47,7 @@ public class ResourceManager
 
 		// Update deltas for upkeep.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta -= (int)pair.Value.upkeep;
+			resources[pair.Key].delta -= pair.Value.upkeep;
 		}
 
 		// If no available jobs are available, produce at full capacity by
