@@ -10,8 +10,13 @@ public class Nuclear : Building
     public Nuclear()
     {
         stringName = "Nuclear";
-        cost = 100;
-        resources["cash"].delta = 1;
+        cost = 100000;
+        availableJobs = 8;
+        resources["cash"].delta = 100;
+        resources["cash"].upkeep = 10;
+        resources["pollution"].delta = -2;
+        resources["energy"].delta = 10;
+        resources["food"].delta = -8;
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject

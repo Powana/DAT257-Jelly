@@ -6,6 +6,7 @@ public class Resource
 {
 	public int value = 0;
 	public int delta = 0;
+	public uint upkeep = 0;
 	public string resource;
 
 	public Resource(string resource, int value, int delta)
