@@ -18,8 +18,6 @@ public class PropertiesBox : MonoBehaviour
     public Text employees;
     public GameObject propertiesPanel;
     private Cell clickedTile;
-    private int currentEmployees;
-    private int maxEmployees;
     private Dictionary<string, Resource> resources;
     
     
@@ -35,9 +33,10 @@ public class PropertiesBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Receive cliked tile from map
+        // Receive cliked tile from map if it is a building
+        // open the panel
         clickedTile = map.SendCell();
-        if(!propertiesPanel.activeInHierarchy)
+        if(clickedTile is Building)
         {
             showInformation();
         }
@@ -52,7 +51,7 @@ public class PropertiesBox : MonoBehaviour
 
     public void showInformation()
     {
-        if (clickedTile is Building)
+        if (!propertiesPanel.activeInHierarchy)
         {
             propertiesPanel.gameObject.SetActive(true);
             Building current = (Building)clickedTile;
@@ -63,6 +62,8 @@ public class PropertiesBox : MonoBehaviour
             {
                 reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
             }
+
+            employees.text = "Employees: \n" + current.resources["workers"].value.ToString() + "/" + current.availableJobs.ToString();
 
         }
     }
