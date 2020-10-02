@@ -60,7 +60,7 @@ public class PropertiesBox : MonoBehaviour
             propertiesPanel.gameObject.SetActive(true);
             Building current = (Building)clickedTile;
             name.text = current.getName();
-            cost.text = "Cost:" + current.getCost().ToString();
+            cost.text = "Price:" + current.getCost().ToString();
           
             foreach (KeyValuePair<string, Resource> kvp in current.resources)
             {
