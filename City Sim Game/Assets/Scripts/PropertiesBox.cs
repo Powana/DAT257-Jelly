@@ -47,6 +47,10 @@ public class PropertiesBox : MonoBehaviour
     public void closePanel()
     {
         propertiesPanel.gameObject.SetActive(false);
+        name.text = "";
+        cost.text = "";
+        reso.text = "";
+        employees.text = "";
     }
 
     public void showInformation()
