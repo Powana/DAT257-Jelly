@@ -15,6 +15,7 @@ public class PropertiesBox : MonoBehaviour
     public Text name;
     public Text cost;
     public Text reso;
+    public Text employees;
     public GameObject propertiesPanel;
     private Cell clickedTile;
     private int currentEmployees;
@@ -36,7 +37,6 @@ public class PropertiesBox : MonoBehaviour
     {
         // Receive cliked tile from map
         clickedTile = map.SendCell();
-        Debug.Log(clickedTile);
         if(!propertiesPanel.activeInHierarchy)
         {
             showInformation();
@@ -58,14 +58,22 @@ public class PropertiesBox : MonoBehaviour
             Building current = (Building)clickedTile;
             name.text = current.getName();
             cost.text = "Cost:" + current.getCost().ToString();
-            resources = current.resources;
+          
             foreach (KeyValuePair<string, Resource> kvp in current.resources)
             {
                 reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
             }
 
-
-
         }
+    }
+    // Add employee to building
+    public void addEmployee()
+    {
+        clickedTile.HireWorkers(1);
+    }
+    // Remove employee to building
+    public void removeEmployee()
+    {
+        clickedTile.FireWorkers(1);
     }
 }
