@@ -43,7 +43,7 @@ public class PropertiesBox : MonoBehaviour
       
     }
     
-    // Close the panel
+    // Close the panel and clear all text fields.
     public void closePanel()
     {
         propertiesPanel.gameObject.SetActive(false);
@@ -52,9 +52,10 @@ public class PropertiesBox : MonoBehaviour
         reso.text = "";
         employees.text = "";
     }
-
+    // Print information about the current building in the properties panel.
     public void showInformation()
     {
+        // Show the panel if it is already displayed
         if (!propertiesPanel.activeInHierarchy)
         {
             propertiesPanel.gameObject.SetActive(true);
@@ -62,6 +63,7 @@ public class PropertiesBox : MonoBehaviour
             name.text = current.getName();
             cost.text = "Price:" + current.getCost().ToString();
           
+            // Print all resources of the bulding.
             foreach (KeyValuePair<string, Resource> kvp in current.resources)
             {
                 reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
