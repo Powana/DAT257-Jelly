@@ -5,7 +5,7 @@ using UnityEngine;
 // Script that can be attached to cell gameobjects for added functionality.
 public class CellScript : MonoBehaviour
 {
-
+    private SpriteRenderer r;
     private Color startcolour;
 
     // Start is called before the first frame update
@@ -22,14 +22,18 @@ public class CellScript : MonoBehaviour
 
     void OnMouseEnter()
     {
+        
+        r = GetComponent<SpriteRenderer>();
+        // In case of road, get child renderer
+        if (r == null) r = GetComponentInChildren<SpriteRenderer>();
         // Save original tint
-        startcolour = GetComponent<SpriteRenderer>().color;
+        startcolour = r.color;
         // Add a slightly dark tint to show highlight
-        GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
+        r.color = new Color(0.8f, 0.8f, 0.8f);
     }
     void OnMouseExit()
     {
         // Reset tint
-        GetComponent<SpriteRenderer>().color = startcolour;
+        r.color = startcolour;
     }
 }

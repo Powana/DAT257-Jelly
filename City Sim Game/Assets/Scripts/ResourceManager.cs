@@ -16,10 +16,14 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
+
+		// Start with some cash and lake health.
+		resources["cash"].value = 10000;
+		resources["lake"].value = 100000;
 	}
 
 	// Should be called by game loop every period.
@@ -29,7 +33,9 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
-		// Debug.Log(ToString());
+
+		// Deplete lake health depending on the current pollution.
+		resources["lake"].delta = -resources["pollution"].value / 100;
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
@@ -39,9 +45,22 @@ public class ResourceManager
 		// Subtract cost.
 		resources["cash"].value -= cell.cost;
 
-		// Update deltas for upkeep and production.
+		// Update deltas for upkeep.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta += pair.Value.delta;
+			resources[pair.Key].delta -= pair.Value.upkeep;
+		}
+
+		// If no available jobs are available, produce at full capacity by
+		// default.
+		if (cell.availableJobs == 0)
+			Diff(cell.HireWorkers(0));
+	}
+
+	public void Diff(Dictionary<string, Resource> diffs)
+	{
+		// Update deltas for and production.
+		foreach (KeyValuePair<string, Resource> pair in diffs) {
+			resources[pair.Key].delta += (int)pair.Value.delta;
 		}
 	}
 
@@ -52,10 +71,13 @@ public class ResourceManager
 		// Sell for a smaller amount than it was bought for balance.
 		resources["cash"].value += (cell.cost / 4);
 
-		// Iterate resources to restore balance from before cell was bought.
+		// Update deltas for upkeep and production.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
-			resources[pair.Key].delta -= pair.Value.delta;
+			resources[pair.Key].delta += (int)pair.Value.upkeep;
 		}
+
+		// Take into account the lost production by firing all workers.
+		FireWorkers(cell, cell.resources["workers"].value);
 	}
 
 	public override string ToString()
@@ -69,5 +91,23 @@ public class ResourceManager
 		data += "]";
 
 		return data;
+	}
+
+	public void HireWorkers(Cell cell, int workers)
+	{
+		HireWorkers(cell, workers, cell.HireWorkers(workers));
+	}
+
+	public void FireWorkers(Cell cell, int workers)
+	{
+		HireWorkers(cell, -workers, cell.FireWorkers(workers));
+	}
+
+	public void HireWorkers(Cell cell, int workers, Dictionary<string, Resource> diffs)
+	{
+		resources["workers"].value += workers;
+		foreach (KeyValuePair<string, Resource> pair in diffs) {
+			resources[pair.Key].delta += pair.Value.delta;
+		}
 	}
 }
