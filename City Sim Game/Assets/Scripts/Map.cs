@@ -54,7 +54,7 @@ public class Map : MonoBehaviour
 	Vector2 mousePosition;
 	Vector3Int gridPosition;
     // todo remove
-    bool _init = true;
+    bool firstFrame = true;
     // Instantiates the base tiles and fills the tiles dictionary.
     void Start()
 	{
@@ -96,7 +96,6 @@ public class Map : MonoBehaviour
 		// Generate water.
 		GenerateLake();
 
-        // Generate starting road
 	}
 
 	void GenerateMap()
@@ -142,7 +141,6 @@ public class Map : MonoBehaviour
         {
             Vector3Int pos = new Vector3Int(1, i, 0);
             SwapCell<Road>(pos);
-            map.RefreshTile(pos);
         }
     }
 
@@ -183,14 +181,15 @@ public class Map : MonoBehaviour
 		return GetSurroundingWallCount<T>(this.map, x, y);
 	}
 
-
+    
 	void Update()
 	{
-        // todo remove
-        if (_init)
+        // Todo: Find a better solution?
+        // Generate starting road after Start() because GameObjects associated with tiles are instantiated after Start(), and the object needs to be instantiated for tiles to connect.
+        if (firstFrame)
         {
             GenerateRoad();
-            _init = false;
+            firstFrame = false;
         }
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
