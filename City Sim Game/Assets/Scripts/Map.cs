@@ -53,7 +53,7 @@ public class Map : MonoBehaviour
 	// Position of mouse in world and on grid.
 	Vector2 mousePosition;
 	Vector3Int gridPosition;
-    // todo remove
+
     bool firstFrame = true;
     // Instantiates the base tiles and fills the tiles dictionary.
     void Start()

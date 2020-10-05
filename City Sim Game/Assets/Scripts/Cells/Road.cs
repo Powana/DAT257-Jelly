@@ -6,13 +6,13 @@ using UnityEngine.Tilemaps;
 
 public class Road : Cell
 {
+    // Todo: The prefab is still one tile off in location for some reason
 
     // This can be used if refreshing a tile should also refresh adjacent tiles.
     public override void RefreshTile(Vector3Int position, ITilemap tilemap)
     {
         // Refresh surrounding tiles and itself.
         tilemap.RefreshTile(position);
-        //tilemap.GetComponent<Tilemap>().SetTile(position+ new Vector3Int(1, 0, 0), ScriptableObject.CreateInstance<Road>());
         tilemap.RefreshTile(position + new Vector3Int(1, 0, 0));
         tilemap.RefreshTile(position + new Vector3Int(0, -1, 0));
         tilemap.RefreshTile(position + new Vector3Int(-1, 0, 0));
