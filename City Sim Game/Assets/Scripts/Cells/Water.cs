@@ -5,6 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Water : Cell
 {
+	public Water()
+	{
+		spritePath = "Sprites/Water4k";
+	}
+
 	public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
 	{
 		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Basic/Water");

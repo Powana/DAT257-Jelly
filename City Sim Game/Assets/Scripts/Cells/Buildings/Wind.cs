@@ -9,6 +9,7 @@ public class Wind : Building
     // Building-specific stats are set in the constructor.
     public Wind()
     {
+        spritePath = "Sprites/Windpower4k";
         stringName = "Windpower";
         cost = 100000;
         availableJobs = 8;

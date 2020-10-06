@@ -9,6 +9,7 @@ public class Farm : Building
 	// Building-specific stats are set in the constructor.
 	public Farm()
 	{
+		spritePath = "Sprites/Farm4k";
 		stringName = "Farm";
 		cost = 1000;
 		availableJobs = 6;

@@ -653,8 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81abb9b62274bc43a5e0756829d546e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lake: 0
-  lakeSize: 0
+  lake: 1
+  lakeSize: 32
   messages: {fileID: 370596392}
   cellSize: 1
   width: 20
@@ -1553,14 +1553,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 36231531}
         m_TargetAssemblyTypeName: Map, Assembly-CSharp
-        m_MethodName: grabBuilding
+        m_MethodName: grabCell
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Grass
+          m_StringArgument: Coal
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &197183478
@@ -1583,7 +1583,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bf4e6e2227d6708159b7b8d4a1b685b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 67c56ebf8360aa04a8db66849f289796, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2184,7 +2184,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Water
+          m_StringArgument: Biomass
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &404902875
@@ -2207,7 +2207,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d4e8fb83b25d727dbbe264ab502072a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f068f006001aa964d9288a72a8eb23c3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4423,7 +4423,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
   m_Value: 1.0000005
-  m_Size: 0.5707617
+  m_Size: 0.6116458
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5782,8 +5782,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -334.25223}
-  m_SizeDelta: {x: 0, y: 668.5043}
+  m_AnchoredPosition: {x: 0, y: -185.90004}
+  m_SizeDelta: {x: 0, y: 371.7999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1235889776
 MonoBehaviour:
@@ -7988,8 +7988,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456227157}
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.3468578
+  m_Value: 1.0000004
+  m_Size: 0.530732
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8755,8 +8755,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 808891151}
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.43398395
+  m_Value: 1
+  m_Size: 0.47593385
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8980,7 +8980,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
   m_Value: 1.0000005
-  m_Size: 0.5707617
+  m_Size: 0.6116458
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

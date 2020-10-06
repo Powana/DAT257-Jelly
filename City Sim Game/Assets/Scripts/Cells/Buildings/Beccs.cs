@@ -9,6 +9,7 @@ public class Beccs : Building
     // Building-specific stats are set in the constructor.
     public Beccs()
     {
+        spritePath = "Sprites/Beccs4k";
         stringName = "BECCS";
         cost = 1200;
         availableJobs = 5;

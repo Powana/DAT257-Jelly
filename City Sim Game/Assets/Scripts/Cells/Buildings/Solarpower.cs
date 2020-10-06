@@ -9,7 +9,8 @@ public class Solarpower : Building
     // Building-specific stats are set in the constructor.
     public Solarpower()
     {
-        stringName = "Solarpower";
+        spritePath = "Sprites/Solarplant4k";
+        stringName = "Solarplant";
         cost = 100000;
         availableJobs = 8;
         resources["cash"].delta = 100;
