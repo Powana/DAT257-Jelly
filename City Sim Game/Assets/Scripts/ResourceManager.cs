@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 // Responsible for containing and managing global resources.
@@ -24,11 +25,16 @@ public class ResourceManager
 		// Start with some cash and lake health.
 		resources["cash"].value = 10000;
 		resources["lake"].value = 100000;
+		rasources["population"].value = 10;
+		rasources["food"].value = 100;
+
 	}
 
 	// Should be called by game loop every period.
 	public void Tick()
 	{
+		resources["food"].delta -= resources["population"].value * 5;
+		PopulationGrowth();
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
@@ -36,7 +42,21 @@ public class ResourceManager
 
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
+       
 	}
+
+	public void PopulationGrowth()
+    {
+		if(resources["food"].value > resources["population"].value *5)
+        {
+			if(resources["food"].value > 5)
+            {
+				resources["population"].delta++;
+            }
+
+		}
+
+    }
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
