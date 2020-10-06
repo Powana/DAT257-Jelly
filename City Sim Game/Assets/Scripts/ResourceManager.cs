@@ -17,7 +17,7 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers", "lake"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake","settlement"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
