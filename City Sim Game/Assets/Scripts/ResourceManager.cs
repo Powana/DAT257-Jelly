@@ -17,7 +17,7 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers", "lake","settlement"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
@@ -25,8 +25,8 @@ public class ResourceManager
 		// Start with some cash and lake health.
 		resources["cash"].value = 10000;
 		resources["lake"].value = 100000;
-		rasources["population"].value = 10;
-		rasources["food"].value = 100;
+		resources["population"].value = 10;
+		resources["food"].value = 100;
 
 	}
 
@@ -34,11 +34,12 @@ public class ResourceManager
 	public void Tick()
 	{
 		resources["food"].delta -= resources["population"].value * 5;
-		PopulationGrowth();
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
+
+		PopulationGrowth();
 
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
@@ -47,13 +48,12 @@ public class ResourceManager
 
 	public void PopulationGrowth()
     {
-		if(resources["food"].value > resources["population"].value *5)
+		int foodLeft = resources["food"].value - resources["population"].value * 5;
+		if (foodLeft >= 5)
         {
-			if(resources["food"].value > 5)
-            {
-				resources["population"].delta++;
-            }
-
+			
+				resources["population"].delta += 1;
+            
 		}
 
     }
