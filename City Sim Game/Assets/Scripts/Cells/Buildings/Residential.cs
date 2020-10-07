@@ -9,6 +9,7 @@ public class Residential : Building
 	// Building-specific stats are set in the constructor.
 	public Residential()
 	{
+		spritePath = "Sprites/Residential4k";
 		stringName = "Residential";
 		cost = 100;
 		resources["cash"].upkeep = 1;

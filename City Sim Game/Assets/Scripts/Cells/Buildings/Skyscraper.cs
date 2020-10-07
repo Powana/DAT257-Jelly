@@ -8,8 +8,9 @@ public class Skyscraper : Building
 {
     // Building-specific stats are set in the constructor.
     public Skyscraper()
-    {
-        stringName = "Casino";
+    {   
+        spritePath = "Sprites/skyscrape4k";
+        stringName = "Skyscraper";
         cost = 1200;
         availableJobs = 5;
         resources["cash"].delta = 100;

@@ -5,8 +5,13 @@
  - Stress level chart
  - Velocity graph
 
-#### Stress level chart:
+#### KPIs:
+##### Stress level chart:
 https://docs.google.com/spreadsheets/d/1tXrL9Xd21T3qF35FfCNarQxXtMcsfeQB5bVynxjnl0o/edit#gid=0
+##### Burndown chart:
+https://dat257.atlassian.net/secure/RapidBoard.jspa?rapidView=1&projectKey=CSG&view=reporting&chart=burndownChart
+##### Velocity chart:
+https://dat257.atlassian.net/secure/RapidBoard.jspa?projectKey=CSG&rapidView=1&view=reporting&chart=velocityChart
 
 #### JIRA Board:
 https://dat257.atlassian.net/secure/RapidBoard.jspa

@@ -5,6 +5,11 @@ using UnityEngine.Tilemaps;
 
 public class Grass : Cell
 {
+    public Grass()
+    {
+        spritePath = "Sprites/Grass4k";
+    }
+
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
         tileData.gameObject = Resources.Load<GameObject>("Prefabs/Basic/Grass");

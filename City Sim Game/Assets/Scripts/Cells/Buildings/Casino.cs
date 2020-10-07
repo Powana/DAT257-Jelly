@@ -9,6 +9,7 @@ public class Casino : Building
     // Building-specific stats are set in the constructor.
     public Casino()
     {
+        spritePath = "Sprites/Casino4k";
         stringName = "Casino";
         cost = 1200;
         availableJobs = 5;
