@@ -60,16 +60,7 @@ public class ResourceManager
 
     }
 
-	public bool CheckSettlementCanBuild()
-    {
-		int peopleInSettlements = peopleInSettlement * resources["settlement"].value; ;
-		int population = resources["population"].value;
-		if((population - peopleInSettlements) > 5)
-        {
-			return true;
-        }
-		return false;
-    }
+	
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
