@@ -9,6 +9,7 @@ public class ResourceManager
 {
 	// Dictionary representing all resources and their deltas.
 	public Dictionary<string, Resource> resources;
+	int peopleInSettlement = 5;
 
 	// Initializes resource dictionary.
 	public ResourceManager()
@@ -17,7 +18,7 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers", "lake"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake","settlement"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
@@ -27,6 +28,8 @@ public class ResourceManager
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
 		resources["food"].value = 100;
+		resources["settlement"].value = 2;
+		
 
 	}
 
@@ -51,11 +54,21 @@ public class ResourceManager
 		int foodLeft = resources["food"].value - resources["population"].value * 5;
 		if (foodLeft >= 5)
         {
-			
 				resources["population"].delta += 1;
             
 		}
 
+    }
+
+	public bool CheckSettlementCanBuild()
+    {
+		int peopleInSettlements = peopleInSettlement * resources["settlement"].value; ;
+		int population = resources["population"].value;
+		if((population - peopleInSettlements) > 5)
+        {
+			return true;
+        }
+		return false;
     }
 
 	// Purchases the given cell by subtracting cost from current cash and
