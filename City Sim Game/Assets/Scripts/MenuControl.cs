@@ -7,9 +7,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour
 {
-   
+    public Map map;
+    public PlayerProfile player;
     public void ButtonStart()
     {
+        
+        SceneManager.LoadScene(1);
+        player = new PlayerProfile("name", map.GetManager());
+
+    }
+
+    public void ButtonLoad()
+    {
+        player = SaveData.Load();
         SceneManager.LoadScene(1);
     }
 
@@ -23,4 +33,4 @@ public class MenuControl : MonoBehaviour
         Application.Quit();
     }
 
-}
+}   

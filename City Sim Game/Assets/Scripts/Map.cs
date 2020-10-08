@@ -374,4 +374,8 @@ public class Map : MonoBehaviour
 		messages.GetComponent<Message>().Info(message);
 	}
 
+	public ResourceManager GetManager()
+    {
+		return resourceManager;
+    }
 }
