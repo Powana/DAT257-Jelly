@@ -54,9 +54,12 @@ public class Map : MonoBehaviour
 	Vector2 mousePosition;
 	Vector3Int gridPosition;
 
-	// Instantiates the base tiles and fills the tiles dictionary.
-	void Start()
+    bool firstFrame = true;
+    // Instantiates the base tiles and fills the tiles dictionary.
+    void Start()
 	{
+       
+
 		// Nothing held by default.
 		held = null;
 
@@ -94,6 +97,7 @@ public class Map : MonoBehaviour
 
 		// Generate water.
 		GenerateLake();
+
 	}
 
 	void GenerateMap()
@@ -133,6 +137,15 @@ public class Map : MonoBehaviour
 
 	}
 
+    void GenerateRoad()
+    {
+        for (int i = 0; i < width; i++)
+        {
+            Vector3Int pos = new Vector3Int(1, i, 0);
+            SwapCell<Road>(pos);
+        }
+    }
+
 	//Checks how many surrounding blocks are T
 	public static int GetSurroundingWallCount<T>(Tilemap tilemap, int x, int y) where T: Cell
 	{
@@ -170,9 +183,19 @@ public class Map : MonoBehaviour
 		return GetSurroundingWallCount<T>(this.map, x, y);
 	}
 
-
+    
 	void Update()
 	{
+        // Todo: Find a better solution?
+        // Generate starting road after Start() because GameObjects associated with tiles are instantiated after Start(), and the object needs to be instantiated for tiles to connect.
+        if (firstFrame)
+        {
+            GenerateRoad();
+            firstFrame = false;
+        }
+
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
 		gridPosition = getGridPosition();
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
