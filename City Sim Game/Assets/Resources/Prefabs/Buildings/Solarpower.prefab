@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3148063486300707297}
   - component: {fileID: 2958296904485697103}
   m_Layer: 0
-  m_Name: Sol
+  m_Name: Solarpower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
