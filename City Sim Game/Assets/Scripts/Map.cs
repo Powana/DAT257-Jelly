@@ -378,4 +378,9 @@ public class Map : MonoBehaviour
     {
 		return resourceManager;
     }
+
+	public Dictionary<(int, int), Cell> GetTiles()
+    {
+		return tiles;
+    }
 }

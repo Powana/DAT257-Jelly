@@ -13,13 +13,13 @@ public class MenuControl : MonoBehaviour
     {
         
         SceneManager.LoadScene(1);
-        player = new PlayerProfile("name", map.GetManager());
+        //player = new PlayerProfile("name", map.GetManager());
 
     }
 
     public void ButtonLoad()
     {
-        player = SaveData.Load();
+        //player = SaveData.Load();
         SceneManager.LoadScene(1);
     }
 
