@@ -33,14 +33,17 @@ public class PropertiesBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Receive cliked tile from map if it is a building
-        // open the panel
-        clickedTile = map.SendCell();
-        if(clickedTile is Building)
-        {
-            showInformation();
+        // Only check for clicked tile if the mouse has been clicked
+        if (Input.GetMouseButtonDown(0)) { 
+            // Receive clicked tile from map if it is a building
+            // open the panel
+            clickedTile = map.SendCell();
+            if(clickedTile is Building)
+            {
+                showInformation();
+            }
         }
-      
+
     }
     
     // Close the panel and clear all text fields.

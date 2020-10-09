@@ -5,32 +5,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class Message : MonoBehaviour
+public class MessageManager : MonoBehaviour
 {
 	// Prefab representing a neutral message.
-	public GameObject prefab;
+	public static GameObject prefab;
 
 	// List of gameobjects currently on-screen.
-	private List<GameObject> messages = new List<GameObject>();
+	private static List<GameObject> messages = new List<GameObject>();
 
 	// Number of gameobjects currently on-screen.
-	private int counter = 0;
+	private static int counter = 0;
 
-	public void Warn(string message)
+    public void Awake()
+    {
+        prefab = Resources.Load<GameObject>("Prefabs/GenericMessage");
+    }
+
+	public static void Warn(string message)
 	{
-		GameObject ob = Instantiate<GameObject>(prefab, transform);
+		GameObject ob = Instantiate<GameObject>(prefab);
+        ob.transform.parent = GameObject.FindGameObjectWithTag("CANVAS").transform;
 		Render(ob, message);
 	}
 
-	public void Info(string message)
+	public static void Info(string message)
 	{
-		GameObject ob = Instantiate<GameObject>(prefab, transform);
+		GameObject ob = Instantiate<GameObject>(prefab);
 		ob.GetComponent<Image>().color = Color.white;
 		Render(ob, message);
 	}
 
 	// Render given gameobject with specified message.
-	public void Render(GameObject ob, string message)
+	public static void Render(GameObject ob, string message)
 	{
 		// Append to list.
 		messages.Add(ob);
@@ -54,7 +60,7 @@ public class Message : MonoBehaviour
 
 	// Destroys specified object and removes it from messages list and close the
 	// gap between panels.
-	public void Pull(GameObject ob)
+	public static void Pull(GameObject ob)
 	{
 		int index = messages.IndexOf(ob);
 		int count = messages.Count();

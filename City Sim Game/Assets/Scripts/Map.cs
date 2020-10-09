@@ -98,9 +98,11 @@ public class Map : MonoBehaviour
 		// Generate water.
 		GenerateLake();
 
-	}
+        // Generate starting road
+        GenerateRoad();
+    }
 
-	void GenerateMap()
+    void GenerateMap()
 	{
 		// Iterate columns.
 		for (int x = 0; x < width; x++)
@@ -186,13 +188,6 @@ public class Map : MonoBehaviour
     
 	void Update()
 	{
-        // Todo: Find a better solution?
-        // Generate starting road after Start() because GameObjects associated with tiles are instantiated after Start(), and the object needs to be instantiated for tiles to connect.
-        if (firstFrame)
-        {
-            GenerateRoad();
-            firstFrame = false;
-        }
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -200,15 +195,13 @@ public class Map : MonoBehaviour
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
 		// Handle mouse clicks on the map.
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButton(0)) {
 			// Fetch clicked tile, if any.
 			clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
 				return;
-			} else {
-				//
 			}
 
 			// If user is holding a cell (from the shop)
@@ -216,6 +209,11 @@ public class Map : MonoBehaviour
 				objectPlacement();
 			}
 		}
+
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
 
 		// Testing purposes. Sell when middle click.
 		if (Input.GetMouseButtonDown(2)) {
@@ -239,7 +237,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
-		// Debug.Log(resourceManager.ToString());
+		Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
@@ -264,21 +262,10 @@ public class Map : MonoBehaviour
 		Sell(new Vector3Int(x, y, 0));
 	}
 
-	// Purchases and adds cell of specified type at given position.
-	private void Purchase<T>(Vector3Int pos) where T : Cell
-	{
-		resourceManager.Purchase(AddCell<T>(pos));
-	}
-
-	private void Purchase<T>(int x, int y) where T : Cell
-	{
-		Purchase<T>(new Vector3Int(x, y, 0));
-	}
-
 	// Purchases specified cell at given position.
-	private void Purchase(Cell cell, int x, int y)
+	private bool tryPurchase(Cell cell)
 	{
-		resourceManager.Purchase(AddCell(cell,x,y));
+        return resourceManager.tryPurchase(cell);
 	}
 
 	// Instantiates the given cell on the given position.
@@ -351,6 +338,7 @@ public class Map : MonoBehaviour
 	{
 		return GetCell(pos.x, pos.y);
 	}
+
 	public void grabCell(string cellName)
 	{
 		held = availableCells[cellName];
@@ -368,34 +356,23 @@ public class Map : MonoBehaviour
 		return gridPosition;
 	}
 
-
-	// This method is responsible for placing the objects.
-	private void objectPlacement()
-	{
-		// Check if the cell allows for placement at gridposition
-		if (held.validPosition(map, gridPosition.x, gridPosition.y))
-		{
-			Sell(gridPosition);
-			Purchase(held, gridPosition.x, gridPosition.y);
-			held = null;
-		}
-		else
-		{
-			Warn("Invalid placement!");
-		}
-
-
-	}
-
-	public void Warn(string message)
-	{
-		messages.GetComponent<Message>().Warn(message);
-	}
-
-	public void Info(string message)
-	{
-		messages.GetComponent<Message>().Info(message);
-	}
+    // This method is responsible for placing the objects.
+    private void objectPlacement()
+    {
+        // Check if the cell allows for placement at gridposition
+        if (held.validPosition(map, gridPosition.x, gridPosition.y))
+        {
+            if (tryPurchase(held))
+            {
+                Sell(gridPosition);
+                AddCell(held, gridPosition.x, gridPosition.y);
+            }
+        }
+        else
+        {
+            MessageManager.Warn("Invalid placement!");
+        }
+    }
 
 	public ResourceManager GetManager()
     {

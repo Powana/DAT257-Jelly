@@ -22,7 +22,7 @@ public class ResourceManager
 		}
 
 		// Start with some cash and lake health.
-		resources["cash"].value = 10000;
+		resources["cash"].value = 1;
 		resources["lake"].value = 100000;
 	}
 
@@ -40,8 +40,14 @@ public class ResourceManager
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
-	public void Purchase(Cell cell)
+	public bool tryPurchase(Cell cell)
 	{
+        if (resources["cash"].value - cell.cost < 0)
+        {
+            MessageManager.Warn("Not enough cash!");
+            return false;
+        }
+
 		// Subtract cost.
 		resources["cash"].value -= cell.cost;
 
@@ -54,6 +60,7 @@ public class ResourceManager
 		// default.
 		if (cell.availableJobs == 0)
 			Diff(cell.HireWorkers(0));
+        return true;
 	}
 
 	public void Diff(Dictionary<string, Resource> diffs)
