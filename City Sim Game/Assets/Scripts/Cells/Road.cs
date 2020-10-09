@@ -42,6 +42,9 @@ public class Road : Cell
         // Sprite renderer for the switchable top part of the road.
         SpriteRenderer roadSpriteR = go.GetComponent<SpriteRenderer>();
 
+        // Hack for off positioned sprites, this sucks but I can't find the root of the issue
+        go.transform.Translate(new Vector3(-1, 0.625f));
+
         // Check surrounding tiles for connecting roads
         bool north = tilemap.GetTile(position + new Vector3Int(1, 0, 0)) is Road;
         bool east = tilemap.GetTile(position + new Vector3Int(0, -1, 0)) is Road;
