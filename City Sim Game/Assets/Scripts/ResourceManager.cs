@@ -49,15 +49,23 @@ public class ResourceManager
 	}
 
 	public void PopulationGrowth()
-    {
-		int foodLeft = resources["food"].value - resources["population"].value * 5;
+	{
+		int foodConsuming = resources["population"].value * 5;
+		int foodLeft = resources["food"].value - foodConsuming;
+		
 		if (foodLeft >= 5)
         {
 				resources["population"].delta += 1;
             
 		}
+		float tmp = foodConsuming / resources["food"].value;
+		if(tmp > 1.5)
+        {
+			resources["population"].delta -= 1;
 
-    }
+		}
+
+	}
 
 	public void AddSettlement()
 	{
