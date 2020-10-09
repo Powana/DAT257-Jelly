@@ -23,7 +23,28 @@ public class Road : Cell
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
     {
-        string spritePath = "";
+
+        // Check surrounding tiles for connecting roads
+        string north = tilemap.GetTile(position + new Vector3Int(1, 0, 0)) is Road ? "N" : "";
+        string east = tilemap.GetTile(position + new Vector3Int(0, -1, 0)) is Road ? "E" : "";
+        string south = tilemap.GetTile(position + new Vector3Int(-1, 0, 0)) is Road ? "S" : "";
+        string west = tilemap.GetTile(position + new Vector3Int(0, 1, 0)) is Road ? "W" : "";
+
+        string spritePath = north + east + south + west;
+        spritePath = spritePath == "" ? "none" : spritePath;
+
+        tileData.sprite = Resources.Load<Sprite>("Sprites/roads/road_" + spritePath);
+    }
+
+    public override bool validPosition(Tilemap tilemap, Vector3Int pos)
+    {
+        if (tilemap.GetTile(pos) is Grass) return true;
+        return false;
+    }
+
+    /*
+     * Old getTileData:
+     string spritePath = "";
 
         // Get a reference to the already instaiated object if one exists, this is the case when this tile is being updated as a result of a neighbouring update
         GameObject go = tilemap.GetComponent<Tilemap>().GetInstantiatedObject(position);
@@ -43,7 +64,7 @@ public class Road : Cell
         SpriteRenderer roadSpriteR = go.GetComponent<SpriteRenderer>();
 
         // Hack for off positioned sprites, this sucks but I can't find the root of the issue
-        go.transform.Translate(new Vector3(-1, 0.625f));
+        // go.transform.Translate(new Vector3(-1, 0.625f));
 
         // Check surrounding tiles for connecting roads
         bool north = tilemap.GetTile(position + new Vector3Int(1, 0, 0)) is Road;
@@ -52,7 +73,7 @@ public class Road : Cell
         bool west = tilemap.GetTile(position + new Vector3Int(0, 1, 0)) is Road;
 
         bool[] connected = { north, east, south, west };
-
+        // TODO: Just fucking redo it with a sprite for each possibilty
         roadSpriteR.flipX = false;
         roadSpriteR.flipY = false;
 
@@ -113,12 +134,7 @@ public class Road : Cell
                 spritePath = "road__tile_NESW";
                 break;
         }
-        roadSpriteR.sprite = Resources.Load<Sprite>("Sprites/roads/" + spritePath);
-    }
-
-    public override bool validPosition(Tilemap tilemap, Vector3Int pos)
-    {
-        if (tilemap.GetTile(pos) is Grass) return true;
-        return false;
-    }
+        roadSpriteR.sprite = Resources.Load<Sprite>("Sprites/roads/" + "road_NS");
+        //tileData.sprite = Resources.Load<Sprite>("Sprites/farm4k");
+     */
 }
