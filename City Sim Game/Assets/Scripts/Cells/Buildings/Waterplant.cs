@@ -9,6 +9,7 @@ public class Waterplant : Waterbuilding
     // Building-specific stats are set in the constructor.
     public Waterplant()
     {
+        spritePath = "Sprites/Waterplant4k";
         stringName = "Waterplant";
         cost = 35000;
         resources["cash"].upkeep = 2;

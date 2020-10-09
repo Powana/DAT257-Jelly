@@ -9,6 +9,7 @@ public class Fishingboats : Waterbuilding
     // Building-specific stats are set in the constructor.
     public Fishingboats()
     {
+        spritePath = "Sprites/Fishboats4k";
         stringName = "Fishingboats";
         cost = 30000;
         resources["cash"].upkeep = 2;

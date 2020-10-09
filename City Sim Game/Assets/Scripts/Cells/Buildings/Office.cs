@@ -9,7 +9,8 @@ public class Office : Building
 	// Building-specific stats are set in the constructor.
 	public Office()
 	{
-		stringName = "Residential";
+		spritePath = "Sprites/Office4k";
+		stringName = "Office";
 		cost = 1000;
 		availableJobs = 5;
 		resources["cash"].delta = 100;

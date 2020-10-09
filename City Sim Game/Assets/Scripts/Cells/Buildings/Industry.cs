@@ -9,6 +9,7 @@ public class Industry : Building
 	// Building-specific stats are set in the constructor.
 	public Industry()
 	{
+		spritePath = "Sprites/Industry4k";
 		stringName = "Industry";
 		cost = 100;
 		resources["cash"].upkeep = 1;

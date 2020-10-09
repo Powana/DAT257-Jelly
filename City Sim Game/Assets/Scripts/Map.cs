@@ -88,6 +88,8 @@ public class Map : MonoBehaviour
 		availableCells.Add("Fishingboats", ScriptableObject.CreateInstance<Fishingboats>());
 		availableCells.Add("Skyscraper", ScriptableObject.CreateInstance<Skyscraper>());
 		availableCells.Add("Beccs", ScriptableObject.CreateInstance<Beccs>());
+		availableCells.Add("Biomass", ScriptableObject.CreateInstance<Biomass>());
+		availableCells.Add("Coal", ScriptableObject.CreateInstance<Coal>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
 
 		// Generate grass.
@@ -193,8 +195,8 @@ public class Map : MonoBehaviour
         }
 
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		gridPosition = map.WorldToCell(mousePosition);
 
+		gridPosition = getGridPosition();
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
 		// Handle mouse clicks on the map.
@@ -219,6 +221,12 @@ public class Map : MonoBehaviour
 		if (Input.GetMouseButtonDown(2)) {
 			Sell(gridPosition);
 			AddCell<Grass>(gridPosition);
+		}
+		
+		// Release an object from your feeble grasp with right mouse button
+		if (Input.GetMouseButtonDown(1))
+		{
+			held = null;
 		}
 
 		// Call tick every period.
@@ -346,6 +354,18 @@ public class Map : MonoBehaviour
 	public void grabCell(string cellName)
 	{
 		held = availableCells[cellName];
+	}
+
+	public Cell getHeld()
+	{
+		return held;
+	}
+
+	public Vector3Int getGridPosition()
+	{
+		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		gridPosition = map.WorldToCell(mousePosition);
+		return gridPosition;
 	}
 
 

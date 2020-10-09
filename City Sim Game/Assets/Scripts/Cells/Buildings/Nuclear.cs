@@ -9,6 +9,7 @@ public class Nuclear : Building
     // Building-specific stats are set in the constructor.
     public Nuclear()
     {
+        spritePath = "Sprites/Nuclear4k";
         stringName = "Nuclear";
         cost = 100000;
         availableJobs = 8;

@@ -10,6 +10,7 @@ public abstract class Cell : Tile
 	public Dictionary<string, Resource> resources;
 	public int availableJobs = 0;
 	public int takenJobs = 0;
+	protected string spritePath;
 
 	// Initialize resources dictionary.
 	protected Cell()
@@ -21,6 +22,7 @@ public abstract class Cell : Tile
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
+		spritePath=null;
 	}
 
 	// Check if the given position is valid for cell placement
@@ -84,4 +86,12 @@ public abstract class Cell : Tile
     {
 		return cost;
     }
+
+	public string getSpritePath(){
+		//Returns a neutral grasssprite if path is not defined
+		if(spritePath==null){
+			return "Sprites/Grass4k";
+		}
+			return spritePath;
+	}
 }
