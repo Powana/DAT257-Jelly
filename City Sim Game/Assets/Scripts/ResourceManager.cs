@@ -9,7 +9,6 @@ public class ResourceManager
 {
 	// Dictionary representing all resources and their deltas.
 	public Dictionary<string, Resource> resources;
-	int peopleInSettlement = 5;
 
 	// Initializes resource dictionary.
 	public ResourceManager()
@@ -28,7 +27,7 @@ public class ResourceManager
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
 		resources["food"].value = 100;
-		resources["settlement"].value = 2;
+		resources["settlement"].value = 0;
 		
 
 	}
@@ -60,7 +59,12 @@ public class ResourceManager
 
     }
 
-	
+	public void AddSettlement()
+	{
+		resources["settlement"].delta += 1;
+	}
+
+
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
