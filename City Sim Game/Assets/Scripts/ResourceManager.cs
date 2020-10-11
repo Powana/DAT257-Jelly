@@ -22,7 +22,7 @@ public class ResourceManager
 		}
 
 		// Start with some cash and lake health.
-		resources["cash"].value = 1;
+		resources["cash"].value = 100000;
 		resources["lake"].value = 100000;
 	}
 
@@ -36,17 +36,23 @@ public class ResourceManager
 
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
+
+		// If lake had no health left, exit the game.
+		if (resources["lake"].value <= 0) {
+			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
+			Application.Quit();
+		}
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
 	public bool tryPurchase(Cell cell)
 	{
-        if (resources["cash"].value - cell.cost < 0)
-        {
-            MessageManager.Warn("Not enough cash!");
-            return false;
-        }
+		if (resources["cash"].value - cell.cost < 0)
+		{
+			MessageManager.Warn("Not enough cash!");
+			return false;
+		}
 
 		// Subtract cost.
 		resources["cash"].value -= cell.cost;
@@ -60,7 +66,7 @@ public class ResourceManager
 		// default.
 		if (cell.availableJobs == 0)
 			Diff(cell.HireWorkers(0));
-        return true;
+		return true;
 	}
 
 	public void Diff(Dictionary<string, Resource> diffs)
