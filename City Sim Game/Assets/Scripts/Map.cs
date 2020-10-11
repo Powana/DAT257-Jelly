@@ -91,6 +91,7 @@ public class Map : MonoBehaviour
 		availableCells.Add("Biomass", ScriptableObject.CreateInstance<Biomass>());
 		availableCells.Add("Coal", ScriptableObject.CreateInstance<Coal>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
+		availableCells.Add("Mall", ScriptableObject.CreateInstance<Mall>());
 
 		// Generate grass.
 		GenerateMap();
