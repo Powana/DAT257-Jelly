@@ -15,7 +15,7 @@ public class Farm : Building
 		availableJobs = 6;
 		resources["cash"].delta = 100;
 		resources["cash"].upkeep = 10;
-		resources["pollution"].delta = -3;
+		resources["pollution"].upkeep = -3;
 		resources["energy"].delta = -4;
 		resources["food"].delta = 8;
 	}

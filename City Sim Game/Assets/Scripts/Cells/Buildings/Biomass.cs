@@ -15,7 +15,7 @@ public class Biomass : Building
         availableJobs = 5;
         resources["cash"].delta = 100;
         resources["cash"].upkeep = 10;
-        resources["pollution"].delta = -2;
+        resources["pollution"].upkeep = -2;
         resources["energy"].delta = -4;
         resources["food"].delta = -5;
     
