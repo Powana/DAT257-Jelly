@@ -10,7 +10,7 @@ public abstract class Cell : Tile
 	public Dictionary<string, Resource> resources;
 	public int availableJobs = 0;
 	public int takenJobs = 0;
-	protected string spritePath;
+	public string spritePath;
 
 	// Initialize resources dictionary.
 	protected Cell()
