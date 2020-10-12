@@ -36,10 +36,7 @@ public class ResourceManager
 	public void Tick()
 	{
 		// Here food change depending on population consuming which is 5 food for every person 
-		if (resources["food"].value > 0)
-		{
-			resources["food"].value -= resources["population"].value * 5;
-		}
+		resources["food"].value -= resources["population"].value * 5;
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources)
 		{
@@ -56,7 +53,6 @@ public class ResourceManager
 			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
 			Application.Quit();
 
-
 		}
 	}
 	// This method check the conditions for population growth 
@@ -71,7 +67,7 @@ public class ResourceManager
             
 		}
 		float tmp = foodConsuming / resources["food"].value;
-		if(tmp < 1.5 )
+		if(tmp > 1.5)
         {
 			resources["population"].value -= 1;
 
