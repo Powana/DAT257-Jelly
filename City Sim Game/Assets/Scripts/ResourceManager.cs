@@ -36,7 +36,7 @@ public class ResourceManager
 	public void Tick()
 	{
 		// Here food change depending on population consuming which is 5 food for every person 
-		resources["food"].delta -= resources["population"].value * 5;
+		resources["food"].value -= resources["population"].value * 5;
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
