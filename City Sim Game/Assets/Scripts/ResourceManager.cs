@@ -36,7 +36,10 @@ public class ResourceManager
 	public void Tick()
 	{
 		// Here food change depending on population consuming which is 5 food for every person 
-		resources["food"].value -= resources["population"].value * 5;
+		if (resources["food"].value > 0)
+		{
+			resources["food"].value -= resources["population"].value * 5;
+		}
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources)
 		{
@@ -67,12 +70,14 @@ public class ResourceManager
             
 		}
 		float tmp = foodConsuming / resources["food"].value;
-		if(tmp > 1.5)
-        {
-			resources["population"].value -= 1;
+		if (resources["population"].value > 0)
+		{
+			if (tmp < 1.5)
+			{
+				resources["population"].value -= 1;
 
+			}
 		}
-
 	}
 
 	// This will add one  Settlement  to the resources
