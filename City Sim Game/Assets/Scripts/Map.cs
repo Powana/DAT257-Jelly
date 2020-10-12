@@ -30,7 +30,7 @@ public class Map : MonoBehaviour
 	private Tilemap map;
 
 	// Manager of resources.
-	private ResourceManager resourceManager;
+	public static ResourceManager resourceManager;
 
 	// Canvas
 	public Canvas messages;
@@ -50,8 +50,11 @@ public class Map : MonoBehaviour
 	// Time between ticks.
 	private float period = 1f;
 
-	// Position of mouse in world and on grid.
-	Vector2 mousePosition;
+    // Used to make sure warnings arent spammed each frame
+    private Vector3Int prevWarnedCellPos;
+
+    // Position of mouse in world and on grid.
+    Vector2 mousePosition;
 	Vector3Int gridPosition;
 
     bool firstFrame = true;
@@ -92,9 +95,10 @@ public class Map : MonoBehaviour
 		availableCells.Add("Coal", ScriptableObject.CreateInstance<Coal>());
 		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
 		availableCells.Add("Mall", ScriptableObject.CreateInstance<Mall>());
+		availableCells.Add("Greenliving", ScriptableObject.CreateInstance<Greenliving>());
 
-		// Generate grass.
-		GenerateMap();
+        // Generate grass.
+        GenerateMap();
 
 		// Generate water.
 		GenerateLake();
@@ -368,10 +372,6 @@ public class Map : MonoBehaviour
                 Sell(gridPosition);
                 AddCell(held, gridPosition.x, gridPosition.y);
             }
-        }
-        else
-        {
-            MessageManager.Warn("Invalid placement!");
         }
     }
 
