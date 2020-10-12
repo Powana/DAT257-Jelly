@@ -38,7 +38,8 @@ public class ResourceManager
 		// Here food change depending on population consuming which is 5 food for every person 
 		resources["food"].value -= resources["population"].value * 5;
 		// Update resources depending on their upkeep/production.
-		foreach (KeyValuePair<string, Resource> pair in resources) {
+		foreach (KeyValuePair<string, Resource> pair in resources)
+		{
 			pair.Value.value += pair.Value.delta;
 		}
 
@@ -54,6 +55,7 @@ public class ResourceManager
 
 
 		}
+	}
 	// This method check the conditions for population growth 
 	public void PopulationGrowth()
 	{
@@ -73,16 +75,18 @@ public class ResourceManager
 		}
 
 	}
+
 	// This will add one  Settlement  to the resources
+	
 	public void AddSettlement()
 	{
 		resources["settlement"].delta += 1;
 
 
 		
-		}
-
 	}
+
+	
 
 
 
