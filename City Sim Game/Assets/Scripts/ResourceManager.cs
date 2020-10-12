@@ -46,9 +46,14 @@ public class ResourceManager
 
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
+		// If lake had no health left, exit the game.
+		if (resources["lake"].value <= 0)
+		{
+			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
+			Application.Quit();
 
-       
-	}
+
+		}
 	// This method check the conditions for population growth 
 	public void PopulationGrowth()
 	{
@@ -57,13 +62,13 @@ public class ResourceManager
 		
 		if (foodLeft >= 5)
         {
-				resources["population"].delta += 1;
+				resources["population"].value += 1;
             
 		}
 		float tmp = foodConsuming / resources["food"].value;
 		if(tmp > 1.5)
         {
-			resources["population"].delta -= 1;
+			resources["population"].value -= 1;
 
 		}
 
@@ -74,10 +79,7 @@ public class ResourceManager
 		resources["settlement"].delta += 1;
 
 
-		// If lake had no health left, exit the game.
-		if (resources["lake"].value <= 0) {
-			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
-			Application.Quit();
+		
 		}
 
 	}
