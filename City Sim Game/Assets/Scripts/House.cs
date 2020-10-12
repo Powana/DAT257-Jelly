@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 
+//This class is for making houses so people can live in 
 public class House
 {
     string house;

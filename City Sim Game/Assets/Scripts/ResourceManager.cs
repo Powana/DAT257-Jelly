@@ -35,6 +35,7 @@ public class ResourceManager
 	// Should be called by game loop every period.
 	public void Tick()
 	{
+		// Here food change depending on population consuming which is 5 food for every person 
 		resources["food"].delta -= resources["population"].value * 5;
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
@@ -47,7 +48,7 @@ public class ResourceManager
 		resources["lake"].delta = -resources["pollution"].value / 100;
        
 	}
-
+	// This method check the conditions for population growth 
 	public void PopulationGrowth()
 	{
 		int foodConsuming = resources["population"].value * 5;
@@ -66,7 +67,7 @@ public class ResourceManager
 		}
 
 	}
-
+	// This will add one  Settlement  to the resources
 	public void AddSettlement()
 	{
 		resources["settlement"].delta += 1;
