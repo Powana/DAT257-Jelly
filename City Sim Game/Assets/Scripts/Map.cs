@@ -18,8 +18,6 @@ public class Map : MonoBehaviour
 	// Container for tiles placed on this map.
 	private Dictionary<(int, int), Cell> tiles;
 
-	private Dictionary<string, Cell> availableCells;
-
 	// Currently held cell.
 	private Cell held;
 
@@ -72,30 +70,6 @@ public class Map : MonoBehaviour
 		// Initialize dictionary.
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
-
-		//Initialize and populate dictionary with available buildings
-		availableCells = new Dictionary<string, Cell>();
-
-		// TODO: Are there any side-effects of only using one instance for all tiles?
-		availableCells.Add("Park", ScriptableObject.CreateInstance<Park>());
-		availableCells.Add("Water", ScriptableObject.CreateInstance<Water>());
-		availableCells.Add("Farm", ScriptableObject.CreateInstance<Farm>());
-		availableCells.Add("Office", ScriptableObject.CreateInstance<Office>());
-		availableCells.Add("Industry", ScriptableObject.CreateInstance<Industry>());
-		availableCells.Add("Residential", ScriptableObject.CreateInstance<Residential>());
-		availableCells.Add("Casino", ScriptableObject.CreateInstance<Casino>());
-		availableCells.Add("Nuclear", ScriptableObject.CreateInstance<Nuclear>());
-		availableCells.Add("Waterplant", ScriptableObject.CreateInstance<Waterplant>());
-		availableCells.Add("Wind", ScriptableObject.CreateInstance<Wind>());
-		availableCells.Add("Solarpower", ScriptableObject.CreateInstance<Solarpower>());
-		availableCells.Add("Fishingboats", ScriptableObject.CreateInstance<Fishingboats>());
-		availableCells.Add("Skyscraper", ScriptableObject.CreateInstance<Skyscraper>());
-		availableCells.Add("Beccs", ScriptableObject.CreateInstance<Beccs>());
-		availableCells.Add("Biomass", ScriptableObject.CreateInstance<Biomass>());
-		availableCells.Add("Coal", ScriptableObject.CreateInstance<Coal>());
-		availableCells.Add("Road", ScriptableObject.CreateInstance<Road>());
-		availableCells.Add("Mall", ScriptableObject.CreateInstance<Mall>());
-		availableCells.Add("Greenliving", ScriptableObject.CreateInstance<Greenliving>());
 
         // Generate grass.
         GenerateMap();
@@ -346,7 +320,7 @@ public class Map : MonoBehaviour
 
 	public void grabCell(string cellName)
 	{
-		held = availableCells[cellName];
+		held = (Cell)ScriptableObject.CreateInstance(cellName);
 	}
 
 	public Cell getHeld()
