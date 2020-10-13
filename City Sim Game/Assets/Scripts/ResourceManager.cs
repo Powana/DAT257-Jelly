@@ -28,6 +28,7 @@ public class ResourceManager
 		resources["population"].value = 10;
 		resources["food"].value = 100000;
 		resources["settlement"].value = 0;
+		resources["pollution"].value = 0;		
 	}
 
 	// Should be called by game loop every period.
