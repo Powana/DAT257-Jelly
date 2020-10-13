@@ -86,10 +86,9 @@ public class ResourceManager
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
-	public bool tryPurchase(Cell cell)
+	public bool TryPurchase(Cell cell)
 	{
-		if (resources["cash"].value - cell.cost < 0)
-		{
+		if (resources["cash"].value - cell.cost < 0) {
 			MessageManager.Warn("Not enough cash!");
 			return false;
 		}

@@ -48,19 +48,17 @@ public class Map : MonoBehaviour
 	// Time between ticks.
 	private float period = 1f;
 
-    // Used to make sure warnings arent spammed each frame
-    private Vector3Int prevWarnedCellPos;
+	// Used to make sure warnings arent spammed each frame
+	private Vector3Int prevWarnedCellPos;
 
-    // Position of mouse in world and on grid.
-    Vector2 mousePosition;
+	// Position of mouse in world and on grid.
+	Vector2 mousePosition;
 	Vector3Int gridPosition;
 
-    bool firstFrame = true;
-    // Instantiates the base tiles and fills the tiles dictionary.
-    void Start()
+	bool firstFrame = true;
+	// Instantiates the base tiles and fills the tiles dictionary.
+	void Start()
 	{
-       
-
 		// Nothing held by default.
 		held = null;
 
@@ -71,24 +69,21 @@ public class Map : MonoBehaviour
 		tiles = new Dictionary<(int, int), Cell>();
 		map = GetComponent<Tilemap>();
 
-        // Generate grass.
-        GenerateMap();
+		// Generate grass.
+		GenerateMap();
 
 		// Generate water.
 		GenerateLake();
 
-        // Generate starting road
-        GenerateRoad();
-    }
+		// Generate starting road
+		GenerateRoad();
+	}
 
-    void GenerateMap()
+	void GenerateMap()
 	{
-		// Iterate columns.
-		for (int x = 0; x < width; x++)
-		{
-			//Iterate rows
-			for (int y = 0; y < height; y++)
-			{
+		// Generate grass
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
 				Grass tile = AddCell<Grass>(x, y) as Grass;
 			}
 		}
@@ -118,14 +113,14 @@ public class Map : MonoBehaviour
 
 	}
 
-    void GenerateRoad()
-    {
-        for (int i = 0; i < width; i++)
-        {
-            Vector3Int pos = new Vector3Int(1, i, 0);
-            SwapCell<Road>(pos);
-        }
-    }
+	void GenerateRoad()
+	{
+		for (int i = 0; i < width; i++)
+		{
+			Vector3Int pos = new Vector3Int(1, i, 0);
+			SwapCell<Road>(pos);
+		}
+	}
 
 	//Checks how many surrounding blocks are T
 	public static int GetSurroundingWallCount<T>(Tilemap tilemap, int x, int y) where T: Cell
@@ -149,7 +144,6 @@ public class Map : MonoBehaviour
 		if (tilemap.GetTile(new Vector3Int(x, y, 0) + new Vector3Int(0, 1, 0)) is T)
 			wallcount++;
 
-
 		// if we are not at the right of the map
 		// check the eastern tile
 		//	if (x != height) {
@@ -164,13 +158,12 @@ public class Map : MonoBehaviour
 		return GetSurroundingWallCount<T>(this.map, x, y);
 	}
 
-    
+
 	void Update()
 	{
+		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-		gridPosition = getGridPosition();
+		gridPosition = GetGridPosition();
 		Cell hoveredTile = map.GetTile<Cell>(gridPosition);
 
 		// Handle mouse clicks on the map.
@@ -185,21 +178,20 @@ public class Map : MonoBehaviour
 
 			// If user is holding a cell (from the shop)
 			if (held != null) {
-				objectPlacement();
+				ObjectPlacement();
 			}
 		}
 
-        if (Input.GetMouseButtonDown(0))
-        {
+		if (Input.GetMouseButtonDown(0)) {
 
-        }
+		}
 
 		// Testing purposes. Sell when middle click.
 		if (Input.GetMouseButtonDown(2)) {
 			Sell(gridPosition);
 			AddCell<Grass>(gridPosition);
 		}
-		
+
 		// Release an object from your feeble grasp with right mouse button
 		if (Input.GetMouseButtonDown(1))
 		{
@@ -222,9 +214,9 @@ public class Map : MonoBehaviour
 
 	// Returns the currently clicked Tile.
 	public Cell SendCell()
-    {
+	{
 		return clickedTile;
-    }
+	}
 
 	// Sells the cell at the given position.
 	private void Sell(Vector3Int pos)
@@ -241,10 +233,10 @@ public class Map : MonoBehaviour
 		Sell(new Vector3Int(x, y, 0));
 	}
 
-	// Purchases specified cell at given position.
-	private bool tryPurchase(Cell cell)
+	// Purchases specified cell at given position, if possible.
+	private bool TryPurchase(Cell cell)
 	{
-        return resourceManager.tryPurchase(cell);
+		return resourceManager.TryPurchase(cell);
 	}
 
 	// Instantiates the given cell on the given position.
@@ -328,34 +320,32 @@ public class Map : MonoBehaviour
 		return held;
 	}
 
-	public Vector3Int getGridPosition()
+	public Vector3Int GetGridPosition()
 	{
 		mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		gridPosition = map.WorldToCell(mousePosition);
 		return gridPosition;
 	}
 
-    // This method is responsible for placing the objects.
-    private void objectPlacement()
-    {
-        // Check if the cell allows for placement at gridposition
-        if (held.validPosition(map, gridPosition.x, gridPosition.y))
-        {
-            if (tryPurchase(held))
-            {
-                Sell(gridPosition);
-                AddCell(held, gridPosition.x, gridPosition.y);
-            }
-        }
-    }
+	// This method is responsible for placing the objects.
+	private void ObjectPlacement()
+	{
+		// Check if the cell allows for placement at gridposition
+		if (held.validPosition(map, gridPosition.x, gridPosition.y)) {
+			if (TryPurchase(held)) {
+				Sell(gridPosition);
+				AddCell(held, gridPosition.x, gridPosition.y);
+			}
+		}
+	}
 
 	public ResourceManager GetManager()
-    {
+	{
 		return resourceManager;
-    }
+	}
 
 	public Dictionary<(int, int), Cell> GetTiles()
-    {
+	{
 		return tiles;
-    }
+	}
 }
