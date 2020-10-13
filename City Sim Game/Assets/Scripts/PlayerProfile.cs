@@ -15,8 +15,8 @@ public class PlayerProfile
     private int _pollution;
     private int _workers;
     private int _lake;
-    private List<(int, int)> Positions;
-    private List<Cell> _value;
+    private List<(int, int)> _positions;
+    private List<Cell> _cell;
     private List<(int, int, int, string)> Cells;
     private List<Resource> Resources;
     private List<string> ResourceName;
@@ -26,7 +26,7 @@ public class PlayerProfile
 
     }
 
-    public PlayerProfile(string name, ResourceManager PlayerResources, List<(int, int)> _positions, List<(int, int, int, string)> _cells, List<string> _resourcename, List<Resource> _resources)
+    public PlayerProfile(string name, ResourceManager PlayerResources, List<(int, int)> _positions)
     {
         _name = name;
         _cash = PlayerResources.resources["cash"].value;
@@ -36,10 +36,9 @@ public class PlayerProfile
         _pollution = PlayerResources.resources["pollution"].value;
         _workers = PlayerResources.resources["workers"].value;
         _lake = PlayerResources.resources["lake"].value;
-        Positions = _positions;
-        Cells = _cells;
-        Resources = _resources;
-        ResourceName = _resourcename;
+        this._positions = _positions;
+        
+        
     }
 
     public string Name

@@ -13,21 +13,36 @@ public class SaveData : MonoBehaviour
     public Map map;
     private static string DATA_PATH = "/MyGame.dat";
     private static PlayerProfile player;
-    private List<(int, int)> positions;
-    private List<Cell> _tilecells;
+    
+
+    //Dictionaries to be saved
     private Dictionary<(int, int), Cell> _tiles;
     private Dictionary<string, Resource> _resources;
+    private ResourceManager _resourceManager;
     private List<(int, int, int, string)> CellsList;
-    private List<(int, int, string)> ResourcesList;
-    private List<string> ResourceNameList;
-    private List<Resource> CellResourcesList;
-    private Cell temp;
     
+   
+    //Breakdown for tiles dictionary in map
+    private List<(int, int)> PositionsList;
+    private List<Cell> TileCellsList;
+
+    //Breakdown for a cells
+    private Cell temp;
+    private List<Resource> CellResourcesList;
+    private List<(int, int, int, string)> CellData;
+    private List<string> res;
     // Start is called before the first frame update
     void Start()
     {
 
     }
+
+    private void AssignData()
+    {
+        _tiles = new Dictionary<(int, int), Cell>(map.GetTiles());
+        _resourceManager = map.GetManager();
+    }
+
 
     private void Update()
     {
@@ -36,12 +51,13 @@ public class SaveData : MonoBehaviour
     public void Save()
     {
         FileStream file = null;
-       
-        
+        AssignData();
+        OnBeforeSerialize();
+
         try
         {
-            OnBeforeSerialize();
-            PlayerProfile player = new PlayerProfile("name", map.GetManager(), positions, CellsList, ResourceNameList, CellResourcesList);
+            
+            PlayerProfile player = new PlayerProfile("name", _resourceManager, PositionsList);
             BinaryFormatter bf = new BinaryFormatter();
             file = File.Create(Application.persistentDataPath + DATA_PATH);
             bf.Serialize(file, player);
@@ -94,93 +110,36 @@ public class SaveData : MonoBehaviour
 
     public void OnBeforeSerialize()
     {
+        PositionsList = new List<(int, int)>();
+        TileCellsList = new List<Cell>();
         foreach(var kvp in map.GetTiles())
         {
-            positions.Add(kvp.Key);
-            _tilecells.Add(kvp.Value);
+            PositionsList.Add(kvp.Key);
+            TileCellsList.Add(kvp.Value);
         }
-        CellstoList(_tilecells);
-        
-        
+     
+    }
+
+    public void CellToList(List<Cell> cells)
+    {
+        CellData = new List<(int, int, int, string)>();
+        CellResourcesList = new List<Resource>();
+        res = new List<string>();
+        foreach(var c in cells)
+        {
+            CellData.Add((c.cost, c.availableJobs, c.takenJobs, c.spritePath));
+
+            foreach(var kvp in c.resources)
+            {
+                res.Add(kvp.Key);
+                CellResourcesList.Add(kvp.Value);
+            }
+        }
     }
 
     public void OnAfterDeserialize()
     {
         
-        ListToCell(CellsList, ResourceNameList, CellResourcesList);
-
-        _tiles = new Dictionary<(int, int), Cell>();
         
-        for(int i= 0; i != Math.Min(positions.Count, _tilecells.Count); i++)
-        {
-            _tiles.Add(positions[i], _tilecells[i]);
-        }
-    }
-
-    public void CellstoList(List<Cell> cell)
-    {
-
-        CellsList = new List<(int, int, int, string)>();
-        ResourceNameList = new List<string>();
-        CellResourcesList = new List<Resource>();
-
-        foreach (var i in cell)
-        {
-            int cost = i.cost;
-            int avalibleJobs = i.availableJobs;
-            int takenJobs = i.takenJobs;
-            string spritePath = i.getSpritePath();
-            CellsList.Add((cost, avalibleJobs, takenJobs, spritePath));
-
-            foreach (var kvp in i.resources)
-            {
-                ResourceNameList.Add(kvp.Key);
-                CellResourcesList.Add(kvp.Value);
-            }
-        }
-         
-    }
-    /*
-    public void ResourcesToList(List<Resource> resource)
-    {
-        ResourcesList.Clear();
-        foreach (var res in resource)
-        {
-            int value = res.value;
-            int delta = res.delta;
-            //int upkeep = res.upkeep;
-            string name = res.resource;
-            ResourcesList.Add((value, delta, name));
-        }
-    }*/
-    /*
-    public void ListToResource(List<(int, int, string)> resource)
-    {
-        CellResourcesList.Clear();
-        foreach(var i in resource)
-        {
-            Resource temp = new Resource(i.Item3, i.Item2, i.Item1);
-            CellResourcesList.Add(temp);
-        }
-
-    }*/
-
-    public void ListToCell(List<(int, int, int ,string)> Cell, List<string> ResourceName, List<Resource> CellResource)
-    {
-        foreach (var i in Cell)
-        {
-            temp.cost = i.Item1;
-            temp.availableJobs = i.Item2;
-            temp.takenJobs = i.Item3;
-            temp.spritePath = i.Item4;
-
-            for (int j = 0; j != Math.Min(ResourceName.Count, CellResource.Count); j++)
-            {
-                temp.resources.Add(ResourceName[j], CellResource[j]);
-            }
-
-            _tilecells.Add(temp);
-
-        }
     }
 }
