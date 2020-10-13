@@ -283,9 +283,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1970844798}
-        m_TargetAssemblyTypeName: LoadGamePanel, Assembly-CSharp
-        m_MethodName: closePanel
+      - m_Target: {fileID: 892586405}
+        m_TargetAssemblyTypeName: MenuControl, Assembly-CSharp
+        m_MethodName: ButtonLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -556,9 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4363991ad58fec43ac5cd620de0fd9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  panel: {fileID: 1970844798}
   CreditsPanel: {fileID: 1711846431}
+  LoadPanel: {fileID: 1970844796}
 --- !u!4 &892586406
 Transform:
   m_ObjectHideFlags: 0
@@ -1277,7 +1276,6 @@ GameObject:
   - component: {fileID: 1970844797}
   - component: {fileID: 1970844800}
   - component: {fileID: 1970844799}
-  - component: {fileID: 1970844798}
   m_Layer: 5
   m_Name: Load Game Panel
   m_TagString: Untagged
@@ -1306,19 +1304,6 @@ RectTransform:
   m_AnchoredPosition: {x: 2.7000122, y: 0}
   m_SizeDelta: {x: -378.2522, y: -408.8}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1970844798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970844796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8989e5cf45638074593cd94ec9d19a51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadPanel: {fileID: 1970844796}
 --- !u!114 &1970844799
 MonoBehaviour:
   m_ObjectHideFlags: 0
