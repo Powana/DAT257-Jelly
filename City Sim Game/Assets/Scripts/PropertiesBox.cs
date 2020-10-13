@@ -10,80 +10,90 @@ using UnityEngine.UI;
 
 public class PropertiesBox : MonoBehaviour
 {
+	public Map map;
+	public Text name;
+	public Text cost;
+	public Text reso;
+	public Text employees;
+	public GameObject propertiesPanel;
+	private Building current;
+	private Cell clickedTile;
+	private Dictionary<string, Resource> resources;
 
-    public Map map;
-    public Text name;
-    public Text cost;
-    public Text reso;
-    public Text employees;
-    public GameObject propertiesPanel;
-    private Cell clickedTile;
-    private Dictionary<string, Resource> resources;
-    
-    
+	// Start is called before the first frame update
+	void Start()
+	{
+		// Hide the panel at start
+		propertiesPanel.gameObject.SetActive(false);
+	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Hide the panel at start
-        propertiesPanel.gameObject.SetActive(false);
+	void Update()
+	{
+		// Only check for clicked tile if the mouse has been clicked
+		if (!propertiesPanel.activeInHierarchy && Input.GetMouseButtonDown(0)) {
+			// Receive clicked tile from map if it is a building
+			// open the panel
+			clickedTile = map.SendCell();
 
-    }
+			if(clickedTile is Building) {
+				ShowInformation();
+			}
+		} else if (Input.GetKeyDown("escape")) {
+			ClosePanel();
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Only check for clicked tile if the mouse has been clicked
-        if (Input.GetMouseButtonDown(0)) { 
-            // Receive clicked tile from map if it is a building
-            // open the panel
-            clickedTile = map.SendCell();
-            if(clickedTile is Building)
-            {
-                showInformation();
-            }
-        }
+	}
 
-    }
-    
-    // Close the panel and clear all text fields.
-    public void closePanel()
-    {
-        propertiesPanel.gameObject.SetActive(false);
-        name.text = "";
-        cost.text = "";
-        reso.text = "";
-        employees.text = "";
-    }
-    // Print information about the current building in the properties panel.
-    public void showInformation()
-    {
-        // Show the panel if it is already displayed
-        if (!propertiesPanel.activeInHierarchy)
-        {
-            propertiesPanel.gameObject.SetActive(true);
-            Building current = (Building)clickedTile;
-            name.text = current.getName();
-            cost.text = "Price:" + current.getCost().ToString();
-          
-            // Print all resources of the bulding.
-            foreach (KeyValuePair<string, Resource> kvp in current.resources)
-            {
-                reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
-            }
+	// Close the panel and clear all text fields.
+	public void ClosePanel()
+	{
+		propertiesPanel.gameObject.SetActive(false);
+		name.text = "";
+		cost.text = "";
+		reso.text = "";
+		employees.text = "";
+	}
 
-            employees.text = "Employees: \n" + current.resources["workers"].value.ToString() + "/" + current.availableJobs.ToString();
+	// Print information about the current building in the properties panel.
+	public void ShowInformation()
+	{
+		// Show the panel if it is already displayed
+		if (!propertiesPanel.activeInHierarchy) {
+			propertiesPanel.gameObject.SetActive(true);
+			current = (Building)clickedTile;
+			name.text = current.GetName();
+			cost.text = "Price:" + current.GetCost().ToString();
 
-        }
-    }
-    // Add employee to building
-    public void addEmployee()
-    {
-        clickedTile.HireWorkers(1);
-    }
-    // Remove employee to building
-    public void removeEmployee()
-    {
-        clickedTile.FireWorkers(1);
-    }
+			// Print all resources of the bulding.
+			foreach (KeyValuePair<string, Resource> kvp in current.resources) {
+				reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
+			}
+
+			UpdateInformation(current);
+		}
+	}
+
+	public void UpdateInformation(Building building)
+	{
+		employees.text = "Employees: \n" + building.resources["workers"].value.ToString() + "/" + building.availableJobs.ToString();
+	}
+
+	public void UpdateInformation()
+	{
+		UpdateInformation(current);
+	}
+
+	// Add employee to building
+	public void HireWorker()
+	{
+		Map.resourceManager.HireWorkers(clickedTile, 1);
+		UpdateInformation((Building)clickedTile);
+	}
+
+	// Remove employee to building
+	public void FireWorker()
+	{
+		Map.resourceManager.FireWorkers(clickedTile, 1);
+		UpdateInformation((Building)clickedTile);
+	}
 }

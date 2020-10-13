@@ -26,16 +26,14 @@ public class ResourceManager
 		resources["cash"].value = 100000;
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
-		resources["food"].value = 100;
+		resources["food"].value = 100000;
 		resources["settlement"].value = 0;
-		
-
 	}
 
 	// Should be called by game loop every period.
 	public void Tick()
 	{
-		// Here food change depending on population consuming which is 5 food for every person 
+		// Here food change depending on population consuming which is 5 food for every person
 		if (resources["food"].value > 0)
 		{
 			resources["food"].value -= resources["population"].value * 5;
@@ -58,16 +56,16 @@ public class ResourceManager
 
 		}
 	}
-	// This method check the conditions for population growth 
+	// This method check the conditions for population growth
 	public void PopulationGrowth()
 	{
 		int foodConsuming = resources["population"].value * 5;
 		int foodLeft = resources["food"].value - foodConsuming;
-		
+
 		if (foodLeft >= 5)
-        {
+		{
 				resources["population"].value += 1;
-            
+
 		}
 		float tmp = foodConsuming / resources["food"].value;
 		if (resources["population"].value > 0)
@@ -81,18 +79,10 @@ public class ResourceManager
 	}
 
 	// This will add one  Settlement  to the resources
-	
 	public void AddSettlement()
 	{
 		resources["settlement"].delta += 1;
-
-
-		
 	}
-
-	
-
-
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
@@ -158,6 +148,9 @@ public class ResourceManager
 
 	public void HireWorkers(Cell cell, int workers)
 	{
+		if (resources["workers"].value + workers > resources["population"].value)
+			throw new System.ArgumentException("No more workers are available!", "workers");
+
 		HireWorkers(cell, workers, cell.HireWorkers(workers));
 	}
 

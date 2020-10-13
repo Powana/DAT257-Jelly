@@ -82,10 +82,10 @@ public abstract class Cell : Tile
 		return HireWorkers(-workers, -1);
 	}
 
-	public int getCost()
-    {
+	public int GetCost()
+	{
 		return cost;
-    }
+	}
 
 	public string getSpritePath(){
 		//Returns a neutral grasssprite if path is not defined
