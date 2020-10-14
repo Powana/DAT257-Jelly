@@ -7,8 +7,16 @@ using UnityEngine.SceneManagement;
 
 public class MenuControl : MonoBehaviour
 {
-    public Map map;
-    public PlayerProfile player;
+    
+    public GameObject CreditsPanel;
+    public GameObject LoadPanel;
+
+    public void Start()
+    {
+        CreditsPanel.gameObject.SetActive(false);
+        LoadPanel.gameObject.SetActive(false);
+
+    }
     public void ButtonStart()
     {
         
@@ -19,13 +27,27 @@ public class MenuControl : MonoBehaviour
 
     public void ButtonLoad()
     {
-        //player = SaveData.Load();
-        SceneManager.LoadScene(1);
+        if (LoadPanel.gameObject.activeSelf)
+        {
+            LoadPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            LoadPanel.gameObject.SetActive(true);
+        }
     }
 
     public void ButtonCredits()
     {
-        SceneManager.LoadScene(2);
+        if(CreditsPanel.gameObject.activeSelf)
+        {
+            CreditsPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            CreditsPanel.gameObject.SetActive(true);
+        }
+        
     }
 
     public void ButtonQuit()

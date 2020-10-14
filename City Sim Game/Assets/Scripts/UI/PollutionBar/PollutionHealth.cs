@@ -5,53 +5,39 @@ using UnityEngine.UI;
 
 public class PollutionHealth : MonoBehaviour
 {	
-	public int maxHealth = 5000;
+	public int maxHealth;
 	public int currentHealth;
 	private float fillAmount;
 	public HealthBar pollutionBar;
 	public HealthBar waterBar;
 	
+	public static int maxHealthLake = 100000;
+	public static int maxHealthPollution = 100000; // 100k
+	
 	void Start() {
 		
+		pollutionBar.SetMaxHealth(maxHealthPollution);
+		waterBar.SetMaxHealth(Map.resourceManager.resources["lake"].value);		
 		// Start at full health (no pullution/full health lake)
 		currentHealth = maxHealth;
-		
-		// Set pollution/lake max slider value
-		// Placeholder, should send in resources.pollution/lake max value
-		pollutionBar.SetMaxHealth(maxHealth);
-		waterBar.SetMaxHealth(maxHealth);
 	}
 	
 	void Update() {
-		
-		// Placeholder for actual resource value
-		// Call on pollutionChange which contains resource.delta
-		// Placeholder decrease		
-		int pollutionDelta = 10;
-		if (Input.GetKeyDown(KeyCode.Q)) {
-			pollutionChange(-pollutionDelta);
-		} 
-		
-		// Placeholder increase
-		if (Input.GetKeyDown(KeyCode.E)) {
-			
-			pollutionChange(pollutionDelta);
-		}
-		
-		// Safeguard - can't exceed 100% (removes overflow)
-		if (currentHealth > maxHealth) {
-			currentHealth = maxHealth;
-		}
-	
+		pollutionChange();
 	}
 	
-	void pollutionChange (int deltaPollution) {
+	void pollutionChange () {
 		
-		// Input delta values from resource.pollution delta at tick
-		
-			currentHealth += deltaPollution;
+		// Input values at tick
+		int lakeHealth = Map.resourceManager.resources["lake"].value;
+		int pollutionDelta = Map.resourceManager.resources["pollution"].value;
 
-		pollutionBar.SetHealth(currentHealth);
-		waterBar.SetHealth(currentHealth);
+		pollutionBar.SetHealth((int)pollutionBar.slider.maxValue-pollutionDelta);
+		waterBar.SetHealth(lakeHealth);
+
+		// Safeguard - can't exceed 100% (removes overflow), write in ResourceManagers tick instead
+		/*if (waterBar.slider.MaxHealth) {
+			waterBar.SetHealth(lakeHealth) = waterBar.slider.MaxHealth;
+		}*/
 	}
 }
