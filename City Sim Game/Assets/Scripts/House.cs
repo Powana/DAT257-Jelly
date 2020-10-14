@@ -4,33 +4,35 @@ using System.Resources;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-//This class is for making houses so people can live in 
+//This class is for making houses so people can live in
 public class Greenliving : Building
 {
+	public Greenliving()
+	{
+		spritePath = "Sprites/greenliving4k";
+		stringName = "Green Living Complex";
+		cost = 2000;
 
-    public Greenliving()
-    {
-        spritePath = "Sprites/greenliving4k";
-        stringName = "Green Living Complex";
-        cost = 2000;
+		// Free residences
+		resources["residences"].value = 250;
 
-        Map.resourceManager.resources["settlements"].value += 250;
+		// Upkeep (costs per tick)
+		resources["cash"].upkeep = 10;
 
-        resources["cash"].upkeep = 10;
-        resources["pollution"].delta = 1;
-        resources["energy"].delta = -4;
+		// Total potential production if all job spots are filled.
+		resources["pollution"].delta = 1;
+		resources["energy"].delta = -4;
+	}
 
-    }
-    
-    // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
-    public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
-    {
-        tileData.gameObject = Resources.Load<GameObject>("Prefabs/Buildings/Greenliving");
-    }
+	// Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
+	public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
+	{
+		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Buildings/Greenliving");
+	}
 
-    // Refresh yourself
-    public override void RefreshTile(Vector3Int position, ITilemap tilemap)
-    {
-        tilemap.RefreshTile(position);
-    }
+	// Refresh yourself
+	public override void RefreshTile(Vector3Int position, ITilemap tilemap)
+	{
+		tilemap.RefreshTile(position);
+	}
 }

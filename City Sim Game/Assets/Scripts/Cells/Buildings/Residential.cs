@@ -12,9 +12,18 @@ public class Residential : Building
 		spritePath = "Sprites/Residential4k";
 		stringName = "Residential";
 		cost = 100;
+
+		// Available residences
+		resources["residences"].value = 250;
+
+		// Upkeep
 		resources["cash"].upkeep = 1;
 		resources["pollution"].upkeep = 1;
+
+		// Potential production
 		resources["food"].delta = 10;
+
+		// Jobs
 		availableJobs = 0;
 	}
 

@@ -17,7 +17,7 @@ public class ResourceManager
 
 		// Populate dictionary with resource entries.
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers", "lake","settlement"
+				"cash", "population", "food", "energy", "pollution", "workers", "lake", "residences", "residents"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
@@ -27,7 +27,7 @@ public class ResourceManager
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
 		resources["food"].value = 100000;
-		resources["settlement"].value = 0;
+		resources["residences"].value = 0;
 	}
 
 	// Should be called by game loop every period.
@@ -35,22 +35,33 @@ public class ResourceManager
 	{
 		// Here food change depending on population consuming which is 5 food for every person
 		if (resources["food"].value > 0)
-		{
 			resources["food"].value -= resources["population"].value * 5;
-		}
+
 		// Update resources depending on their upkeep/production.
-		foreach (KeyValuePair<string, Resource> pair in resources)
-		{
+		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
 
 		PopulationGrowth();
 
+		// Convenience
+		Resource population = resources["population"];
+		Resource residents  = resources["residents"];
+		Resource residences = resources["residences"];
+
+		// Fill available resident spots with population.
+		residents.value = population.value <= residences.value
+			// If population is less than or equal to amount of residences,
+			// all people have a residence.
+			? population.value
+			// If not, all spots are filled but some are homeless.
+			: residences.value;
+
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
+
 		// If lake had no health left, exit the game.
-		if (resources["lake"].value <= 0)
-		{
+		if (resources["lake"].value <= 0) {
 			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
 			Application.Quit();
 
@@ -62,26 +73,14 @@ public class ResourceManager
 		int foodConsuming = resources["population"].value * 5;
 		int foodLeft = resources["food"].value - foodConsuming;
 
-		if (foodLeft >= 5)
-		{
-				resources["population"].value += 1;
-
+		if (foodLeft >= 5) {
+			resources["population"].value += 1;
 		}
+
 		float tmp = foodConsuming / resources["food"].value;
-		if (resources["population"].value > 0)
-		{
-			if (tmp < 1.5)
-			{
-				resources["population"].value -= 1;
 
-			}
-		}
-	}
-
-	// This will add one  Settlement  to the resources
-	public void AddSettlement()
-	{
-		resources["settlement"].delta += 1;
+		if (resources["population"].value > 0 && tmp < 1.5)
+			resources["population"].value -= 1;
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
@@ -96,6 +95,9 @@ public class ResourceManager
 		// Subtract cost.
 		resources["cash"].value -= cell.cost;
 
+		// Add available residences.
+		resources["residences"].value += cell.resources["residences"].value;
+
 		// Update deltas for upkeep.
 		foreach (KeyValuePair<string, Resource> pair in cell.resources) {
 			resources[pair.Key].delta -= pair.Value.upkeep;
@@ -105,6 +107,7 @@ public class ResourceManager
 		// default.
 		if (cell.availableJobs == 0)
 			Diff(cell.HireWorkers(0));
+
 		return true;
 	}
 

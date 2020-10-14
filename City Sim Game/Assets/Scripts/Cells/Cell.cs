@@ -18,7 +18,7 @@ public abstract class Cell : Tile
 		resources = new Dictionary<string, Resource>();
 
 		foreach (string resource in new string[] {
-				"cash", "population", "food", "energy", "pollution", "workers"
+				"cash", "population", "food", "energy", "pollution", "workers", "residences"
 			}) {
 			resources.Add(resource, new Resource(resource));
 		}
