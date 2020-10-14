@@ -13,8 +13,12 @@ public class PropertiesBox : MonoBehaviour
 	public Map map;
 	public Text name;
 	public Text cost;
-	public Text reso;
+	public Text cash;
+	public Text food;
+	public Text energy;
+	public Text pollution;
 	public Text employees;
+	public Text residences;
 	public GameObject propertiesPanel;
 	private Building current;
 	private Cell clickedTile;
@@ -50,8 +54,12 @@ public class PropertiesBox : MonoBehaviour
 		propertiesPanel.gameObject.SetActive(false);
 		name.text = "";
 		cost.text = "";
-		reso.text = "";
+		cash.text = "";
+		food.text = "";
+		energy.text = "";
+		pollution.text = "";
 		employees.text = "";
+		residences.text = "";
 	}
 
 	// Print information about the current building in the properties panel.
@@ -63,11 +71,16 @@ public class PropertiesBox : MonoBehaviour
 			current = (Building)clickedTile;
 			name.text = current.GetName();
 			cost.text = "Price:" + current.GetCost().ToString();
+			cash.text = "Cash:" + current.resources["cash"].upkeep;
+			food.text = "Food:" + current.resources["food"].delta;
+			energy.text = "Energy:" + current.resources["energy"].delta;
+			pollution.text = "Pollution:" + current.resources["pollution"].upkeep;
 
-			// Print all resources of the bulding.
-			foreach (KeyValuePair<string, Resource> kvp in current.resources) {
-				reso.text += kvp.Key + ":" + kvp.Value.delta + "\n";
-			}
+			if(current is Residential)
+            {
+				residences.text = "Residences:" + current.resources["residences"].value;
+            }
+			
 
 			UpdateInformation(current);
 		}
