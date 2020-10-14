@@ -20,7 +20,7 @@ public class MenuControl : MonoBehaviour
     public void ButtonStart()
     {
         
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         //player = new PlayerProfile("name", map.GetManager());
 
     }
