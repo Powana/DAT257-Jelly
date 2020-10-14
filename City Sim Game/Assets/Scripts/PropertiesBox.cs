@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PropertiesBox : MonoBehaviour
@@ -33,8 +34,8 @@ public class PropertiesBox : MonoBehaviour
 
 	void Update()
 	{
-		// Only check for clicked tile if the mouse has been clicked
-		if (!propertiesPanel.activeInHierarchy && Input.GetMouseButtonDown(0)) {
+		// Only check for clicked tile if the mouse has been clicked and not on the UI
+		if (!propertiesPanel.activeInHierarchy && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			// Receive clicked tile from map if it is a building
 			// open the panel
 			clickedTile = map.SendCell();

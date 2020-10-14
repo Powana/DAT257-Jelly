@@ -55,7 +55,6 @@ public class Map : MonoBehaviour
 	Vector2 mousePosition;
 	Vector3Int gridPosition;
 
-	bool firstFrame = true;
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
@@ -168,8 +167,15 @@ public class Map : MonoBehaviour
 
 		// Handle mouse clicks on the map.
 		if (Input.GetMouseButton(0)) {
-			// Fetch clicked tile, if any.
-			clickedTile = hoveredTile;
+
+            // Clicked on the UI, so ignore the click and let menu handler handle it
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            // Fetch clicked tile, if any.
+            clickedTile = hoveredTile;
 
 			// If no tile is present, return.
 			if (clickedTile == null) {
