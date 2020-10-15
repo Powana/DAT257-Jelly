@@ -6,10 +6,15 @@ using UnityEngine.SceneManagement;
 
 public class InfoWindowControllar : MonoBehaviour
 {
-   
+
+    public AudioSource ClickSound;
+
+
+
+
 public void PlayButton()
     {
-
+        ClickSound.Play();
         SceneManager.LoadScene(1);
 
     }

@@ -10,7 +10,7 @@ public class MenuControl : MonoBehaviour
     
     public GameObject CreditsPanel;
     public GameObject LoadPanel;
-
+    public AudioSource ClickSound;
     public void Start()
     {
         CreditsPanel.gameObject.SetActive(false);
@@ -19,7 +19,7 @@ public class MenuControl : MonoBehaviour
     }
     public void ButtonStart()
     {
-        
+        ClickSound.Play();
         SceneManager.LoadScene(2);
         //player = new PlayerProfile("name", map.GetManager());
 
@@ -27,6 +27,8 @@ public class MenuControl : MonoBehaviour
 
     public void ButtonLoad()
     {
+        ClickSound.Play();
+
         if (LoadPanel.gameObject.activeSelf)
         {
             LoadPanel.gameObject.SetActive(false);
@@ -52,6 +54,7 @@ public class MenuControl : MonoBehaviour
 
     public void ButtonQuit()
     {
+        ClickSound.Play();
         Application.Quit();
     }
 
