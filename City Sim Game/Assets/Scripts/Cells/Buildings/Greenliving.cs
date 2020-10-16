@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 //This class is for making houses so people can live in
-public class House : Building
+public class Greenliving : Building
 {
-	public House()
+	public Greenliving()
 	{
-		spritePath = "";
-		stringName = "Generic House";
+		spritePath = "Sprites/greenliving4k";
+		stringName = "Green Living Complex";
 		cost = 2000;
 
 		// Free residences
@@ -27,7 +27,7 @@ public class House : Building
 	// Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
 	public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
 	{
-		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Buildings/PrefabName");
+		tileData.gameObject = Resources.Load<GameObject>("Prefabs/Buildings/Greenliving");
 	}
 
 	// Refresh yourself
