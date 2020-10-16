@@ -11,6 +11,8 @@ public class MenuInteraction : MonoBehaviour
 	public GameObject CommercePanel;
 	public GameObject DistrictPanel;
 
+	public GameObject MenuPanel;
+
 	private GameObject CurrentlyOpenPanel;
 
     // Start is called before the first frame update
@@ -37,4 +39,12 @@ public class MenuInteraction : MonoBehaviour
 		}
 	}
 
+
+	public void minimizeMenu(){
+		if(!MenuPanel.activeInHierarchy==true){
+			MenuPanel.SetActive(true);
+		}else{
+			MenuPanel.SetActive(false);
+		}
+	}
 }
