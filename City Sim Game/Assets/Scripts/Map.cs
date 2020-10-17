@@ -55,6 +55,8 @@ public class Map : MonoBehaviour
 	Vector2 mousePosition;
 	Vector3Int gridPosition;
 
+	public AudioSource BuildingSound;
+
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
@@ -185,6 +187,7 @@ public class Map : MonoBehaviour
 			// If user is holding a cell (from the shop)
 			if (held != null) {
 				ObjectPlacement();
+				BuildingSound.Play();
 			}
 		}
 
