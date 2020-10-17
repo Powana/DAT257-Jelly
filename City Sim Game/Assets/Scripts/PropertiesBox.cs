@@ -35,15 +35,16 @@ public class PropertiesBox : MonoBehaviour
 	void Update()
 	{
 		// Only check for clicked tile if the mouse has been clicked and not on the UI
-		if (!propertiesPanel.activeInHierarchy && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
 			// Receive clicked tile from map if it is a building
 			// open the panel
 			clickedTile = map.SendCell();
 
 			if(clickedTile is Building) {
+				ClosePanel();
 				ShowInformation();
 			}
-		} else if (Input.GetKeyDown("escape")) {
+		} else if (Input.GetKeyDown("escape") || (Input.GetMouseButtonDown(1))) {
 			ClosePanel();
 		}
 
@@ -71,7 +72,7 @@ public class PropertiesBox : MonoBehaviour
 			propertiesPanel.gameObject.SetActive(true);
 			current = (Building)clickedTile;
 			name.text = current.GetName();
-			cost.text = "Price:" + current.GetCost().ToString();
+			cost.text = "Cost: " + current.GetCost().ToString();
 			cash.text = "Cash:" + current.resources["cash"].upkeep;
 			food.text = "Food:" + current.resources["food"].delta;
 			energy.text = "Energy:" + current.resources["energy"].delta;
