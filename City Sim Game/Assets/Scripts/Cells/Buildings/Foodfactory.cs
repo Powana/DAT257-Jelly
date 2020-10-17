@@ -17,7 +17,7 @@ public class Foodfactory : Building
         resources["cash"].upkeep = 10;
         resources["pollution"].upkeep = -3;
         resources["energy"].delta = -4;
-        resources["food"].delta = -8;
+        resources["food"].delta = 8;
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
