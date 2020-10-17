@@ -35,7 +35,7 @@ public class PropertiesBox : MonoBehaviour
 	void Update()
 	{
 		// Only check for clicked tile if the mouse has been clicked and not on the UI
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()) {
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && map.GetComponent<Map>().getHeld()==null) {
 			// Receive clicked tile from map if it is a building
 			// open the panel
 			clickedTile = map.SendCell();

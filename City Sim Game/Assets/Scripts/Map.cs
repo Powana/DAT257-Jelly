@@ -186,8 +186,13 @@ public class Map : MonoBehaviour
 
 			// If user is holding a cell (from the shop)
 			if (held != null) {
-				ObjectPlacement();
-				BuildingSound.Play();
+				if(held is Demolish){
+					Sell(gridPosition);
+					AddCell<Grass>(gridPosition);
+				}else{
+					ObjectPlacement();
+					BuildingSound.Play();
+				}
 			}
 		}
 
