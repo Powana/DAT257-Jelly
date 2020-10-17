@@ -90,7 +90,7 @@ public class PropertiesBox : MonoBehaviour
 
 	public void UpdateInformation(Building building)
 	{
-		employees.text = "Employees: \n" + building.resources["workers"].value.ToString() + "/" + building.availableJobs.ToString();
+		employees.text = "Employees: \n" + building.resources["workers"].value.ToString() + " / " + building.availableJobs.ToString();
 	}
 
 	public void UpdateInformation()
