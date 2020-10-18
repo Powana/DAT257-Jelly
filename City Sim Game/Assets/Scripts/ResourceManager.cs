@@ -36,7 +36,7 @@ public class ResourceManager
 	{
 		// Here food change depending on population consuming which is 5 food for every person
 		if (resources["food"].value > 0)
-			resources["food"].value -= resources["population"].value * 5;
+			resources["food"].delta = -resources["population"].value * 5;
 
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
