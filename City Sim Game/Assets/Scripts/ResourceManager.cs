@@ -37,7 +37,7 @@ public class ResourceManager
 		resources["food"].value = 1000;
 		resources["residences"].value = 0;
 		resources["pollution"].value = 0;
-		resources["energy"].delta = -5;
+		
 
 		//intialize variables for diff in populationtick
 		int previouspop = resources["population"].value;
@@ -103,6 +103,13 @@ public class ResourceManager
 		// If lake had no health left, exit the game.
 		if (resources["lake"].value <= 0) {
 			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
+			Application.Quit();
+
+		}
+		//if popluation is 0 you lose and exit the game
+		if (resources["population"].value <= 0)
+		{
+			MessageManager.Warn("You fool! everyone left and you have lost the game.");
 			Application.Quit();
 
 		}
