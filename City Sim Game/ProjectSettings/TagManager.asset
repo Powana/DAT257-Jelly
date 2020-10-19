@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CANVAS
+  - MUSICBTN
   layers:
   - Default
   - TransparentFX
