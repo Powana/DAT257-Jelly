@@ -13,8 +13,10 @@ public class ResourceManager
     // Used to make sure warnings arent spammed each frame
     private Vector3Int prevWarnedCellPos;
 
-    // Initializes resource dictionary.
-    public ResourceManager()
+	public int previouspop = 0;
+
+	// Initializes resource dictionary.
+	public ResourceManager()
 	{
 		resources = new Dictionary<string, Resource>();
 
@@ -32,21 +34,40 @@ public class ResourceManager
 		resources["food"].value = 250;
 		resources["residences"].value = 0;
 		resources["pollution"].value = 0;
+
+		//intialize variables for diff in populationtick
+		int previouspop = resources["population"].value;
+		
 	}
+
+	
 
 	// Should be called by game loop every period.
 	public void Tick()
 	{
-		// Here food change depending on population consuming which is 5 food for every person
-		if (resources["food"].value > 0)
-			resources["food"].value -= resources["population"].value * 5;
+		
+
+		//set food delta for first population
+		if (resources["population"].value == previouspop && resources["food"].value > 0)
+		{
+			resources["food"].delta += -1;
+		}
+
+		//updates food delta with population diff
+		 if (resources["population"].value != previouspop)
+		{
+			resources["food"].delta += -(resources["population"].value - (previouspop));
+			previouspop = resources["population"].value;
+		}
+		
 
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
 		
-		PopulationGrowth();
+		PopulationGrowth(); 
+		
 
 		// Convenience
 		Resource population = resources["population"];
@@ -73,14 +94,13 @@ public class ResourceManager
 	}
 	// This method check the conditions for population growth
 	public void PopulationGrowth()
-	{
-		int foodConsuming = resources["population"].value * 5;
-		
-
-		float tmp = foodConsuming / resources["food"].value;
+	{ 
 
 		if (resources["population"].value > 0 && resources["food"].value <= 0)
+		{
 			resources["population"].delta = -1;
+		}
+
 		else if (resources["population"].value >= 2 && resources["food"].value > 0)
 		{
 			resources["population"].delta = 1;
