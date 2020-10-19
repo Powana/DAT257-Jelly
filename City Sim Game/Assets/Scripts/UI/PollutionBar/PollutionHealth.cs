@@ -11,8 +11,9 @@ public class PollutionHealth : MonoBehaviour
 	public HealthBar pollutionBar;
 	public HealthBar waterBar;
 	
-	public static int maxHealthLake = 100000;
-	public static int maxHealthPollution = 100000; // 100k
+	// Maxhealth for lake and pollution size
+	public static int maxHealthLake = 1000;
+	public static int maxHealthPollution = 1000; 
 	
 	void Start() {
 		

@@ -31,10 +31,10 @@ public class ResourceManager
 		}
 
 		// Start with some cash and lake health.
-		resources["cash"].value = 10000;
-		resources["lake"].value = 100000;
+		resources["cash"].value = 100000;
+		resources["lake"].value = 5000;
 		resources["population"].value = 10;
-		resources["food"].value = 1000;
+		resources["food"].value = 000;
 		resources["residences"].value = 0;
 		resources["pollution"].value = 0;
 		resources["energy"].delta = -5;

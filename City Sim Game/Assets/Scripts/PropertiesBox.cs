@@ -73,7 +73,7 @@ public class PropertiesBox : MonoBehaviour
 			current = (Building)clickedTile;
 			name.text = current.GetName();
 			cost.text = "Cost: " + current.GetCost().ToString();
-			cash.text = "Cash:" + current.resources["cash"].upkeep;
+			cash.text = "Cash:" + current.resources["cash"].delta;
 			food.text = "Food:" + current.resources["food"].delta;
 			energy.text = "Energy:" + current.resources["energy"].delta;
 			pollution.text = "Pollution:" + current.resources["pollution"].upkeep;
