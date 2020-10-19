@@ -10,8 +10,11 @@ public class ResourceManager
 	// Dictionary representing all resources and their deltas.
 	public Dictionary<string, Resource> resources;
 
-	// Initializes resource dictionary.
-	public ResourceManager()
+    // Used to make sure warnings arent spammed each frame
+    private Vector3Int prevWarnedCellPos;
+
+    // Initializes resource dictionary.
+    public ResourceManager()
 	{
 		resources = new Dictionary<string, Resource>();
 
@@ -86,11 +89,13 @@ public class ResourceManager
 
 	// Purchases the given cell by subtracting cost from current cash and
 	// updating resource deltas.
-	public bool TryPurchase(Cell cell)
+	public bool TryPurchase(Cell cell, bool warnEnable)
 	{
 		if (resources["cash"].value - cell.cost < 0) {
-			MessageManager.Warn("Not enough cash!");
-			return false;
+            if (warnEnable) { 
+			    MessageManager.Warn("Not enough cash!");
+            }
+            return false;
 		}
 
 		// Subtract cost.

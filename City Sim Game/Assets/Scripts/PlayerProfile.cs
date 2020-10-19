@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.XR.WSA.Input;
+//using UnityEngine.XR.WSA.Input;
 
 [Serializable]
 public class PlayerProfile

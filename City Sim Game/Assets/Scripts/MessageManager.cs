@@ -14,7 +14,7 @@ public class MessageManager : MonoBehaviour
 	private static List<GameObject> messages = new List<GameObject>();
 
 	// Number of gameobjects currently on-screen.
-	private static int counter = 0;
+	public static int counter = 0;
 
     public void Awake()
     {
@@ -24,7 +24,7 @@ public class MessageManager : MonoBehaviour
 	public static void Warn(string message)
 	{
 		GameObject ob = Instantiate<GameObject>(prefab);
-        ob.transform.parent = GameObject.FindGameObjectWithTag("CANVAS").transform;
+        ob.transform.SetParent(GameObject.FindGameObjectWithTag("CANVAS").transform, false);
 		Render(ob, message);
 	}
 

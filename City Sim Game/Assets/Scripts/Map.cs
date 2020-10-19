@@ -49,7 +49,7 @@ public class Map : MonoBehaviour
 	private float period = 1f;
 
 	// Used to make sure warnings arent spammed each frame
-	private Vector3Int prevWarnedCellPos;
+	public static Vector3Int prevWarnedCellPos;
 
 	// Position of mouse in world and on grid.
 	Vector2 mousePosition;
@@ -191,13 +191,9 @@ public class Map : MonoBehaviour
 					AddCell<Grass>(gridPosition);
 				}else{
 					ObjectPlacement();
-					BuildingSound.Play();
+					
 				}
 			}
-		}
-
-		if (Input.GetMouseButtonDown(0)) {
-
 		}
 
 		// Testing purposes. Sell when middle click.
@@ -222,7 +218,7 @@ public class Map : MonoBehaviour
 	// Is called every period.
 	public void Tick()
 	{
-		Debug.Log(resourceManager.ToString());
+		// Debug.Log(resourceManager.ToString());
 		resourceManager.Tick();
 	}
 
@@ -248,9 +244,13 @@ public class Map : MonoBehaviour
 	}
 
 	// Purchases specified cell at given position, if possible.
-	private bool TryPurchase(Cell cell)
+	private bool TryPurchase(Cell cell, Vector3Int pos)
 	{
-		return resourceManager.TryPurchase(cell);
+        bool warn = true;
+        if (prevWarnedCellPos == pos) warn = false;
+        prevWarnedCellPos = pos;
+
+		return resourceManager.TryPurchase(cell, warn);
 	}
 
 	// Instantiates the given cell on the given position.
@@ -346,9 +346,10 @@ public class Map : MonoBehaviour
 	{
 		// Check if the cell allows for placement at gridposition
 		if (held.validPosition(map, gridPosition.x, gridPosition.y)) {
-			if (TryPurchase(held)) {
+			if (TryPurchase(held, gridPosition)) {
 				Sell(gridPosition);
-				AddCell(held, gridPosition.x, gridPosition.y);
+                BuildingSound.Play();
+                AddCell(held, gridPosition.x, gridPosition.y);
 			}
 		}
 	}
