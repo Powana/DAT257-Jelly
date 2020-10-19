@@ -29,7 +29,7 @@ public class ResourceManager
 		resources["cash"].value = 100000;
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
-		resources["food"].value = 100000;
+		resources["food"].value = 250;
 		resources["residences"].value = 0;
 		resources["pollution"].value = 0;
 	}
@@ -45,7 +45,7 @@ public class ResourceManager
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
-
+		
 		PopulationGrowth();
 
 		// Convenience
@@ -75,16 +75,17 @@ public class ResourceManager
 	public void PopulationGrowth()
 	{
 		int foodConsuming = resources["population"].value * 5;
-		int foodLeft = resources["food"].value - foodConsuming;
-
-		if (foodLeft >= 5) {
-			resources["population"].value += 1;
-		}
+		
 
 		float tmp = foodConsuming / resources["food"].value;
 
-		if (resources["population"].value > 0 && tmp < 1.5)
-			resources["population"].value -= 1;
+		if (resources["population"].value > 0 && resources["food"].value <= 0)
+			resources["population"].delta = -1;
+		else if (resources["population"].value >= 2 && resources["food"].value > 0)
+		{
+			resources["population"].delta = 1;
+		}
+
 	}
 
 	// Purchases the given cell by subtracting cost from current cash and
