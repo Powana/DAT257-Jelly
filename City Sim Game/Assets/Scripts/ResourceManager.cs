@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 // Responsible for containing and managing global resources.
 public class ResourceManager
@@ -102,15 +104,18 @@ public class ResourceManager
 
 		// If lake had no health left, exit the game.
 		if (resources["lake"].value <= 0) {
-			MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
-			Application.Quit();
+			//MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
+			//Application.Quit();
+			SceneManager.LoadScene(2);
+
 
 		}
 		//if popluation is 0 you lose and exit the game
 		if (resources["population"].value <= 0)
 		{
-			MessageManager.Warn("You fool! everyone left and you have lost the game.");
-			Application.Quit();
+			//MessageManager.Warn("You fool! everyone left and you have lost the game.");
+			//Application.Quit();
+			SceneManager.LoadScene(2);
 
 		}
 	}
