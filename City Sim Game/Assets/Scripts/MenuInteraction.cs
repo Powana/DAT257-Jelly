@@ -10,6 +10,7 @@ public class MenuInteraction : MonoBehaviour
 	public GameObject EnvironmentPanel;
 	public GameObject CommercePanel;
 	public GameObject DistrictPanel;
+	public GameObject infoPanel;
 
 	public GameObject MenuPanel;
 
@@ -46,5 +47,9 @@ public class MenuInteraction : MonoBehaviour
 		}else{
 			MenuPanel.SetActive(false);
 		}
+	}
+	
+	public void hideInfoPanel() {
+					infoPanel.SetActive(false);
 	}
 }
