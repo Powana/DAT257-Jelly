@@ -17,7 +17,7 @@ public class Beccs : Building
         resources["cash"].upkeep = 10;
         resources["pollution"].upkeep = -2;
         resources["energy"].delta = -4;
-        resources["food"].delta = -5;
+        
     
     }
 

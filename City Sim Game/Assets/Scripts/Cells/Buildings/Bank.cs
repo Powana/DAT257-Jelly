@@ -17,7 +17,7 @@ public class Bank : Building
         resources["cash"].upkeep = 10;
         resources["pollution"].upkeep = 0;
         resources["energy"].delta = -3;
-        resources["food"].delta = -6;
+        
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject

@@ -13,7 +13,10 @@ public class ResourceManager
     // Used to make sure warnings arent spammed each frame
     private Vector3Int prevWarnedCellPos;
 
+	//intialize variables for diff in populationtick
 	public int previouspop = 0;
+
+	private int popcounter = 0;
 
 	// Initializes resource dictionary.
 	public ResourceManager()
@@ -28,16 +31,17 @@ public class ResourceManager
 		}
 
 		// Start with some cash and lake health.
-		resources["cash"].value = 100000;
+		resources["cash"].value = 10000;
 		resources["lake"].value = 100000;
 		resources["population"].value = 10;
-		resources["food"].value = 250;
+		resources["food"].value = 1000;
 		resources["residences"].value = 0;
 		resources["pollution"].value = 0;
+		resources["energy"].delta = -5;
 
 		//intialize variables for diff in populationtick
 		int previouspop = resources["population"].value;
-		
+		resources["food"].delta = 0 ;
 	}
 
 	
@@ -45,28 +49,39 @@ public class ResourceManager
 	// Should be called by game loop every period.
 	public void Tick()
 	{
+	
 		
-
-		//set food delta for first population
-		if (resources["population"].value == previouspop && resources["food"].value > 0)
-		{
-			resources["food"].delta += -1;
-		}
-
-		//updates food delta with population diff
-		 if (resources["population"].value != previouspop)
-		{
-			resources["food"].delta += -(resources["population"].value - (previouspop));
-			previouspop = resources["population"].value;
-		}
 		
 
 		// Update resources depending on their upkeep/production.
 		foreach (KeyValuePair<string, Resource> pair in resources) {
 			pair.Value.value += pair.Value.delta;
 		}
-		
-		PopulationGrowth(); 
+
+		popcounter += 1;
+
+		if(popcounter == 5)
+		{
+			//set food delta for first population
+			if (resources["population"].value == previouspop && resources["food"].value > 0)
+			{
+				resources["food"].delta -= 1;
+			}
+			//updates food delta with population diff
+			if (resources["population"].value != previouspop)
+			{
+				resources["food"].delta += -(resources["population"].value - (previouspop));
+				previouspop = resources["population"].value;
+			}
+
+			PopulationGrowth();
+			
+		}
+		if(popcounter == 6 )
+		{
+			resources["population"].delta = 0;
+			popcounter = 0;
+		}
 		
 
 		// Convenience

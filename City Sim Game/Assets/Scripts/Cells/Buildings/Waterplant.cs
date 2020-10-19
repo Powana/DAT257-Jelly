@@ -16,7 +16,7 @@ public class Waterplant : Waterbuilding
         resources["pollution"].upkeep = -1;
         resources["cash"].delta = 0;
         resources["energy"].delta = 5;
-        resources["food"].delta = -6;
+        
         availableJobs = 6;
         takenJobs = 0;
     }

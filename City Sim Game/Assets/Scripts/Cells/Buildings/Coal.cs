@@ -17,7 +17,7 @@ public class Coal : Building
         resources["cash"].upkeep = 10;
         resources["pollution"].upkeep = -2;
         resources["energy"].delta = 5;
-        resources["food"].delta = -5;
+        
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject

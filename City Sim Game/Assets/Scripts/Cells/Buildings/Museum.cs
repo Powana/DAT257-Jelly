@@ -17,7 +17,7 @@ public class Museum : Building
         resources["cash"].upkeep = 10;
         resources["pollution"].upkeep = -1;
         resources["energy"].delta = 0;
-        resources["food"].delta = -3;
+        
     }
 
     // Set sprite and/or gameobject for rendering, this method is useful as context can be used to determine the desired sprite/gameobject
