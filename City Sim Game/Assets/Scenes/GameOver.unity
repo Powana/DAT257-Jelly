@@ -725,6 +725,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
+<<<<<<< HEAD
   m_text: PLAY AGAIN
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cb623725bfb9e5847862db511e76724c, type: 2}
@@ -799,6 +800,24 @@ MonoBehaviour:
   _SortingOrder: 0
 --- !u!23 &992189402
 MeshRenderer:
+=======
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Play Again
+--- !u!222 &992189402
+CanvasRenderer:
+>>>>>>> d7f18a89563da7e56f1532f580b1d9eb0f19f9c2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1180,7 +1199,7 @@ GameObject:
   - component: {fileID: 1738233819}
   - component: {fileID: 1738233818}
   m_Layer: 5
-  m_Name: PlayAgin button
+  m_Name: PlayAgain button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

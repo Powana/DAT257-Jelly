@@ -8056,7 +8056,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2019088970}
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
+<<<<<<< HEAD
   m_Value: 1.0000004
+=======
+  m_Value: 1.0000008
+>>>>>>> d7f18a89563da7e56f1532f580b1d9eb0f19f9c2
   m_Size: 0.84614766
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -12081,7 +12085,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b2796c057585f8f59859ca35abf78bf7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 504eba50b15d323178625f85a6b6ff3b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -14605,7 +14609,11 @@ MonoBehaviour:
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
   m_Value: 0.9985589
+<<<<<<< HEAD
   m_Size: 0.37917706
+=======
+  m_Size: 0.37917703
+>>>>>>> d7f18a89563da7e56f1532f580b1d9eb0f19f9c2
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16783,7 +16791,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 808891149}
   m_Direction: 2
   m_Value: 0.9999989
-  m_Size: 0.38714156
+  m_Size: 0.38714153
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -17063,7 +17071,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1886668902}
   m_Direction: 2
   m_Value: 0.99999964
-  m_Size: 0.38714156
+  m_Size: 0.38714153
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
