@@ -11,6 +11,7 @@ public class MenuInteraction : MonoBehaviour
 	public GameObject CommercePanel;
 	public GameObject DistrictPanel;
 	public GameObject infoPanel;
+	public GameObject gameOver;
 
 	public GameObject MenuPanel;
 
@@ -23,12 +24,16 @@ public class MenuInteraction : MonoBehaviour
 		CommercePanel.SetActive(false);
 		DistrictPanel.SetActive(false);
 		CurrentlyOpenPanel=EnergyPanel;
+		gameOver.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+		// If lake had no health left, exit the game.
+		if ((Map.resourceManager.resources["lake"].value <= 0) || (Map.resourceManager.resources["population"].value <= 0)) {
+			openPanel(gameOver);
+		}
     }
 
 	public void openPanel(GameObject Panel){
@@ -38,6 +43,7 @@ public class MenuInteraction : MonoBehaviour
 			Panel.SetActive(true);
 			CurrentlyOpenPanel=Panel;
 		}
+		
 	}
 
 
@@ -50,6 +56,7 @@ public class MenuInteraction : MonoBehaviour
 	}
 	
 	public void hideInfoPanel() {
-					infoPanel.SetActive(false);
+		infoPanel.SetActive(false);
 	}
+
 }

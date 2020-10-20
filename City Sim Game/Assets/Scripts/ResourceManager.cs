@@ -102,22 +102,6 @@ public class ResourceManager
 		// Deplete lake health depending on the current pollution.
 		resources["lake"].delta = -resources["pollution"].value / 100;
 
-		// If lake had no health left, exit the game.
-		if (resources["lake"].value <= 0) {
-			//MessageManager.Warn("You fool! The lake is dead and you have lost the game.");
-			//Application.Quit();
-			SceneManager.LoadScene(2);
-
-
-		}
-		//if popluation is 0 you lose and exit the game
-		if (resources["population"].value <= 0)
-		{
-			//MessageManager.Warn("You fool! everyone left and you have lost the game.");
-			//Application.Quit();
-			SceneManager.LoadScene(2);
-
-		}
 	}
 	// This method check the conditions for population growth
 	public void PopulationGrowth()
