@@ -28,7 +28,11 @@ public class GameOverControllar : MonoBehaviour
     public void QuitButton()
     {
         ClickSound.Play();
-        Application.Quit();
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+        #else
+                 Application.Quit();
+        #endif
     }
 
 }
