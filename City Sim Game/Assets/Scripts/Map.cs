@@ -57,6 +57,9 @@ public class Map : MonoBehaviour
 
 	public AudioSource BuildingSound;
 
+    // Stop ticks from ticking
+    public static bool paused = false;
+
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
@@ -208,12 +211,29 @@ public class Map : MonoBehaviour
 			held = null;
 		}
 
-		// Call tick every period.
-		if (Time.time >= tickTime) {
-			tickTime = Time.time + period;
-			Tick();
-		}
-	}
+        // Pause on escape, not very neat but who cares
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!paused)
+            {
+                GameObject.Find("PauseMenuMaster").GetComponent<PauseMenuManager>().open();
+            }
+            else
+            {
+                GameObject.Find("PauseMenuMaster").GetComponent<PauseMenuManager>().close();
+            }
+            }
+
+        if (!paused)
+        {
+            // Call tick every period.
+            if (Time.time >= tickTime) {
+             
+			    tickTime = Time.time + period;
+			    Tick();
+		    }
+        }
+    }
 
 	// Is called every period.
 	public void Tick()

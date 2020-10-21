@@ -11,11 +11,13 @@ public class PauseMenuManager : MonoBehaviour
     public void open()
     {
         pauseMenu.SetActive(true);
+        Map.paused = true;
     }
 
     public void close()
     {
         pauseMenu.SetActive(false);
+        Map.paused = false;
     }
 
     public void help()
