@@ -60,6 +60,9 @@ public class Map : MonoBehaviour
     // Stop ticks from ticking
     public static bool paused = false;
 
+    // Used to give prio to closing panels over pausing
+    public static bool openPanel = false;
+
 	// Instantiates the base tiles and fills the tiles dictionary.
 	void Start()
 	{
@@ -212,7 +215,7 @@ public class Map : MonoBehaviour
 		}
 
         // Pause on escape, not very neat but who cares
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !openPanel)
         {
             if (!paused)
             {
@@ -222,7 +225,7 @@ public class Map : MonoBehaviour
             {
                 GameObject.Find("PauseMenuMaster").GetComponent<PauseMenuManager>().close();
             }
-            }
+        }
 
         if (!paused)
         {
