@@ -43,14 +43,14 @@ public class PropertiesBox : MonoBehaviour
 			if(clickedTile is Building) {
 				ClosePanel();
 				ShowInformation();
-                Map.openPanel = true;
+				Map.openPanel = true;
 			}
 		} else if (Input.GetKeyDown("escape") || (Input.GetMouseButtonDown(1))) {
 			ClosePanel();
-            Map.openPanel = false;
-        }
+			Map.openPanel = false;
+		}
 
-    }
+	}
 
 	// Close the panel and clear all text fields.
 	public void ClosePanel()
@@ -78,13 +78,13 @@ public class PropertiesBox : MonoBehaviour
 			cash.text = "Cash:" + current.resources["cash"].delta;
 			food.text = "Food:" + current.resources["food"].delta;
 			energy.text = "Energy:" + current.resources["energy"].delta;
-			pollution.text = "Pollution:" + current.resources["pollution"].upkeep;
+			pollution.text = "Pollution:" + (-current.resources["pollution"].upkeep);
 
 			if(current is Residential)
-            {
+			{
 				residences.text = "Residences:" + current.resources["residences"].value;
-            }
-			
+			}
+
 
 			UpdateInformation(current);
 		}
