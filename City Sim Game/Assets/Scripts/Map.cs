@@ -122,7 +122,7 @@ public class Map : MonoBehaviour
 
 	void GenerateRoad()
 	{
-		for (int i = 0; i < width; i++)
+		for (int i = 0; i < height; i++)
 		{
 			Vector3Int pos = new Vector3Int(1, i, 0);
 			SwapCell<Road>(pos);
@@ -213,6 +213,12 @@ public class Map : MonoBehaviour
 		{
 			held = null;
 		}
+	// Pause on p
+	if (Input.GetKeyDown(KeyCode.P)) {
+	   if (!paused) {paused = true;}
+	   else {paused = false;}
+	}
+
 
         // Pause on escape, not very neat but who cares
         if (Input.GetKeyDown(KeyCode.Escape) && !openPanel)

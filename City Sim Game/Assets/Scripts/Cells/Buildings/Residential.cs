@@ -21,7 +21,7 @@ public class Residential : Building
 		resources["pollution"].upkeep = 1;
 
 		// Potential production
-		resources["food"].delta = 10;
+		// resources["food"].delta = 10;
 
 		// Jobs
 		availableJobs = 0;

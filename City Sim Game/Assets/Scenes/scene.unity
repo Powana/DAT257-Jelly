@@ -769,12 +769,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c81abb9b62274bc43a5e0756829d546e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lake: 1
-  lakeSize: 32
+  lake: 7
+  lakeSize: 46
   messages: {fileID: 370596392}
   cellSize: 1
   width: 20
-  height: 20
+  height: 22
   BuildingSound: {fileID: 1726703099}
 --- !u!483693784 &36231532
 TilemapRenderer:
@@ -2831,7 +2831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -866, y: 339.90002}
+  m_AnchoredPosition: {x: -861.0001, y: 339.90002}
   m_SizeDelta: {x: 87, y: 450}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237725998
@@ -8307,7 +8307,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2019088969}
   m_Direction: 2
   m_Value: 1.0000012
-  m_Size: 0.8461478
+  m_Size: 0.8461477
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9133,7 +9133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 93.6001, y: 37.80005}
+  m_AnchoredPosition: {x: 98.6, y: 37.80005}
   m_SizeDelta: {x: 64, y: 128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935442217
@@ -15277,7 +15277,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 456227156}
   m_Direction: 2
   m_Value: 0.99855906
-  m_Size: 0.37917715
+  m_Size: 0.37917712
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

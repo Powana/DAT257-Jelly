@@ -77,7 +77,7 @@ public class PropertiesBox : MonoBehaviour
 			cost.text = "Cost: " + current.GetCost().ToString();
 			cash.text = "Cash:" + current.resources["cash"].delta;
 			food.text = "Food:" + current.resources["food"].delta;
-			energy.text = "Energy:" + current.resources["energy"].delta;
+			energy.text = "Energy:" + (-current.resources["energy"].upkeep + current.resources["energy"].delta * (current.resources["workers"].value / current.availableJobs));
 			pollution.text = "Pollution:" + current.resources["pollution"].upkeep;
 
 			if(current is Residential)
