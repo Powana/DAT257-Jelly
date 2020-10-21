@@ -21,7 +21,6 @@ public class MenuControl : MonoBehaviour
     {
         ClickSound.Play();
         SceneManager.LoadScene(1);
-        //player = new PlayerProfile("name", map.GetManager());
 
     }
 
@@ -55,7 +54,11 @@ public class MenuControl : MonoBehaviour
     public void ButtonQuit()
     {
         ClickSound.Play();
-        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+                 Application.Quit();
+#endif
     }
 
 }   

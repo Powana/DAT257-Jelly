@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // This class handel the game over scene
-public class GameOverControllar : MonoBehaviour
+public class GameOverController : MonoBehaviour
 {
     public AudioSource ClickSound;
 
