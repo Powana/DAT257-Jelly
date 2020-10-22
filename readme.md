@@ -14,10 +14,10 @@
 master/City Sim Game/Assets/Scripts
 
 #### Individual Reflections
-master/Team Reflections
+master/Individual Reflections
 
 #### Team Reflections
-master/Individual Reflections
+master/Team Reflections
 
 #### We measure our KPI with:
  - Burndown chart
