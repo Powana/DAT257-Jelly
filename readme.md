@@ -10,7 +10,7 @@
 -samelth		Samuel Leckborn
 -MartinAndersson98	Martin Andersson
 
-#### Soruce code
+#### Source code
 master/City Sim Game/Assets/Scripts
 
 #### Individual Reflections
