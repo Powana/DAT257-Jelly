@@ -1,14 +1,14 @@
 # Go jelly go.
 
 
-#### Git Contributors
--fawsian    		Fawzi Aiboud Nygren 
--Powana	 		Ben Wooldridge
--bananmellan		Adam Thunberg
--xslimShadyx		Hussein Joudah
--karlsvenssonn		Karl Svensson
--samelth		Samuel Leckborn
--MartinAndersson98	Martin Andersson
+#### Git Contributors:
+- fawsian    		Fawzi Aiboud Nygren 
+- Powana	 	Ben Wooldridge
+- bananmellan		Adam Thunberg
+- xslimShadyx		Hussein Joudah
+- karlsvenssonn		Karl Svensson
+- samelth		Samuel Leckborn
+- MartinAndersson98	Martin Andersson
 
 #### Soruce code
 master/City Sim Game/Assets/Scripts
