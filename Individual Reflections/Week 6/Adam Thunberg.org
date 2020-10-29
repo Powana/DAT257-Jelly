@@ -1,0 +1,15 @@
+* What do I want to learn or understand better?
+I want to learn more about how an experienced user/team of SCRUM works with user
+stories and tasks.
+* How can I help someone else, or the entire team, to learn something new?
+I have worked professionally with problem solving in back-end web applications
+and this experience is seemingly paying off when non-conventional programming
+issues are presented. This is hopefully useful to members of the group that
+haven't been working as much in the nitty gritty of code.
+* What is my contribution towards the teams use of Scrum?
+I helped pick the sprint theme and construct associated user stories. I assisted
+in writing acceptance critera lists on each user story.
+* What is my contribution towards the teams deliveries?
+Unfortunately less than usual because of an exam this week-end. In short, I
+developed a simple method to push multiple stacking warning/information dialog
+windows that can be clicked away.

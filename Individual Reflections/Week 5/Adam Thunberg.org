@@ -1,0 +1,16 @@
+* What do I want to learn or understand better?
+I would like to understand technical debt better and how to work on reducing
+it.
+* How can I help someone else, or the entire team, to learn something new?
+I've developed many of the basics of resource management in the application as
+it is and since it is relatively extensive I can hopefully help team members
+complete related issues more effectively.
+* What is my contribution towards the teams use of Scrum?
+I helped pick the sprint theme and construct and refine user stories & tasks.
+* What is my contribution towards the teams deliveries?
+I developed methods and a new resource to handle workers on buildings. You can
+now, in code, hire workers on cells and thus produce a certain fraction of the
+potential production.
+
+I also added "lake health" and implemented a reaction to high pollution where
+lake health is depleted.
