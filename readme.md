@@ -38,6 +38,9 @@ https://dat257.atlassian.net/secure/RapidBoard.jspa
 #### Definition of done clarification:
 https://docs.google.com/document/d/13Y7Eb7i97DTeCmzrrb2OOIep5ylSpFnEyXhFbfT-3QY/edit
 
+#### Social Contract:
+master/Social Contract.pdf
+
 #### Mac version of game:
 https://studentchalmersse-my.sharepoint.com/:f:/g/personal/karlsve_net_chalmers_se/Eoy-BISnQCRHs5dVignG0GIB7YwmTzHyOal-fBoiYt-COQ?e=ghFSvI
 
