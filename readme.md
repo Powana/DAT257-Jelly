@@ -41,6 +41,11 @@ https://docs.google.com/document/d/13Y7Eb7i97DTeCmzrrb2OOIep5ylSpFnEyXhFbfT-3QY/
 #### Social Contract:
 master/Social Contract.pdf
 
+#### Windows version of game:
+Instructions:
+Download the folder, extract and run exe to play the game.
+https://chalmersuniversity.box.com/s/1l5rg9zjw73cnwqvpoyp2xo419n5q03z
+
 #### Mac version of game:
 https://studentchalmersse-my.sharepoint.com/:f:/g/personal/karlsve_net_chalmers_se/Eoy-BISnQCRHs5dVignG0GIB7YwmTzHyOal-fBoiYt-COQ?e=ghFSvI
 
