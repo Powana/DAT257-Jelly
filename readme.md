@@ -41,6 +41,9 @@ https://docs.google.com/document/d/13Y7Eb7i97DTeCmzrrb2OOIep5ylSpFnEyXhFbfT-3QY/
 #### Social Contract:
 master/Social Contract.pdf
 
+#### Final Report:
+master/Team Reflections/FinalReflection
+
 #### Windows version of game:
 Instructions:
 Download the folder, extract and run exe to play the game.
